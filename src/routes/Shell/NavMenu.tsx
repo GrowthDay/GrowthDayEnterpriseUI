@@ -1,12 +1,13 @@
-import { alpha, Button, ButtonProps, Divider, SvgIconProps, Typography } from '@mui/material'
+import { alpha, Button as MuiButton, ButtonProps, Divider, styled, SvgIconProps, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import clsx from 'clsx'
 import { bindTrigger } from 'material-ui-popup-state'
 import { usePopupState } from 'material-ui-popup-state/hooks'
 import * as React from 'react'
-import { ComponentType, FC, useEffect, useMemo } from 'react'
-import { Link as BaseLink, LinkProps, useLocation, useResolvedPath } from 'react-router-dom'
+import { ComponentType, FC, useCallback, useEffect, useMemo } from 'react'
+import { Link as BaseLink } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
+import useRouteMatch from '../../hooks/useRouteMatch'
 import feedbackModalState from '../../recoil/atoms/feedbackModalState'
 import notificationsPopoverState from '../../recoil/atoms/notificationsPopoverState'
 import DashboardIcon from './assets/DashboardIcon'
@@ -23,7 +24,7 @@ import UserIconActive from './assets/UserIconActive'
 
 export type MenuItem = ButtonProps<'button'> & {
   icon: ComponentType<SvgIconProps>
-  iconActive?: ComponentType<SvgIconProps>
+  activeIcon?: ComponentType<SvgIconProps>
   title?: string
   to?: string
   divider?: boolean
@@ -33,72 +34,69 @@ const topNavMenuItems: MenuItem[] = [
   {
     title: 'Dashboard',
     icon: DashboardIcon,
-    iconActive: DashboardIconActive,
+    activeIcon: DashboardIconActive,
     to: '/'
   },
   {
     title: 'Reports',
     icon: ReportIcon,
-    iconActive: ReportIconActive,
+    activeIcon: ReportIconActive,
     to: '/reports'
   },
   {
     title: 'People',
     icon: UserIcon,
-    iconActive: UserIconActive,
+    activeIcon: UserIconActive,
     to: '/users'
   },
   {
     title: 'Learn',
     icon: LearnIcon,
-    iconActive: LearnIconActive,
+    activeIcon: LearnIconActive,
     to: '/learn'
   }
 ]
 
-const NavItem: FC<(ButtonProps<'a'> & LinkProps) | ButtonProps<'button'>> = (props) => (
-  <Button
-    fullWidth
-    {...(props as ButtonProps<'button'>)}
-    sx={[
-      (theme) => ({
-        flexDirection: 'column',
-        textTransform: 'none',
-        py: 1.5,
-        borderRadius: 2,
-        color: theme.palette.text.disabled,
-        fill: theme.palette.text.disabled,
-        stroke: theme.palette.text.disabled,
-        '&.active, &:hover': {
-          color: theme.palette.primary.main,
-          fill: theme.palette.primary.main,
-          stroke: theme.palette.primary.main,
-          backgroundColor: alpha(theme.palette.primary.main, 0.1)
-        }
-      }),
-      ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : [])
-    ]}
-  />
-)
+const Button = styled(MuiButton)(({ theme }) => ({
+  flexDirection: 'column',
+  textTransform: 'none',
+  padding: theme.spacing(1.5),
+  borderRadius: 8,
+  color: theme.palette.text.disabled,
+  fill: theme.palette.text.disabled,
+  stroke: theme.palette.text.disabled,
+  '&.active, &:hover': {
+    color: theme.palette.primary.main,
+    fill: theme.palette.primary.main,
+    stroke: theme.palette.primary.main,
+    backgroundColor: alpha(theme.palette.primary.main, 0.1)
+  }
+}))
 
-const RenderNavItem: FC<MenuItem> = ({ icon, iconActive, title, to, divider, ...buttonProps }) => {
-  const location = useLocation()
-  const path = useResolvedPath(to ?? '')
-  const isActive = Boolean(to && location.pathname.toLowerCase() === path.pathname.toLowerCase())
-  const ariaCurrent = isActive ? 'page' : undefined
-  const Icon = (isActive && iconActive) || icon
+const RenderNavItem: FC<MenuItem & { active?: boolean }> = ({
+  active,
+  icon,
+  activeIcon,
+  title,
+  to,
+  divider,
+  ...buttonProps
+}) => {
+  const ariaCurrent = active ? 'page' : undefined
+  const Icon = (active && activeIcon) || icon
 
   return (
     <>
       <Box px={1.5} py={0.5}>
-        <NavItem
+        <Button
+          fullWidth
           {...buttonProps}
           {...(to
             ? {
                 'aria-current': ariaCurrent,
                 to,
                 component: BaseLink,
-                className: clsx(isActive && 'active')
+                className: clsx(active && 'active')
               }
             : {})}
         >
@@ -108,7 +106,7 @@ const RenderNavItem: FC<MenuItem> = ({ icon, iconActive, title, to, divider, ...
               {title}
             </Typography>
           )}
-        </NavItem>
+        </Button>
       </Box>
       {divider && <Divider variant="middle" sx={{ my: 0.5 }} />}
     </>
@@ -143,18 +141,27 @@ const NavMenu: FC = () => {
     [setFeedbackState, popupState]
   )
 
+  const routes = useMemo(
+    () => [...topNavMenuItems, ...bottomNavMenuItems].filter((item) => item.to).map((item) => item.to!),
+    [bottomNavMenuItems]
+  )
+  const routeMatch = useRouteMatch(routes)
+  const currentTab = routeMatch?.pattern?.path
+
+  const renderMenuItems = useCallback(
+    (menuItems: MenuItem[]) =>
+      menuItems.map((navItem, index) => (
+        <RenderNavItem {...navItem} active={Boolean(navItem.to && currentTab === navItem.to)} key={index} />
+      )),
+    [currentTab]
+  )
+
   return (
     <Box pt={9} pb={1} display="flex" flexDirection="column" height="100%">
       <Box flex={1} overflow="auto">
-        {topNavMenuItems.map((navItem, index) => (
-          <RenderNavItem {...navItem} key={index} />
-        ))}
+        {renderMenuItems(topNavMenuItems)}
       </Box>
-      <Box>
-        {bottomNavMenuItems.map((navItem, index) => (
-          <RenderNavItem {...navItem} key={index} />
-        ))}
-      </Box>
+      <Box>{renderMenuItems(bottomNavMenuItems)}</Box>
     </Box>
   )
 }
