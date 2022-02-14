@@ -20,7 +20,8 @@ const useMyProfileApi = () =>
       const tz = data.ianaTimezone || moment.tz.guess()
       Moment.globalTimezone = tz
       moment.tz.setDefault(tz)
-    }
+    },
+    cacheTime: 1000 * 60 * 5
   })
 
 export default useMyProfileApi

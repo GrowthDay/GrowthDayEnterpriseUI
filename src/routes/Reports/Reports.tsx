@@ -1,41 +1,65 @@
-import { Container, Grid, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { upperFirst } from 'lodash-es'
-import { FC } from 'react'
+import { ComponentType, FC } from 'react'
+import { Layout } from 'react-grid-layout'
 import useMyProfileApi from '../../api/useMyProfileApi'
+import GridLayout from '../../components/GridLayout'
 import getPeriod from '../../utils/getPeriod'
-import DailyHabitComplete from './charts/DailyHabitComplete'
-import DailyHabitScores from './charts/DailyHabitScores'
-import UserFinishingCourses from './charts/UsersFinishingCourses'
-import WeeklyActiveUsers from './charts/WeeklyActiveUsers'
+import Bar from './charts/Bar'
+import Metrics from './charts/Metrics'
+import Pie from './charts/Pie'
+import Line from './charts/Line'
+import BlockContainer from './components/BlockContainer'
+import { Report, ReportComponentProps } from './types'
+
+import reportsData from './data.json'
+const reports = reportsData as Report[]
+
+const components: Record<string, ComponentType<ReportComponentProps>> = {
+  metrics: Metrics,
+  bar: Bar,
+  line: Line,
+  pie: Pie
+}
 
 const Reports: FC = () => {
   const { data: profile } = useMyProfileApi()
+  const layouts: Layout[] = [
+    {
+      i: 'welcome',
+      x: 0,
+      y: 0,
+      w: 12,
+      static: true,
+      isDraggable: false,
+      h: 2
+    },
+    ...reports.map(({ layout }) => layout)
+  ]
 
   return (
-    <Container sx={{ p: { xs: 2, sm: 4, md: 5 } }}>
-      <Grid spacing={[4, 4]} container>
-        <Grid item xs={12}>
-          <Typography fontWeight="bold" variant="h5">
-            Good {upperFirst(getPeriod())}, {profile?.firstName}
-          </Typography>
-          <Typography color="textSecondary" variant="body2">
-            Here are some growth insights for your team
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <WeeklyActiveUsers />
-        </Grid>
-        <Grid item xs={6}>
-          <UserFinishingCourses />
-        </Grid>
-        <Grid item xs={6}>
-          <DailyHabitScores />
-        </Grid>
-        <Grid item xs={6}>
-          <DailyHabitComplete />
-        </Grid>
-      </Grid>
-    </Container>
+    <Box sx={{ p: { xs: 2, sm: 4, md: 5 } }}>
+      <GridLayout layout={layouts}>
+        <div key="welcome">
+          <BlockContainer
+            title={
+              <>
+                Good {upperFirst(getPeriod())}, {profile?.firstName}
+              </>
+            }
+            description="Here are some growth insights for your team"
+          />
+        </div>
+        {reports.map((report) => {
+          const Chart = components[report.type]
+          return (
+            <div key={report.layout.i}>
+              <Chart {...report} />
+            </div>
+          )
+        })}
+      </GridLayout>
+    </Box>
   )
 }
 

@@ -1,10 +1,14 @@
 import { CircularProgress, circularProgressClasses, CircularProgressProps } from '@mui/material'
 import Box from '@mui/material/Box'
+import { StandardCSSProperties } from '@mui/system'
 import { FC } from 'react'
 import Center from './Center'
 
-const Loading: FC<CircularProgressProps> = (props) => (
-  <Center sx={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1, left: 0, top: 0, bottom: 0, right: 0 }}>
+const Loading: FC<CircularProgressProps & { position?: StandardCSSProperties['position'] }> = ({
+  position = 'absolute',
+  ...props
+}) => (
+  <Center sx={{ width: '100%', height: '100%', position, zIndex: 1, left: 0, top: 0, bottom: 0, right: 0 }}>
     <Box sx={{ position: 'relative' }}>
       <CircularProgress
         variant="determinate"
