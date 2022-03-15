@@ -81,7 +81,7 @@ const Step3: FC<StepComponentProps> = ({ next, active }) => {
       const paymentMethodId = await addPaymentMethod(values)
       console.log({ paymentMethodId })
       setLoading(false)
-      // next()
+      next()
     }
   }
 

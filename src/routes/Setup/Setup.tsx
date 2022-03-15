@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, CardHeader, Container } from '@mui/material'
 import classNames from 'classnames'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router'
 import useMyProfileApi from '../../api/useMyProfileApi'
 import GrowthDayBackground from '../../components/GrowthDayBackground'
 import Loading from '../../components/Loading'
@@ -9,10 +10,17 @@ import Footer from './Footer'
 import steps from './steps'
 
 const Setup: FC = () => {
+  const navigate = useNavigate()
   const { data: user, isLoading, isFetchedAfterMount } = useMyProfileApi({ enabled: true })
   const [activeStep, setActiveStep] = useState(0)
   const handleNext = useCallback(() => setActiveStep((active) => active + 1), [])
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
+
+  useEffect(() => {
+    if (activeStep >= steps.length) {
+      navigate('/')
+    }
+  }, [navigate, activeStep])
 
   useEffect(() => {
     const el = refs.current[activeStep]
