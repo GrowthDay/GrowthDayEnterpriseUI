@@ -238,7 +238,7 @@ const Account: FC = () => {
                     manage your seats. We are excited to have you onboard this journey with us. Get started by adding
                     your team’s details
                   </Typography>
-                  <TextField label="Name" />
+                  <TextField label="Name" defaultValue="Meta Inc." />
                 </StyledStepContent>
               </Step>
               <Step active>
@@ -263,7 +263,7 @@ const Account: FC = () => {
                 </StepLabel>
                 <StyledStepContent>
                   <Typography mb={2}>
-                    To sign up, the team members needs to know the link they will use to sign up:
+                    To sign up, the team members needs to know the link they will use to sign up:{' '}
                     <Link>https://app.growthday.com/b2b/Meta-svgymgus/join</Link> and the email address that you have
                     given us (for example, whether it is their work or personal email address)
                   </Typography>
