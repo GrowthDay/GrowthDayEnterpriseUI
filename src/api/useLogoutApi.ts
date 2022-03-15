@@ -1,17 +1,18 @@
-import axios from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
+import { UseMutationOptions } from 'react-query/types/react/types'
+import axiosGrowthDay from '../axios/axiosGrowthDay'
 import useModifiedRecoilState from '../hooks/useModifiedRecoilState'
 import accessTokenState from '../recoil/atoms/accessTokenState'
-import { ILoginResponse } from '../types/login'
 
-export const LOGOUT_QUERY_KEY = 'LOGOUT'
+export const LOGOUT_QUERY_KEY = 'GROWTHDAY:LOGOUT'
 
-const useLogoutApi = () => {
+const useLogoutApi = (
+  options: Omit<UseMutationOptions<void, unknown, void, typeof LOGOUT_QUERY_KEY>, 'mutationKey' | 'mutationFn'> = {}
+) => {
   const [, , resetAccessToken] = useModifiedRecoilState(accessTokenState)
-  const queryClient = useQueryClient()
-
-  return useMutation([LOGOUT_QUERY_KEY], () => axios.post<ILoginResponse>('/logout'), {
-    onSuccess: resetAccessToken
+  return useMutation(LOGOUT_QUERY_KEY, () => axiosGrowthDay.post<void>('/logout'), {
+    onSuccess: resetAccessToken,
+    ...options
   })
 }
 

@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { useLocation, Location } from 'react-router-dom'
+import { Location, useLocation } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import useModifiedRecoilState from '../../hooks/useModifiedRecoilState'
 import useOnlineStatus from '../../hooks/useOnlineStatus'
@@ -17,7 +17,7 @@ const Login: FC = () => {
     if (isOnline) {
       window.location.href = getLoginUrl()
     }
-  }, [isOnline, state])
+  }, [setRedirect, isOnline, state])
   return <Loading />
 }
 

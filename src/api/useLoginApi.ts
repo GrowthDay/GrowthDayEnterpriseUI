@@ -1,21 +1,26 @@
-import axios from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
+import { UseMutationOptions } from 'react-query/types/react/types'
+import axiosGrowthDay from '../axios/axiosGrowthDay'
 import useModifiedRecoilState from '../hooks/useModifiedRecoilState'
 import accessTokenState from '../recoil/atoms/accessTokenState'
 import { ILoginRequest, ILoginResponse } from '../types/login'
 
-export const LOGIN_QUERY_KEY = 'LOGIN'
+export const LOGIN_QUERY_KEY = 'GROWTHDAY:LOGIN'
 
-const useLoginApi = () => {
+const useLoginApi = (
+  options: Omit<
+    UseMutationOptions<ILoginResponse, unknown, ILoginRequest, typeof LOGIN_QUERY_KEY>,
+    'mutationKey' | 'mutationFn'
+  > = {}
+) => {
   const [, setAccessToken] = useModifiedRecoilState(accessTokenState)
-  const queryClient = useQueryClient()
-
-  return useMutation([LOGIN_QUERY_KEY], (input: ILoginRequest) => axios.post<ILoginResponse>('/login', input), {
+  return useMutation(LOGIN_QUERY_KEY, (input: ILoginRequest) => axiosGrowthDay.post<ILoginResponse>('/login', input), {
     onSuccess: (data) => {
       if (data?.authenticationToken) {
         setAccessToken(data.authenticationToken)
       }
-    }
+    },
+    ...options
   })
 }
 

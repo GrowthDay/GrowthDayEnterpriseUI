@@ -1,23 +1,13 @@
 import { alpha, Button as MuiButton, ButtonProps, Divider, styled, SvgIconProps, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import clsx from 'clsx'
-import { bindTrigger } from 'material-ui-popup-state'
-import { usePopupState } from 'material-ui-popup-state/hooks'
-import * as React from 'react'
-import { ComponentType, FC, useCallback, useEffect, useMemo } from 'react'
+import { ComponentType, FC, useCallback, useMemo } from 'react'
 import { Link as BaseLink } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
+import Flex from '../../components/Flex'
 import useRouteMatch from '../../hooks/useRouteMatch'
 import feedbackModalState from '../../recoil/atoms/feedbackModalState'
-import notificationsPopoverState from '../../recoil/atoms/notificationsPopoverState'
-import DashboardIcon from './assets/DashboardIcon'
-import DashboardIconActive from './assets/DashboardIconActive'
 import FeedbackIcon from './assets/FeedbackIcon'
-import LearnIcon from './assets/LearnIcon'
-import LearnIconActive from './assets/LearnIconActive'
-import NotificationIcon from './assets/NotificationIcon'
-import ReportIcon from './assets/ReportIcon'
-import ReportIconActive from './assets/ReportIconActive'
 import SettingIcon from './assets/SettingIcon'
 import UserIcon from './assets/UserIcon'
 import UserIconActive from './assets/UserIconActive'
@@ -32,28 +22,16 @@ export type MenuItem = ButtonProps<'button'> & {
 
 const topNavMenuItems: MenuItem[] = [
   {
-    title: 'Dashboard',
-    icon: DashboardIcon,
-    activeIcon: DashboardIconActive,
-    to: '/'
-  },
-  {
-    title: 'Reports',
-    icon: ReportIcon,
-    activeIcon: ReportIconActive,
-    to: '/reports'
-  },
-  {
     title: 'People',
     icon: UserIcon,
     activeIcon: UserIconActive,
-    to: '/users'
+    to: '/people'
   },
   {
-    title: 'Learn',
-    icon: LearnIcon,
-    activeIcon: LearnIconActive,
-    to: '/learn'
+    title: 'Account',
+    icon: SettingIcon,
+    activeIcon: UserIconActive,
+    to: '/account'
   }
 ]
 
@@ -66,10 +44,10 @@ const Button = styled(MuiButton)(({ theme }) => ({
   fill: theme.palette.text.disabled,
   stroke: theme.palette.text.disabled,
   '&.active, &:hover': {
-    color: theme.palette.primary.main,
-    fill: theme.palette.primary.main,
-    stroke: theme.palette.primary.main,
-    backgroundColor: alpha(theme.palette.primary.main, 0.1)
+    color: theme.palette.secondary.main,
+    fill: theme.palette.secondary.main,
+    stroke: theme.palette.secondary.main,
+    backgroundColor: alpha(theme.palette.secondary.main, 0.1)
   }
 }))
 
@@ -90,6 +68,8 @@ const RenderNavItem: FC<MenuItem & { active?: boolean }> = ({
       <Box px={1.5} py={0.5}>
         <Button
           fullWidth
+          variant="text"
+          color="secondary"
           {...buttonProps}
           {...(to
             ? {
@@ -115,30 +95,15 @@ const RenderNavItem: FC<MenuItem & { active?: boolean }> = ({
 
 const NavMenu: FC = () => {
   const setFeedbackState = useSetRecoilState(feedbackModalState)
-  const popupState = usePopupState({ variant: 'popover', popupId: 'notification-popup' })
-  const setNotificationsPopover = useSetRecoilState(notificationsPopoverState)
-
-  useEffect(() => {
-    setNotificationsPopover(popupState)
-  }, [popupState])
 
   const bottomNavMenuItems: MenuItem[] = useMemo(
     () => [
       {
         icon: FeedbackIcon,
         onClick: () => setFeedbackState(true)
-      },
-      {
-        icon: SettingIcon,
-        to: '/settings',
-        divider: true
-      },
-      {
-        icon: NotificationIcon,
-        ...bindTrigger(popupState)
       }
     ],
-    [setFeedbackState, popupState]
+    [setFeedbackState]
   )
 
   const routes = useMemo(
@@ -157,12 +122,12 @@ const NavMenu: FC = () => {
   )
 
   return (
-    <Box pt={9} pb={1} display="flex" flexDirection="column" height="100%">
+    <Flex pt={9} pb={1} flexDirection="column" height="100%">
       <Box flex={1} overflow="auto">
         {renderMenuItems(topNavMenuItems)}
       </Box>
       <Box>{renderMenuItems(bottomNavMenuItems)}</Box>
-    </Box>
+    </Flex>
   )
 }
 

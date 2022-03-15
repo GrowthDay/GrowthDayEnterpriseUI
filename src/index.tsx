@@ -1,30 +1,32 @@
-import { css } from '@emotion/react'
-import { GlobalStyles, Theme } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
-import { ThemeProvider } from '@mui/material/styles'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
+import { LicenseInfo } from '@mui/x-data-grid-pro'
+import { SnackbarProvider } from 'notistack'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { RecoilRoot } from 'recoil'
 import App from './App'
+import GlobalCss from './components/GlobalCss'
+import config from './config'
 import theme from './utils/theme'
 
-const globalStyles = (
-  <GlobalStyles
-    styles={({ palette }) => ({
-      body: {
-        backgroundColor: palette.grey['50']
-      }
-    })}
-  />
-)
+LicenseInfo.setLicenseKey(config.muiGridKey)
 
 ReactDOM.render(
   <RecoilRoot>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {globalStyles}
-        <App />
+        <GlobalCss />
+        <SnackbarProvider
+          variant="info"
+          transitionDuration={{ enter: 150, appear: 150, exit: 150 }}
+          autoHideDuration={2000}
+          anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+          maxSnack={1}
+        >
+          <App />
+        </SnackbarProvider>
       </ThemeProvider>
     </BrowserRouter>
   </RecoilRoot>,

@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
-import StorageEffect from '../effects/StorageEffect'
 import getPrefixedKey from '../../utils/getPrefixedKey'
+import StorageEffect from '../effects/StorageEffect'
 
 const key = getPrefixedKey('AUTH_TOKEN')
 

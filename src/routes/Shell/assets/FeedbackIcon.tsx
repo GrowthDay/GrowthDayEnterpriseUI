@@ -1,4 +1,4 @@
-import { SvgIcon, SvgIconProps, Theme, useTheme } from '@mui/material'
+import { SvgIcon, SvgIconProps } from '@mui/material'
 import { FC } from 'react'
 
 const FeedbackIcon: FC<SvgIconProps> = (props) => (

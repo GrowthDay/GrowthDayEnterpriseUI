@@ -1,20 +1,17 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import config from '../config'
+import axiosGrowthDay from '../axios/axiosGrowthDay'
+import axiosStrapi from '../axios/axiosStrapi'
 import accessTokenState from '../recoil/atoms/accessTokenState'
 import parseError from '../utils/parseError'
 import useModifiedRecoilState from './useModifiedRecoilState'
 
-axios.defaults.baseURL = config.apiUrl
-axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8'
-
 const useAxiosInterceptors = () => {
-  const [accessToken, _, removeAccessToken] = useModifiedRecoilState(accessTokenState)
+  const [accessToken, , removeAccessToken] = useModifiedRecoilState(accessTokenState)
   const [axiosReady, setAxiosReady] = useState(false)
   const navigate = useNavigate()
   useEffect(() => {
-    const requestInterceptor = axios.interceptors.request.use((req) => {
+    const requestInterceptor = axiosGrowthDay.interceptors.request.use((req) => {
       if (!req.headers) {
         req.headers = {}
       }
@@ -23,7 +20,7 @@ const useAxiosInterceptors = () => {
       }
       return req
     })
-    const responseInterceptor = axios.interceptors.response.use(
+    const responseInterceptor = axiosGrowthDay.interceptors.response.use(
       (response) => response.data,
       (error) => {
         if (error?.response?.status === 401) {
@@ -33,12 +30,14 @@ const useAxiosInterceptors = () => {
         return Promise.reject({ ...error, message })
       }
     )
+    const responseInterceptor2 = axiosStrapi.interceptors.response.use((response) => response.data)
     setAxiosReady(true)
     return () => {
-      axios.interceptors.request.eject(requestInterceptor)
-      axios.interceptors.response.eject(responseInterceptor)
+      axiosGrowthDay.interceptors.request.eject(requestInterceptor)
+      axiosGrowthDay.interceptors.response.eject(responseInterceptor)
+      axiosStrapi.interceptors.response.eject(responseInterceptor2)
     }
-  }, [navigate, accessToken])
+  }, [removeAccessToken, navigate, accessToken])
   return axiosReady
 }
 

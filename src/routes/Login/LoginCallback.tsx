@@ -27,7 +27,7 @@ const LoginCallback: FC = () => {
       }
     }
     execute()
-  }, [params.code])
+  }, [navigate, removeRedirect, mutateAsync, isMountedRef, redirect, params.code])
 
   return <></>
 }

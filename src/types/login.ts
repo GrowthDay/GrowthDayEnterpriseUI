@@ -1,11 +1,11 @@
 import { IUser } from './user'
 
-export interface ILoginRequest {
+export type ILoginRequest = {
   code: string
   redirectUri: string
 }
 
-export interface ILoginResponse {
+export type ILoginResponse = {
   authenticationToken?: string
   errorMessage?: string
   isSuccess?: boolean

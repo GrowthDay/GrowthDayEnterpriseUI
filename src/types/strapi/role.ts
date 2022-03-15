@@ -1,0 +1,15 @@
+import { IPermission } from './permission'
+import { IUser } from './user'
+
+/**
+ * Model definition for role
+ */
+export interface IRole {
+  id: number
+  name: string
+  description?: string
+  type?: string
+  permissions: IPermission[]
+  users: IUser[]
+  created_at?: string | null
+}

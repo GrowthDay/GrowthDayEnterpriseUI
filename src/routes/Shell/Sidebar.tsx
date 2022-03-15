@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import { DrawerProps } from '@mui/material/Drawer/Drawer'
 import { FC } from 'react'
 import { useRecoilState } from 'recoil'
+import Flex from '../../components/Flex'
 import useMobileView from '../../hooks/useMobileView'
 import useToggleValue from '../../hooks/useToggleValue'
 import sidebarState from '../../recoil/atoms/sidebarState'
@@ -21,7 +22,7 @@ const Sidebar: FC = ({ children }) => {
   const largeDevice = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'))
   const [open, setOpen] = useRecoilState(sidebarState)
   return (
-    <Box sx={{ display: 'flex', pt: 8 }}>
+    <Flex pt={8}>
       <Drawer
         anchor="left"
         variant={variant}
@@ -39,7 +40,7 @@ const Sidebar: FC = ({ children }) => {
       <Box component="main" sx={{ flexGrow: 1 }}>
         {children}
       </Box>
-    </Box>
+    </Flex>
   )
 }
 

@@ -1,11 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { QueryClient, QueryObserverOptions } from 'react-query'
 import accessTokenState from '../recoil/atoms/accessTokenState'
 import useModifiedRecoilState from './useModifiedRecoilState'
 import useOnlineStatus from './useOnlineStatus'
 import useUpdateEffect from './useUpdateEffect'
-import { persistQueryClient } from 'react-query/persistQueryClient-experimental'
-import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental'
 
 const getDefaultOptions = (enabled: boolean): QueryObserverOptions => ({
   cacheTime: 1000 * 60 * 60,
@@ -14,8 +12,6 @@ const getDefaultOptions = (enabled: boolean): QueryObserverOptions => ({
   staleTime: Infinity,
   enabled
 })
-
-const localStoragePersistor = createWebStoragePersistor({ storage: window.localStorage })
 
 const useAuthorizedQueryClient = () => {
   const [accessToken] = useModifiedRecoilState(accessTokenState)
@@ -29,13 +25,6 @@ const useAuthorizedQueryClient = () => {
       }
     })
   ).current
-
-  useEffect(() => {
-    persistQueryClient({
-      queryClient,
-      persistor: localStoragePersistor
-    })
-  }, [])
 
   useUpdateEffect(() => {
     if (queryClient.getDefaultOptions().queries?.enabled !== isEnabled) {

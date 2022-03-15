@@ -1,0 +1,6 @@
+.print-no-visible {
+  display: none;
+}
+.print-no-shadow {
+  box-shadow: none;
+}

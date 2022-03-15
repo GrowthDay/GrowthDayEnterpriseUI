@@ -1,21 +1,16 @@
 import { FC, lazy, Suspense } from 'react'
-import { Route } from 'react-router'
-import { Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthRoute from './components/AuthRoute'
 import Loading from './components/Loading'
 
-const Login = lazy(() => import('./routes/Login'))
+const Setup = lazy(() => import('./routes/Setup/Setup'))
+const Login = lazy(() => import('./routes/Login/Login'))
 const LoginCallback = lazy(() => import('./routes/Login/LoginCallback'))
 
-const Shell = lazy(() => import('./routes/Shell'))
-const Dashboard = lazy(() => import('./routes/Dashboard'))
-const Reports = lazy(() => import('./routes/Reports'))
-const Users = lazy(() => import('./routes/Users'))
-const Learn = lazy(() => import('./routes/Learn'))
-const Notifications = lazy(() => import('./routes/Notifications'))
-const Profile = lazy(() => import('./routes/Profile'))
-const Settings = lazy(() => import('./routes/Settings'))
-const NotFound = lazy(() => import('./routes/NotFound'))
+const Shell = lazy(() => import('./routes/Shell/Shell'))
+const People = lazy(() => import('./routes/People/People'))
+const Account = lazy(() => import('./routes/Account/Account'))
+const NotFound = lazy(() => import('./routes/NotFound/NotFound'))
 
 const BaseRoutes: FC = () => (
   <Suspense fallback={<Loading />}>
@@ -27,15 +22,12 @@ const BaseRoutes: FC = () => (
           </AuthRoute>
         }
       >
-        <Route index element={<Dashboard />} />
-        <Route path="reports" element={<Reports />} />
-        <Route path="users" element={<Users />} />
-        <Route path="learn" element={<Learn />} />
-        <Route path="notifications" element={<Notifications />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="settings" element={<Settings />} />
+        <Route index element={<Navigate to="people" />} />
+        <Route path="people" element={<People />} />
+        <Route path="account" element={<Account />} />
         <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="setup" element={<Setup />} />
       <Route path="login" element={<Login />} />
       <Route path="login/callback" element={<LoginCallback />} />
     </Routes>

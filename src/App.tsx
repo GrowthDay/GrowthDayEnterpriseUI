@@ -1,3 +1,4 @@
+import 'moment-timezone'
 import { FC } from 'react'
 import { QueryClientProvider } from 'react-query'
 import BaseComponents from './BaseComponents'
@@ -5,7 +6,6 @@ import BaseRoutes from './BaseRoutes'
 import Loading from './components/Loading'
 import useAuthorizedQueryClient from './hooks/useAuthorizedQueryClient'
 import useAxiosInterceptors from './hooks/useAxiosInterceptor'
-import 'moment-timezone'
 
 const App: FC = () => {
   const axiosReady = useAxiosInterceptors()

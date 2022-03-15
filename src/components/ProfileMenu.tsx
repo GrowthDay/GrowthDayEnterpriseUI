@@ -1,18 +1,14 @@
-import { LogoutOutlined, PersonOutlined, SettingsOutlined } from '@mui/icons-material'
+import { AccountCircleOutlined, DescriptionOutlined, LogoutOutlined } from '@mui/icons-material'
 import { ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 import { bindMenu } from 'material-ui-popup-state'
 import { PopupState } from 'material-ui-popup-state/core'
-import * as React from 'react'
 import { FC } from 'react'
-import { useNavigate } from 'react-router'
 import useLogoutApi from '../api/useLogoutApi'
 
 const ProfileMenu: FC<PopupState> = ({ children, ...popupState }) => {
   const { mutateAsync } = useLogoutApi()
-  const navigate = useNavigate()
-
-  const handleNavLink = (to: string) => {
-    navigate(to)
+  const handleExternalLink = (href: string) => {
+    window.open(href, '_blank')
     popupState.close()
   }
   const handleLogout = () => {
@@ -21,17 +17,17 @@ const ProfileMenu: FC<PopupState> = ({ children, ...popupState }) => {
   }
   return (
     <Menu {...bindMenu(popupState)}>
-      <MenuItem onClick={() => handleNavLink('/profile')} dense>
+      <MenuItem onClick={() => handleExternalLink('mailto:support@growthday.com')} dense>
         <ListItemIcon>
-          <PersonOutlined fontSize="small" />
+          <AccountCircleOutlined fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Profile</ListItemText>
+        <ListItemText>Contact support</ListItemText>
       </MenuItem>
-      <MenuItem onClick={() => handleNavLink('/settings')} dense>
+      <MenuItem divider onClick={() => handleExternalLink('https://www.growthday.com/enterprise')} dense>
         <ListItemIcon>
-          <SettingsOutlined fontSize="small" />
+          <DescriptionOutlined fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Settings</ListItemText>
+        <ListItemText>Resources</ListItemText>
       </MenuItem>
       <MenuItem onClick={handleLogout} dense>
         <ListItemIcon>
