@@ -159,8 +159,7 @@ const theme = createTheme({
       defaultProps: {
         underline: 'hover',
         fontWeight: 500,
-        href: '#',
-        onClick: (event) => event.preventDefault()
+        href: '#'
       }
     },
     MuiListItemIcon: {
