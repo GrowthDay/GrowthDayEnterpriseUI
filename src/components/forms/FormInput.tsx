@@ -1,17 +1,24 @@
 import { TextField, TextFieldProps } from '@mui/material'
-import { FC } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller, UseControllerProps, useFormContext } from 'react-hook-form'
+import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
 
-export type FormInputProps = Omit<TextFieldProps, 'name'> & {
-  name: string
-}
+export type FormInputProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = Omit<TextFieldProps, 'name'> & UseControllerProps<TFieldValues, TName>
 
-const FormInput: FC<FormInputProps> = ({ name, ...props }) => {
-  const { control } = useFormContext()
+function FormInput<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({ name, rules, shouldUnregister, defaultValue, control: _control, ...props }: FormInputProps<TFieldValues, TName>) {
+  const { control } = useFormContext<TFieldValues>()
   return (
-    <Controller
+    <Controller<TFieldValues, TName>
       name={name}
-      control={control}
+      rules={rules}
+      shouldUnregister={shouldUnregister}
+      defaultValue={defaultValue}
+      control={_control || control}
       render={({ field: { value, onChange, onBlur }, fieldState: { invalid, error } }) => (
         <>
           <TextField

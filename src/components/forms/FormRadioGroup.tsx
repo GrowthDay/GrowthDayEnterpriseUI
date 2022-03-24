@@ -1,25 +1,43 @@
 import { FormControl, FormHelperText, FormLabel, RadioGroup } from '@mui/material'
 import { nanoid } from 'nanoid'
-import * as React from 'react'
-import { FC, ReactNode, useRef } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { ChangeEvent, PropsWithChildren, ReactNode, useRef } from 'react'
+import { Controller, UseControllerProps, useFormContext } from 'react-hook-form'
+import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
 
-export type FormRadioGroupProps = {
+export type FormRadioGroupProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = UseControllerProps<TFieldValues, TName> & {
   id?: string
   label?: ReactNode
-  name: string
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void
+  onChange?: (event: ChangeEvent<HTMLInputElement>, value: string) => void
   value?: string
   helperText?: string
 }
 
-const FormRadioGroup: FC<FormRadioGroupProps> = ({ name, helperText, children, label, ...props }) => {
-  const { control } = useFormContext()
+function FormRadioGroup<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
+  name,
+  rules,
+  shouldUnregister,
+  defaultValue,
+  control: _control,
+  helperText,
+  children,
+  label,
+  ...props
+}: PropsWithChildren<FormRadioGroupProps<TFieldValues, TName>>) {
+  const { control } = useFormContext<TFieldValues>()
   const id = useRef(props.id || nanoid()).current
   return (
-    <Controller
+    <Controller<TFieldValues, TName>
       name={name}
-      control={control}
+      rules={rules}
+      shouldUnregister={shouldUnregister}
+      defaultValue={defaultValue}
+      control={_control || control}
       render={({ field: { value, onChange, onBlur }, fieldState: { invalid, error } }) => (
         <>
           <FormControl error={invalid} sx={{ width: '100%' }}>

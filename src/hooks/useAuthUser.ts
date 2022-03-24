@@ -1,10 +1,9 @@
 import { useQueryClient } from 'react-query'
-import { PROFILE_QUERY_KEY } from '../api/useMyProfileApi'
-import { IUser } from '../types/user'
+import { ORGANIZATION_USER_QUERY_KEY, IUser } from '../api/queries/useOrganizationUserQuery'
 
 const useAuthUser = () => {
   const queryClient = useQueryClient()
-  return queryClient.getQueryData<IUser>(PROFILE_QUERY_KEY)
+  return queryClient.getQueryData<IUser>(ORGANIZATION_USER_QUERY_KEY)
 }
 
 export default useAuthUser

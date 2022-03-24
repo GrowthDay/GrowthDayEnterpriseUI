@@ -1,12 +1,18 @@
 import { FC, Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
-import useMyProfileApi from '../../api/useMyProfileApi'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
+import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import Loading from '../../components/Loading'
 import Header from './Header'
 import Sidebar from './Sidebar'
 
 const Shell: FC = () => {
-  const { isLoading, isLoadingError } = useMyProfileApi()
+  const { isLoading: organizationLoading, isLoadingError: organizationLoadingError } = useOrganizationQuery()
+  const { isLoading: organizationUserLoading, isLoadingError: organizationUserLoadingError } =
+    useOrganizationUserQuery()
+
+  const isLoading = organizationLoading || organizationUserLoading
+  const isLoadingError = organizationLoadingError || organizationUserLoadingError
 
   if (isLoading || isLoadingError) {
     return <Loading />

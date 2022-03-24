@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import config from '../config'
-import { UserbackCustomData, UserbackData } from '../types/userback'
+import { UserbackCustomData, UserbackData } from '../types/ui/userback'
 
 const getUserbackContainerEl = () => document.getElementById('userback_button_container')
 const getFormSubmitEl = () => document.querySelector<HTMLElement>('button.userback-controls-send.userback-button-input')

@@ -1,18 +1,35 @@
 import { Autocomplete, AutocompleteProps, TextField } from '@mui/material'
-import { FC, ReactNode } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { ReactNode } from 'react'
+import { Controller, UseControllerProps, useFormContext } from 'react-hook-form'
+import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
 
-export type FormAutocompleteProps = Omit<AutocompleteProps<any, false, true, false>, 'renderInput'> & {
-  label?: ReactNode
-  name: string
-}
+export type FormAutocompleteProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = Omit<AutocompleteProps<any, false, true, false>, 'renderInput'> &
+  UseControllerProps<TFieldValues, TName> & {
+    label?: ReactNode
+  }
 
-const FormAutocomplete: FC<FormAutocompleteProps> = ({ name, ...props }) => {
-  const { control } = useFormContext()
+function FormAutocomplete<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
+  name,
+  rules,
+  shouldUnregister,
+  defaultValue,
+  control: _control,
+  ...props
+}: FormAutocompleteProps<TFieldValues, TName>) {
+  const { control } = useFormContext<TFieldValues>()
   return (
-    <Controller
+    <Controller<TFieldValues, TName>
       name={name}
-      control={control}
+      rules={rules}
+      shouldUnregister={shouldUnregister}
+      defaultValue={defaultValue}
+      control={_control || control}
       render={({ field: { value, onChange, onBlur }, fieldState: { invalid, error } }) => (
         <>
           <Autocomplete

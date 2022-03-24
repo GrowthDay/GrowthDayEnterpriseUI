@@ -33,7 +33,7 @@ const useAuthorizedQueryClient = () => {
   }, [isEnabled])
 
   useUpdateEffect(() => {
-    queryClient.invalidateQueries()
+    queryClient.invalidateQueries(['GROWTHDAY'])
   }, [accessToken])
 
   return queryClient

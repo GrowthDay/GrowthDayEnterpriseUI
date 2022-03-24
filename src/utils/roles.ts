@@ -1,15 +1,15 @@
 const roles = [
-  {
-    label: 'Owner',
-    value: 'owner'
-  },
+  // {
+  //   label: 'Owner',
+  //   value: 1
+  // },
   {
     label: 'Admin',
-    value: 'admin'
+    value: 2
   },
   {
-    label: 'Team Manager',
-    value: 'manager'
+    label: 'Employee',
+    value: 3
   }
 ]
 

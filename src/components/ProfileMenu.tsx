@@ -3,10 +3,10 @@ import { ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 import { bindMenu } from 'material-ui-popup-state'
 import { PopupState } from 'material-ui-popup-state/core'
 import { FC } from 'react'
-import useLogoutApi from '../api/useLogoutApi'
+import useLogoutMutation from '../api/mutations/useLogoutMutation'
 
 const ProfileMenu: FC<PopupState> = ({ children, ...popupState }) => {
-  const { mutateAsync } = useLogoutApi()
+  const { mutateAsync } = useLogoutMutation()
   const handleExternalLink = (href: string) => {
     window.open(href, '_blank')
     popupState.close()

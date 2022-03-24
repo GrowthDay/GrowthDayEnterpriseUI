@@ -1,6 +1,6 @@
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useCallback, useMemo } from 'react'
-import { IBuySubscriptions } from '../types/payment'
+import { SetupSubscriptionRequest } from '../routes/Setup/hooks/useSetupSubscriptionMutation'
 import useAuthUser from './useAuthUser'
 
 const useStripePayment = () => {
@@ -8,7 +8,7 @@ const useStripePayment = () => {
   const stripe = useStripe()
   const elements = useElements()
   const addPaymentMethod = useCallback(
-    async (value: IBuySubscriptions): Promise<string> => {
+    async (value: SetupSubscriptionRequest): Promise<string> => {
       if (!stripe || !elements) {
         throw new Error('Stripe is not initialized')
       }
@@ -19,7 +19,7 @@ const useStripePayment = () => {
         billing_details: {
           name: value.fullName,
           email: user?.email || '',
-          phone: value.phoneNumber,
+          // phone: value.phoneNumber,
           address: {
             country: value.country,
             state: value.region,

@@ -1,22 +1,40 @@
 import { DownloadOutlined, SearchOutlined } from '@mui/icons-material'
-import { Button, InputAdornment, InputBase, MenuItem, Select, TextField, Typography } from '@mui/material'
-import { GridColDef, GridRenderCellParams, GridValueGetterParams, useGridApiRef } from '@mui/x-data-grid-pro'
-import { sample } from 'lodash-es'
-import { FC, ReactNode, useEffect, useMemo, useState } from 'react'
+import {
+  Box,
+  Button,
+  InputAdornment,
+  InputBase,
+  LinearProgress,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from '@mui/material'
+import { GridColDef, GridRenderCellParams, GridSortModel, useGridApiRef } from '@mui/x-data-grid-pro'
+import { DataGridProProps } from '@mui/x-data-grid-pro/models'
+import { Dispatch, FC, ReactNode, useEffect, useMemo, useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
+import { OrganizationUsersFilters, OrganizationUsersRequest } from '../../api/queries/useOrganizationUsersQuery'
 import Flex from '../../components/Flex'
 import TableGrid from '../../components/TableGrid'
 import useMobileView from '../../hooks/useMobileView'
-import { IUser } from '../../types/user'
+import { OrganizationUser } from '../../types/api'
+import { PaginationParams } from '../../types/ui/pagination'
 import roles from '../../utils/roles'
-import searchArray from '../../utils/searchArray'
 
-export type PeopleTableProps = {
-  showFullName?: boolean
+export type PeopleTableProps = Partial<DataGridProProps> & {
+  totalRecords?: number
+  data?: OrganizationUser[]
+  loading: boolean
+  pageParams: PaginationParams
+  setPageParams: Dispatch<Partial<PaginationParams>>
+  filters: OrganizationUsersFilters
+  setFilters: Dispatch<Partial<OrganizationUsersFilters>>
+  showName?: boolean
   searchable?: boolean
   exportable?: boolean
   title?: ReactNode
   action?: ReactNode
-  data: IUser[]
 }
 
 const renderRole = (params: GridRenderCellParams) => (
@@ -29,22 +47,46 @@ const renderRole = (params: GridRenderCellParams) => (
   </Select>
 )
 
-const PeopleTable: FC<PeopleTableProps> = ({ showFullName, searchable, exportable, title, action, data }) => {
+const PeopleTable: FC<PeopleTableProps> = ({
+  totalRecords,
+  pageParams,
+  setPageParams,
+  filters,
+  setFilters,
+  loading,
+  showName,
+  searchable,
+  exportable,
+  title,
+  action,
+  data = [],
+  ...props
+}) => {
   const apiRef = useGridApiRef()
   const mobileView = useMobileView()
-  const [rows, setRows] = useState(data)
   const [searchTerm, setSearchTerm] = useState('')
 
+  const debouncedSearch = useDebouncedCallback((query: string) => {
+    setFilters({ query })
+  }, 1000)
+
   useEffect(() => {
-    setRows(searchArray(data, searchTerm))
-  }, [data, searchTerm])
+    setSearchTerm(filters.query ?? '')
+  }, [filters.query])
+
+  useEffect(() => {
+    debouncedSearch(searchTerm)
+    return () => {
+      debouncedSearch.cancel()
+    }
+  }, [debouncedSearch, searchTerm])
 
   const columns: GridColDef[] = useMemo(
     () => [
-      ...(showFullName
+      ...(showName
         ? [
             {
-              field: 'fullName',
+              field: 'name',
               headerName: 'Name',
               width: 240
             }
@@ -56,16 +98,31 @@ const PeopleTable: FC<PeopleTableProps> = ({ showFullName, searchable, exportabl
         width: 400
       },
       {
-        field: 'role',
+        field: 'roleName',
         headerName: 'Role',
         width: 160,
-        editable: true,
         renderCell: renderRole,
-        valueGetter: (params: GridValueGetterParams) => sample(roles)?.value
+        valueGetter: (params) => params.row.roleId
       }
     ],
-    [showFullName]
+    [showName]
   )
+
+  const handleSort = (model: GridSortModel) => {
+    const sortBy = model[0]?.field as OrganizationUsersRequest['sortBy']
+    const order = model[0]?.sort as OrganizationUsersRequest['order']
+    setFilters({
+      sortBy,
+      order
+    })
+  }
+
+  const sortModel: GridSortModel = [
+    {
+      field: filters.sortBy ?? '',
+      sort: filters.order
+    }
+  ]
 
   return (
     <>
@@ -119,7 +176,32 @@ const PeopleTable: FC<PeopleTableProps> = ({ showFullName, searchable, exportabl
           )}
         </Flex>
       </Flex>
-      <TableGrid apiRef={apiRef} rows={rows} columns={columns} />
+      <Box position="relative">
+        {loading && (
+          <LinearProgress
+            sx={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, borderRadius: '4px 4px 0 0' }}
+          />
+        )}
+        <TableGrid
+          sx={{ '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' } }}
+          sortModel={sortModel}
+          onSortModelChange={handleSort}
+          localeText={{
+            noRowsLabel: filters.query ? `No users found matching the search term "${filters.query}"` : 'No users'
+          }}
+          pagination
+          rowCount={totalRecords}
+          paginationMode="server"
+          page={pageParams.page}
+          onPageChange={(page) => setPageParams({ page })}
+          pageSize={pageParams.size}
+          onPageSizeChange={(size) => setPageParams({ size })}
+          apiRef={apiRef}
+          rows={data}
+          columns={columns}
+          {...props}
+        />
+      </Box>
     </>
   )
 }

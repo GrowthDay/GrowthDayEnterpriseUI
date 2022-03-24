@@ -3,39 +3,42 @@ import { LoadingButton } from '@mui/lab'
 import { DialogActions, DialogContent, DialogProps, Grid } from '@mui/material'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import useUpdatePaymentMethodMutation, {
+  UpdatePaymentMethodRequest,
+  UpdatePaymentMethodDefaultValues,
+  UpdatePaymentMethodValidationSchema
+} from '../../api/mutations/useUpdatePaymentMethodMutation'
 import Form from '../../components/forms/Form'
-import StripeCardForm, { stripeCardValidationSchema } from '../../components/StripeCardForm'
+import StripeCardForm from '../../components/StripeCardForm'
 import withDialog from '../../hoc/withDialog'
 import withElements from '../../hoc/withElements'
-import { IStripeCardFields } from '../../types/payment'
+import useStripePayment from '../../hooks/useStripePayment'
 import compose from '../../utils/compose'
 
 export type UpdateCreditCardProps = Omit<DialogProps, 'children'>
 
-const defaultValues: IStripeCardFields = {
-  fullName: '',
-  region: '',
-  zipCode: '',
-  country: '',
-  phoneNumber: ''
-}
-
 const UpdateCreditCard: FC<UpdateCreditCardProps> = ({ onClose }) => {
-  const [loading, setLoading] = useState(false)
-  const methods = useForm<IStripeCardFields>({
-    defaultValues,
-    resolver: yupResolver(stripeCardValidationSchema)
+  const [_loading, setLoading] = useState(false)
+  const { mutateAsync, isLoading } = useUpdatePaymentMethodMutation()
+  const { addPaymentMethod } = useStripePayment()
+
+  const loading = _loading || isLoading
+
+  const methods = useForm<UpdatePaymentMethodRequest>({
+    defaultValues: UpdatePaymentMethodDefaultValues,
+    resolver: yupResolver(UpdatePaymentMethodValidationSchema)
   })
-  const handleSubmit = async (values: IStripeCardFields) => {
+  const handleSubmit = async (values: UpdatePaymentMethodRequest) => {
     setLoading(true)
-    console.log({ values })
+    const paymentMethodId = await addPaymentMethod(values)
+    await mutateAsync(paymentMethodId)
     onClose?.({}, 'backdropClick')
     setLoading(false)
   }
   return (
     <>
       <DialogContent>
-        <Form<IStripeCardFields> id="update-card-form" onSuccess={handleSubmit} methods={methods}>
+        <Form<UpdatePaymentMethodRequest> id="update-card-form" onSuccess={handleSubmit} methods={methods}>
           <Grid spacing={2} container>
             <StripeCardForm methods={methods} />
           </Grid>

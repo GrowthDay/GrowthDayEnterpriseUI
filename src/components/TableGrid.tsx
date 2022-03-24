@@ -26,7 +26,6 @@ const TableGrid: ForwardRefExoticComponent<DataGridProProps & RefAttributes<HTML
         pagination
         autoHeight
         rowsPerPageOptions={[5, 10, 25, 50, 100]}
-        // checkboxSelection
         disableSelectionOnClick
         disableColumnFilter
         disableColumnMenu

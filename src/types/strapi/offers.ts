@@ -51,6 +51,7 @@ export interface IOffers {
   tooltips: ITooltips[]
   onboarding?: IOnboarding
   bulletItems: IBulletListItem[]
+  showInMembershipArea?: boolean
   created_at?: string | null
 }
 

@@ -14,9 +14,12 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
+import useUpdateSubscriptionMutation from '../../api/mutations/useUpdateSubscriptionMutation'
 import Flex from '../../components/Flex'
 import withDialog from '../../hoc/withDialog'
+import useAuthOrganization from '../../hooks/useAuthOrganization'
+import { formatCurrency } from '../../utils/formatters'
 
 export type AddMoreSeatsProps = Omit<DialogProps, 'children'>
 
@@ -40,29 +43,52 @@ const StyledPrimaryTableCellHeader = styled(StyledTableCellHeader)(({ theme: { p
 const titleLabelledBy = 'add-seats-dialog-title'
 
 const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
-  const [loading, setLoading] = useState(false)
+  const organization = useAuthOrganization()
+  const { mutateAsync, isLoading } = useUpdateSubscriptionMutation()
   const [count, setCount] = useState('0')
   const [showConfirmation, setShowConfirmation] = useState(false)
+  const [calculatedCount, setCalculatedCount] = useState(0)
 
-  const handleSubmit = () => {
-    setLoading(true)
-    setLoading(false)
+  const intCount = parseInt(count)
+  const perSeat = (organization?.subscriptionAmount ?? 0) / (organization?.seats ?? 1)
+  const totalSeats = calculatedCount + (organization?.seats ?? 0)
+  const totalCost = formatCurrency(perSeat * totalSeats)
+  const proratedCost = formatCurrency(perSeat * totalSeats - (organization?.subscriptionAmount ?? 0))
+
+  const handleCalculate = () => {
+    if (intCount > 0) {
+      setCalculatedCount(intCount)
+    }
+  }
+
+  const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    setCount(ev.target.value)
+    if (calculatedCount) {
+      setCalculatedCount(0)
+    }
+  }
+
+  const handleSubmit = async () => {
+    await mutateAsync({ totalSeats, stripePriceId: organization?.stripePriceId })
+    onClose?.({}, 'backdropClick')
   }
 
   if (showConfirmation) {
     return (
       <>
-        <DialogTitle id={titleLabelledBy}>Adding 60 seats to the plan</DialogTitle>
+        <DialogTitle id={titleLabelledBy}>
+          Adding {calculatedCount} seat{calculatedCount === 1 ? '' : 's'} to the plan
+        </DialogTitle>
         <DialogContent>
           <Typography color="text.secondary" sx={{ mb: 2 }}>
             You will be billed{' '}
             <Typography component="span" color="text.primary">
-              $4,399.99
+              {proratedCost}
             </Typography>{' '}
-            and from next billing cycle the total amount will be $10,399. Do you want to continue?
+            and from next billing cycle the total amount will be {totalCost}. Do you want to continue?
           </Typography>
           <Flex alignItems="center">
-            <LoadingButton onClick={handleSubmit} loading={loading} variant="text">
+            <LoadingButton onClick={handleSubmit} loading={isLoading} variant="text">
               Continue
             </LoadingButton>
             <Button
@@ -85,12 +111,18 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
       <DialogContent>
         <Flex mb={3} alignItems="flex-end">
           <TextField
+            inputProps={{ min: 0 }}
             label="Number of extra seats"
             type="number"
             value={count}
-            onChange={(ev) => setCount(ev.target.value)}
+            onChange={handleChange}
           />
-          <Button sx={{ ml: 2, mb: 0.5 }} variant="outlined">
+          <Button
+            disabled={isNaN(intCount) || intCount === 0 || calculatedCount === intCount}
+            onClick={handleCalculate}
+            sx={{ ml: 2, mb: 0.5 }}
+            variant="outlined"
+          >
             Calculate
           </Button>
         </Flex>
@@ -102,30 +134,30 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           </TableHead>
           <TableBody>
             <StyledPrimaryTableCell>Number of seats</StyledPrimaryTableCell>
-            <StyledTableCell>24</StyledTableCell>
-            <StyledTableCell>-</StyledTableCell>
+            <StyledTableCell>{organization?.seats}</StyledTableCell>
+            <StyledTableCell>{calculatedCount ? totalSeats : '-'}</StyledTableCell>
           </TableBody>
           <TableBody>
             <StyledPrimaryTableCell>Price per seat</StyledPrimaryTableCell>
-            <StyledTableCell>$27.99</StyledTableCell>
-            <StyledTableCell>-</StyledTableCell>
+            <StyledTableCell>{formatCurrency(perSeat)}</StyledTableCell>
+            <StyledTableCell>{calculatedCount ? formatCurrency(perSeat) : '-'}</StyledTableCell>
           </TableBody>
           <TableBody>
             <StyledPrimaryTableCell>Annual bill</StyledPrimaryTableCell>
-            <StyledTableCell>$671.76</StyledTableCell>
-            <StyledTableCell>-</StyledTableCell>
+            <StyledTableCell>{formatCurrency(organization?.subscriptionAmount)}</StyledTableCell>
+            <StyledTableCell>{calculatedCount ? totalCost : '-'}</StyledTableCell>
           </TableBody>
           <TableBody>
             <StyledPrimaryTableCell colSpan={2}>
               Prorated bill (for the remainder of the current year)
             </StyledPrimaryTableCell>
-            <StyledTableCell>-</StyledTableCell>
+            <StyledTableCell>{calculatedCount ? proratedCost : '-'}</StyledTableCell>
           </TableBody>
         </Table>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-between' }}>
         <Flex alignItems="center">
-          <Button onClick={() => setShowConfirmation(true)} variant="contained">
+          <Button disabled={calculatedCount === 0} onClick={() => setShowConfirmation(true)} variant="contained">
             Update billing
           </Button>
           <Button onClick={() => onClose?.({}, 'backdropClick')} variant="text" color="inherit" sx={{ ml: 1 }}>

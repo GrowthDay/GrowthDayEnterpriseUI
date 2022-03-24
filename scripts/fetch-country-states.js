@@ -9,6 +9,7 @@ const https = require('https')
 const Downloader = require('nodejs-file-downloader')
 const extract = require('extract-zip')
 const ora = require('ora')
+const { isSupportedCountry } = require('react-phone-number-input')
 const octokit = new Octokit({
   auth: process.env.GH_TOKEN
 })
@@ -45,10 +46,12 @@ const download = async () => {
   // const countryKeys = ['name', 'iso3', 'iso2', 'phone_code', 'region', 'emoji'];
   const countryKeys = ['name', 'iso2', 'emoji']
   const stateKeys = ['name', 'state_code']
-  json = json.map((country) => ({
-    ...lodash.pick(country, ...countryKeys),
-    states: country.states.map((state) => lodash.pick(state, ...stateKeys))
-  }))
+  json = json
+    .filter((country) => isSupportedCountry(country.iso2))
+    .map((country) => ({
+      ...lodash.pick(country, ...countryKeys),
+      states: country.states.map((state) => lodash.pick(state, ...stateKeys))
+    }))
   fs.writeJsonSync(outputPath, json, {
     // spaces: 4,
   })

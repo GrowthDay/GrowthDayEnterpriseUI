@@ -62,7 +62,7 @@ const Feedback: FC<FeedbackProps> = ({ onClose }) => {
   const handleSubmit = async (values: IFeedbackRequest) => {
     setLoading(true)
     await submit({
-      name: user?.fullName ?? '',
+      name: user?.name ?? '',
       email: user?.email ?? '',
       title: values.title,
       description: values.description,

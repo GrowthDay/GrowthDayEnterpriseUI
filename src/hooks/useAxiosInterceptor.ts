@@ -1,22 +1,38 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useEffect, useRef, useState } from 'react'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 import axiosGrowthDay from '../axios/axiosGrowthDay'
 import axiosStrapi from '../axios/axiosStrapi'
-import accessTokenState from '../recoil/atoms/accessTokenState'
+import accessTokenState, { AccessTokenStateType } from '../recoil/atoms/accessTokenState'
+import organizationIdState, { OrganizationIdStateType } from '../recoil/atoms/organizationIdState'
 import parseError from '../utils/parseError'
 import useModifiedRecoilState from './useModifiedRecoilState'
 
 const useAxiosInterceptors = () => {
-  const [accessToken, , removeAccessToken] = useModifiedRecoilState(accessTokenState)
+  const organizationId = useRecoilValue(organizationIdState)
+  const [accessToken, , resetAccessToken] = useModifiedRecoilState(accessTokenState)
+  const resetOrganizationId = useResetRecoilState(organizationIdState)
   const [axiosReady, setAxiosReady] = useState(false)
-  const navigate = useNavigate()
+
+  const paramsRef = useRef<{ organizationId: OrganizationIdStateType; accessToken: AccessTokenStateType }>({
+    accessToken,
+    organizationId
+  })
+
+  paramsRef.current = {
+    accessToken,
+    organizationId
+  }
+
   useEffect(() => {
     const requestInterceptor = axiosGrowthDay.interceptors.request.use((req) => {
       if (!req.headers) {
         req.headers = {}
       }
-      if (accessToken) {
-        req.headers['Authorization'] = `Bearer ${accessToken}`
+      if (paramsRef.current.accessToken) {
+        req.headers['Authorization'] = `Bearer ${paramsRef.current.accessToken}`
+      }
+      if (paramsRef.current.organizationId) {
+        req.headers['organization-id'] = paramsRef.current.organizationId
       }
       return req
     })
@@ -24,7 +40,8 @@ const useAxiosInterceptors = () => {
       (response) => response.data,
       (error) => {
         if (error?.response?.status === 401) {
-          removeAccessToken()
+          resetAccessToken()
+          resetOrganizationId()
         }
         const message = parseError(error)
         return Promise.reject({ ...error, message })
@@ -37,7 +54,8 @@ const useAxiosInterceptors = () => {
       axiosGrowthDay.interceptors.response.eject(responseInterceptor)
       axiosStrapi.interceptors.response.eject(responseInterceptor2)
     }
-  }, [removeAccessToken, navigate, accessToken])
+  }, [resetAccessToken, resetOrganizationId])
+
   return axiosReady
 }
 

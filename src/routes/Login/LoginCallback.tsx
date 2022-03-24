@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import useLoginApi from '../../api/useLoginApi'
+import useLoginMutation from '../../api/mutations/useLoginMutation'
 import useIsMounted from '../../hooks/useIsMounted'
 import useModifiedRecoilState from '../../hooks/useModifiedRecoilState'
 import useQueryParams from '../../hooks/useQueryParams'
@@ -11,7 +11,7 @@ const LoginCallback: FC = () => {
   const navigate = useNavigate()
   const [redirect, , removeRedirect] = useModifiedRecoilState(redirectState)
   const params = useQueryParams<{ code: string }>()
-  const { mutateAsync } = useLoginApi()
+  const { mutateAsync } = useLoginMutation()
   const isMountedRef = useIsMounted()
 
   useEffect(() => {
@@ -27,7 +27,8 @@ const LoginCallback: FC = () => {
       }
     }
     execute()
-  }, [navigate, removeRedirect, mutateAsync, isMountedRef, redirect, params.code])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate, removeRedirect, mutateAsync, isMountedRef, params.code])
 
   return <></>
 }

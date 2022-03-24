@@ -1,13 +1,19 @@
 import { InputBaseComponentProps, styled } from '@mui/material'
 import React, { FC, forwardRef, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes, useEffect } from 'react'
+import { UseControllerProps } from 'react-hook-form'
+import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import FormInput, { FormInputProps } from './FormInput'
 
-export type FormPhoneInputProps = FormInputProps & {
-  country?: string
-  defaultCountry?: string
-}
+export type FormPhoneInputProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = FormInputProps &
+  UseControllerProps<TFieldValues, TName> & {
+    country?: string
+    defaultCountry?: string
+  }
 
 const StyledPhoneInput = styled(PhoneInput)({
   width: '100%'
@@ -45,14 +51,19 @@ const PhoneNumberInput: ForwardRefExoticComponent<
   />
 ))
 
-const FormPhoneInput: FC<FormPhoneInputProps> = ({ defaultCountry, country, ...props }) => (
-  <FormInput
-    {...props}
-    InputProps={{
-      inputComponent: PhoneNumberInput,
-      inputProps: { defaultCountry, country }
-    }}
-  />
-)
+function FormPhoneInput<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({ defaultCountry, country, ...props }: FormPhoneInputProps<TFieldValues, TName>) {
+  return (
+    <FormInput
+      {...props}
+      InputProps={{
+        inputComponent: PhoneNumberInput,
+        inputProps: { defaultCountry, country }
+      }}
+    />
+  )
+}
 
 export default FormPhoneInput

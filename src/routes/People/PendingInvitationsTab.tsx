@@ -1,29 +1,32 @@
 import { CheckOutlined, SendOutlined } from '@mui/icons-material'
+import { LoadingButton } from '@mui/lab'
 import { Button, Popover, Typography } from '@mui/material'
+import { GridSelectionModel } from '@mui/x-data-grid-pro'
 import { bindTrigger } from 'material-ui-popup-state'
 import { bindPopover, usePopupState } from 'material-ui-popup-state/hooks'
 import { FC, useState } from 'react'
+import useReInviteUsersMutation from '../../api/mutations/useReInviteUsersMutation'
 import Flex from '../../components/Flex'
 import useIsMounted from '../../hooks/useIsMounted'
-import { IUser } from '../../types/user'
-import PeopleTable from './PeopleTable'
+import PeopleEmptyState from './PeopleEmptyState'
+import PeopleTable, { PeopleTableProps } from './PeopleTable'
 
-export type PendingInvitationsTabProps = {
-  data: IUser[]
-}
-
-const PendingInvitationsTab: FC<PendingInvitationsTabProps> = ({ data }) => {
+const PendingInvitationsTab: FC<PeopleTableProps> = (props) => {
+  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([])
   const isMounted = useIsMounted()
   const [hasSent, setHasSent] = useState(false)
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'pending-invitation-resend'
   })
+  const { mutateAsync, isLoading } = useReInviteUsersMutation()
 
   const action = (
-    <Button
+    <LoadingButton
+      loading={isLoading}
+      disabled={!selectionModel.length}
       {...bindTrigger(popupState)}
-      {...(hasSent ? { onClick: undefined, disableRipple: true } : {})}
+      {...(hasSent || isLoading ? { onClick: undefined, disableRipple: true } : {})}
       startIcon={
         hasSent ? (
           <CheckOutlined color="success" />
@@ -35,17 +38,25 @@ const PendingInvitationsTab: FC<PendingInvitationsTabProps> = ({ data }) => {
       sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
     >
       {hasSent ? 'Sent' : 'Re-Invite'}
-    </Button>
+    </LoadingButton>
   )
 
-  const handleSend = () => {
-    popupState.close()
-    setHasSent(true)
-    setTimeout(() => {
-      if (isMounted.current) {
-        setHasSent(false)
-      }
-    }, 5000)
+  const handleSend = async () => {
+    if (!isLoading) {
+      popupState.close()
+      await mutateAsync(selectionModel as string[])
+      setSelectionModel([])
+      setHasSent(true)
+      setTimeout(() => {
+        if (isMounted.current) {
+          setHasSent(false)
+        }
+      }, 5000)
+    }
+  }
+
+  if (!props.data?.length && !props.filters.query) {
+    return <PeopleEmptyState />
   }
 
   return (
@@ -63,7 +74,7 @@ const PendingInvitationsTab: FC<PendingInvitationsTabProps> = ({ data }) => {
         PaperProps={{ sx: { p: 1.5, maxWidth: 240, m: 1.5 } }}
       >
         <Typography fontWeight={300} mb={2}>
-          Invite email will resend to all pending members
+          Invite email will resend to selected pending members
         </Typography>
         <Flex>
           <Button size="small" sx={{ borderRadius: 1 }} onClick={handleSend}>
@@ -74,7 +85,15 @@ const PendingInvitationsTab: FC<PendingInvitationsTabProps> = ({ data }) => {
           </Button>
         </Flex>
       </Popover>
-      <PeopleTable action={action} title="Members who have not accepted the invite yet" searchable data={data} />
+      <PeopleTable
+        {...props}
+        checkboxSelection
+        onSelectionModelChange={setSelectionModel}
+        selectionModel={selectionModel}
+        action={action}
+        title="Members who have not accepted the invite yet"
+        searchable
+      />
     </>
   )
 }

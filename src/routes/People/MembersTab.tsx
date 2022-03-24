@@ -1,13 +1,13 @@
 import { FC } from 'react'
-import { IUser } from '../../types/user'
-import PeopleTable from './PeopleTable'
+import PeopleEmptyState from './PeopleEmptyState'
+import PeopleTable, { PeopleTableProps } from './PeopleTable'
 
-export type MembersTabProps = {
-  data: IUser[]
+const MembersTab: FC<PeopleTableProps> = (props) => {
+  if (!props.data?.length && !props.filters.query) {
+    return <PeopleEmptyState />
+  }
+
+  return <PeopleTable {...props} showName searchable exportable title="Members using GrowthDay" />
 }
-
-const MembersTab: FC<MembersTabProps> = ({ data }) => (
-  <PeopleTable showFullName searchable exportable data={data} title="Members using GrowthDay" />
-)
 
 export default MembersTab

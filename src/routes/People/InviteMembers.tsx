@@ -17,15 +17,17 @@ import {
 } from '@mui/material'
 import { camelCase, last, mapKeys, toLower } from 'lodash-es'
 import urlJoin from 'proper-url-join'
-import { ChangeEvent, FC, useRef, useState } from 'react'
+import { ChangeEvent, FC, useRef } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import * as XLSX from 'xlsx'
 import * as yup from 'yup'
+import useInviteUsersInOrganizationMutation from '../../api/mutations/useInviteUsersInOrganizationMutation'
 import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
 import FormInput from '../../components/forms/FormInput'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
+import { OrganizationUser } from '../../types/api'
 import roles from '../../utils/roles'
 
 const Input = styled('input')({
@@ -40,38 +42,36 @@ const validationSchema = yup
     invitations: yup.array().of(
       yup.object().shape({
         email: yup.string().required(''),
-        role: yup.string().required('')
+        roleId: yup.number().nullable().required('')
       })
     )
   })
   .required()
 
-const defaultValues = {
+const defaultValues: OrganizationUser = {
   email: '',
-  role: ''
+  roleId: null as unknown as number
 }
-
-type RowData = typeof defaultValues
 
 type IInvitationRequest = {
-  invitations: Array<RowData>
+  invitations: Array<OrganizationUser>
 }
 
-const parseData = (data: any[] = []): RowData[] =>
+const parseData = (data: any[] = []): OrganizationUser[] =>
   data
     .map((row) => {
-      const rowData = mapKeys(row, (value, key) => camelCase(key)) as RowData
+      const rowData = mapKeys(row, (value, key) => camelCase(key))
       const role = roles.find(
-        (r) => toLower(r.value) === toLower(rowData.role) || toLower(r.label) === toLower(rowData.role)
+        (r) => r.value === parseInt(rowData.role as string) || toLower(r.label) === toLower(rowData.role?.toString())
       )
-      return { email: rowData.email, role: role?.value ?? '' }
+      return { email: rowData.email, roleId: role?.value ?? 3 }
     })
     .filter((row) => row.email)
 
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [loading, setLoading] = useState(false)
+  const { mutateAsync, isLoading } = useInviteUsersInOrganizationMutation()
 
   const methods = useForm<IInvitationRequest>({
     defaultValues: {
@@ -85,9 +85,17 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   })
 
   const handleSubmit = async (values: IInvitationRequest) => {
-    setLoading(true)
-    console.log(values)
-    setLoading(false)
+    const ws = XLSX.utils.json_to_sheet(
+      values.invitations.map(({ email, roleId }) => ({ Email: email, Role: roleId, 'Full Name': '', Department: '' }))
+    )
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws)
+    const ab = XLSX.writeXLSX(wb, { bookType: 'xlsx', type: 'buffer' })
+    const blob = new Blob([ab], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    })
+    await mutateAsync(blob)
+    onClose?.({}, 'backdropClick')
   }
 
   const handleAppend = () => {
@@ -194,12 +202,12 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               <Grid alignItems="flex-end" container item xs={fields.length > 1 ? 3 : 4}>
                 <FormInput
                   placeholder="Role"
-                  name={`invitations.${index}.role`}
+                  name={`invitations.${index}.roleId`}
                   select
                   SelectProps={{
                     displayEmpty: true,
                     renderValue: (value) =>
-                      roles.find((role) => role.value === (value as string))?.label || (
+                      roles.find((role) => role.value === (value as number))?.label || (
                         <Typography color="text.disabled" component="span">
                           Role
                         </Typography>
@@ -238,7 +246,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         </Form>
       </DialogContent>
       <DialogActions>
-        <LoadingButton form="invitation-form" loading={loading} variant="contained" type="submit">
+        <LoadingButton form="invitation-form" loading={isLoading} variant="contained" type="submit">
           Send Invite
         </LoadingButton>
       </DialogActions>

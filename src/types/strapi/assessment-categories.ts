@@ -22,6 +22,7 @@ export interface IAssessmentCategories {
   q5?: string
   order?: number
   isTrial?: boolean
+  subType?: EnumAssessmentCategoriesSubType
   created_at?: string | null
 }
 
@@ -29,5 +30,15 @@ export enum EnumAssessmentCategoriesType {
   Monthly = 'Monthly',
   Weekly = 'Weekly',
   Daily = 'Daily',
-  Main = 'Main'
+  Main = 'Main',
+  TeamAssessment = 'TeamAssessment'
+}
+
+export enum EnumAssessmentCategoriesSubType {
+  HP18 = 'HP18',
+  Engagement = 'Engagement',
+  JobPerformance = 'JobPerformance',
+  WellbeingMood = 'WellbeingMood',
+  ManagerRelationship = 'ManagerRelationship',
+  JobSatisfaction = 'JobSatisfaction'
 }

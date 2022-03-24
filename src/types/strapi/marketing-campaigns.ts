@@ -5,7 +5,6 @@ import { IMarketingPlan } from './marketing-plan'
 import { IOnboarding } from './onboarding'
 import { ISignup } from './signup'
 import { ISocialEvents } from './social-events'
-import { ITooltips } from './tooltips'
 import { IWebhooks } from './webhooks'
 
 /**
@@ -27,7 +26,6 @@ export interface IMarketingCampaigns {
   webhooks: IWebhooks[]
   signupWebhooks: IWebhooks[]
   proofWebhooks: IWebhooks[]
-  tooltips: ITooltips[]
   onboarding?: IOnboarding
   component: (
     | ({ __component: 'marketing.marketing-plan' } & IMarketingPlan)

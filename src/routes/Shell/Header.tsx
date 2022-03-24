@@ -5,7 +5,6 @@ import { bindTrigger } from 'material-ui-popup-state'
 import { usePopupState } from 'material-ui-popup-state/hooks'
 import { FC } from 'react'
 import { useSetRecoilState } from 'recoil'
-import useProfileImageApi from '../../api/useProfileImageApi'
 import GrowthDayIcon from '../../assets/icons/GrowthDayIcon'
 import ProfileMenu from '../../components/ProfileMenu'
 import config from '../../config'
@@ -22,7 +21,6 @@ export type HeaderProps = {
 const Header: FC<HeaderProps> = ({ setupMode }) => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'profile-menu' })
   const user = useAuthUser()
-  const { data: profileImage } = useProfileImageApi()
   const smallDevice = useMobileView('sm')
   const mobileView = useMobileView('md')
   const setSidebarState = useSetRecoilState(sidebarState)
@@ -53,8 +51,8 @@ const Header: FC<HeaderProps> = ({ setupMode }) => {
               </Link>
             )}
             <IconButton size="small" {...(setupMode ? {} : bindTrigger(popupState))}>
-              <Avatar sx={{ width: 36, height: 36, backgroundColor: 'primary.light' }} src={profileImage}>
-                {user?.fullName?.slice(0, 1)}
+              <Avatar sx={{ width: 36, height: 36, backgroundColor: 'primary.light' }}>
+                {user?.firstName?.slice(0, 1)}
               </Avatar>
             </IconButton>
             {!setupMode && <ProfileMenu {...popupState} />}
