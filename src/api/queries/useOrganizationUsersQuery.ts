@@ -18,7 +18,7 @@ export type OrganizationUsersRequest = {
 
 export type OrganizationUsersFilters = Omit<OrganizationUsersRequest, 'limit' | 'offset'>
 
-const BASE_ORGANIZATION_USERS_QUERY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USERS']
+export const BASE_ORGANIZATION_USERS_QUERY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USERS']
 
 export const getOrganizationUsersQueryKey = (
   paginationParams: PaginationParams,
