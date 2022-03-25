@@ -139,7 +139,7 @@ const PeopleTable: FC<PeopleTableProps> = ({
         )}
         <TableGrid
           sx={{
-            '.MuiDataGrid-virtualScroller': { opacity: loading ? 0.5 : 1 },
+            '.MuiDataGrid-virtualScroller': { ...(loading ? { opacity: 0.5 } : {}) },
             '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' }
           }}
           sortModel={sortModel}

@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AddOutlined, CloseOutlined, FileUploadOutlined, InfoOutlined } from '@mui/icons-material'
+import { alpha } from '@mui/system/colorManipulator'
 import { LoadingButton } from '@mui/lab'
 import {
+  Backdrop,
   Box,
   Button,
   DialogActions,
@@ -14,6 +16,7 @@ import {
   Link,
   MenuItem,
   styled,
+  Theme,
   Tooltip,
   Typography
 } from '@mui/material'
@@ -27,6 +30,7 @@ import useOrganizationUsersQuery from '../../api/queries/useOrganizationUsersQue
 import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
 import FormInput from '../../components/forms/FormInput'
+import Loading from '../../components/Loading'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
 import useAuthOrganization from '../../hooks/useAuthOrganization'
@@ -77,10 +81,11 @@ const errorMessage = 'You cannot invite more users as you have used all your sea
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const { mutateAsync, isLoading } = useInviteUsersInOrganizationMutation()
-  const { data } = useOrganizationUsersQuery({ page: 0, size: 1 }, {}, { cacheTime: 0 })
+  const { data, isLoading: isLoadingSeats } = useOrganizationUsersQuery({ page: 0, size: 1 }, {}, { cacheTime: 0 })
   const organization = useAuthOrganization()
   const seatsLeft = (organization?.seats ?? 0) - (data?.totalRecords ?? 0)
   const canInvite = seatsLeft > 0
+  const disabled = isLoadingSeats || !canInvite
 
   const methods = useForm<IInvitationRequest>({
     defaultValues: {
@@ -164,14 +169,14 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           <Typography variant="body2">New file:</Typography>
           <label htmlFor="invite-members-file">
             <Input
-              disabled={!canInvite}
+              disabled={disabled}
               onChange={handleFileUpload}
               accept={SheetFileTypes}
               id="invite-members-file"
               type="file"
             />
             <Button
-              disabled={!canInvite}
+              disabled={disabled}
               component="span"
               sx={{ ml: 2 }}
               variant="outlined"
@@ -196,7 +201,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
             <Grid mb={2} spacing={2} container key={item.id}>
               <Grid alignItems="flex-end" container item xs={5}>
                 <FormInput
-                  disabled={!canInvite}
+                  disabled={disabled}
                   placeholder="example@email.com"
                   name={`invitations.${index}.email`}
                   label={index === 0 ? 'Email Address' : ''}
@@ -205,7 +210,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               </Grid>
               <Grid alignItems="flex-end" container item xs={fields.length > 1 ? 3 : 4}>
                 <FormInput
-                  disabled={!canInvite}
+                  disabled={disabled}
                   placeholder="Role"
                   name={`invitations.${index}.roleId`}
                   select
@@ -238,7 +243,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   <Tooltip title={errorMessage}>
                     <span>
                       <Button
-                        disabled={!canInvite || seatsLeft <= fields.length}
+                        disabled={disabled || seatsLeft <= fields.length}
                         size="small"
                         sx={{ mb: 0.5 }}
                         onClick={handleAppend}
@@ -258,7 +263,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       <DialogActions sx={{ justifyContent: 'space-between' }}>
         <LoadingButton
           sx={{ mr: 2, flexShrink: 0 }}
-          disabled={!canInvite}
+          disabled={disabled}
           form="invitation-form"
           loading={isLoading}
           variant="contained"
@@ -268,6 +273,16 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         </LoadingButton>
         {!canInvite && <FormHelperText error>{errorMessage}</FormHelperText>}
       </DialogActions>
+      <Backdrop
+        sx={{
+          position: 'absolute',
+          zIndex: 1,
+          backgroundColor: (theme: Theme) => alpha(theme.palette.background.paper, 0.5)
+        }}
+        open={isLoadingSeats}
+      >
+        <Loading />
+      </Backdrop>
     </>
   )
 }
