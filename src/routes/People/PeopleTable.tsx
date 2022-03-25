@@ -1,15 +1,20 @@
 import { SearchOutlined } from '@mui/icons-material'
 import { Box, InputAdornment, InputBase, LinearProgress, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { SelectInputProps } from '@mui/material/Select/SelectInput'
 import { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
 import { DataGridProProps } from '@mui/x-data-grid-pro/models'
 import { Dispatch, FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
+import useUpdateUserRoleMutation from '../../api/mutations/useUpdateUserRoleMutation'
 import { OrganizationUsersFilters, OrganizationUsersRequest } from '../../api/queries/useOrganizationUsersQuery'
 import Flex from '../../components/Flex'
 import TableGrid from '../../components/TableGrid'
+import useAuthUser from '../../hooks/useAuthUser'
 import { OrganizationUser } from '../../types/api'
 import { PaginationParams } from '../../types/ui/pagination'
-import roles from '../../utils/roles'
+import roles, { renderRoleName } from '../../utils/roles'
+
+// TODO: on role change, update user object
 
 export type PeopleTableProps = Partial<DataGridProProps> & {
   totalRecords?: number
@@ -25,15 +30,31 @@ export type PeopleTableProps = Partial<DataGridProProps> & {
   action?: ReactNode
 }
 
-const renderRole = (params: GridRenderCellParams) => (
-  <Select value={params.value} input={<InputBase />} MenuProps={{ PaperProps: { elevation: 4 } }}>
-    {roles.map((role) => (
-      <MenuItem value={role.value} key={role.value}>
-        {role.label}
-      </MenuItem>
-    ))}
-  </Select>
-)
+const RenderRole = (params: GridRenderCellParams<number, OrganizationUser>) => {
+  const user = useAuthUser()
+  const { mutateAsync } = useUpdateUserRoleMutation()
+  const onChange: SelectInputProps<number>['onChange'] = (event) => {
+    mutateAsync({
+      roleId: event.target.value as number,
+      organizationUserIds: [params.row.id ?? '']
+    })
+  }
+  return (
+    <Select
+      disabled={user?.id === params.id}
+      onChange={onChange}
+      value={params.value}
+      input={<InputBase />}
+      MenuProps={{ PaperProps: { elevation: 4 } }}
+    >
+      {roles.map((role) => (
+        <MenuItem value={role.id} key={role.id}>
+          {renderRoleName(role)}
+        </MenuItem>
+      ))}
+    </Select>
+  )
+}
 
 const PeopleTable: FC<PeopleTableProps> = ({
   totalRecords,
@@ -74,7 +95,7 @@ const PeopleTable: FC<PeopleTableProps> = ({
         field: 'roleName',
         headerName: 'Role',
         width: 160,
-        renderCell: renderRole,
+        renderCell: (props) => <RenderRole {...props} />,
         valueGetter: (params) => params.row.roleId
       }
     ],

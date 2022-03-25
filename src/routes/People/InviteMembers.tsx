@@ -35,7 +35,7 @@ import config from '../../config'
 import withDialog from '../../hoc/withDialog'
 import useAuthOrganization from '../../hooks/useAuthOrganization'
 import { OrganizationUser } from '../../types/api'
-import roles from '../../utils/roles'
+import roles, { renderRoleName } from '../../utils/roles'
 import { fileToJson, jsonToXlsxFile, SheetFileTypes } from '../../utils/sheetsUtil'
 
 const Input = styled('input')({
@@ -70,9 +70,9 @@ const parseData = (data: any[] = []): OrganizationUser[] =>
     .map((row) => {
       const rowData = mapKeys(row, (value, key) => camelCase(key))
       const role = roles.find(
-        (r) => r.value === parseInt(rowData.role as string) || toLower(r.label) === toLower(rowData.role?.toString())
+        (r) => r.id === parseInt(rowData.role as string) || toLower(r.name).includes(toLower(rowData.role?.toString()))
       )
-      return { email: rowData.email, roleId: role?.value ?? 3 }
+      return { email: rowData.email, roleId: role?.id ?? 3 }
     })
     .filter((row) => row.email)
 
@@ -217,7 +217,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   SelectProps={{
                     displayEmpty: true,
                     renderValue: (value) =>
-                      roles.find((role) => role.value === (value as number))?.label || (
+                      renderRoleName(roles.find((role) => role.id === (value as number))) || (
                         <Typography color="text.disabled" component="span">
                           Role
                         </Typography>
@@ -225,8 +225,8 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   }}
                 >
                   {roles.map((role) => (
-                    <MenuItem value={role.value} key={role.value}>
-                      {role.label}
+                    <MenuItem value={role.id} key={role.id}>
+                      {renderRoleName(role)}
                     </MenuItem>
                   ))}
                 </FormInput>
