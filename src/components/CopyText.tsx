@@ -1,4 +1,4 @@
-import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, InputAdornment, TextField, Typography } from '@mui/material'
 import { useSnackbar } from 'notistack'
 import { FC, ReactNode } from 'react'
 import useCopyToClipboard from '../hooks/useCopyToClipboard'
@@ -36,7 +36,8 @@ const CopyText: FC<CopyTextProps> = ({ text, label }) => {
           disableUnderline: true,
           sx: { fontSize: 14 },
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment sx={{ height: 'auto' }} position="end">
+              <Divider flexItem orientation="vertical" sx={{ mr: 0.5 }} />
               <Button onClick={handleCopy} size="small" variant="text">
                 COPY
               </Button>

@@ -138,7 +138,10 @@ const PeopleTable: FC<PeopleTableProps> = ({
           />
         )}
         <TableGrid
-          sx={{ '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' } }}
+          sx={{
+            '.MuiDataGrid-virtualScroller': { opacity: loading ? 0.5 : 1 },
+            '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' }
+          }}
           sortModel={sortModel}
           onSortModelChange={handleSort}
           localeText={{
@@ -146,6 +149,7 @@ const PeopleTable: FC<PeopleTableProps> = ({
           }}
           pagination
           rowCount={totalRecords}
+          sortingMode="server"
           paginationMode="server"
           page={pageParams.page}
           onPageChange={(page) => setPageParams({ page })}
