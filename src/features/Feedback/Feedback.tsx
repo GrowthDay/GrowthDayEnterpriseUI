@@ -8,6 +8,7 @@ import { FC, useCallback, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
 import FormInput from '../../components/forms/FormInput'
 import withDialog from '../../hoc/withDialog'
@@ -19,8 +20,8 @@ import getPrefixedKey from '../../utils/getPrefixedKey'
 const validationSchema = yup
   .object()
   .shape({
-    title: yup.string().required(),
-    description: yup.string().required()
+    title: yup.string().required('Required'),
+    description: yup.string().required('Required')
   })
   .required()
 
@@ -32,6 +33,8 @@ const defaultValues = {
 type IFeedbackRequest = typeof defaultValues
 
 export type FeedbackProps = Omit<DialogProps, 'children'>
+
+const formId = 'feedback-form'
 
 const Feedback: FC<FeedbackProps> = ({ onClose }) => {
   const user = useAuthUser()
@@ -87,10 +90,15 @@ const Feedback: FC<FeedbackProps> = ({ onClose }) => {
       <>
         <DialogContent sx={{ pt: 0 }}>
           <Typography variant="body2">Have a question about your account or want to share something?</Typography>
-          <Form<IFeedbackRequest> methods={methods} onSuccess={handleSubmit} sx={{ position: 'relative' }}>
+          <Typography variant="body2">
+            Or email us at:{' '}
+            <Link target="_blank" href="mailto:support@growthday.com">
+              support@growthday.com
+            </Link>
+          </Typography>
+          <Form<IFeedbackRequest> id={formId} methods={methods} onSuccess={handleSubmit}>
             <FormInput margin="dense" name="title" label="Subject" />
             <FormInput
-              helperText={<>&nbsp;</>}
               multiline
               minRows="10"
               maxRows="10"
@@ -98,27 +106,18 @@ const Feedback: FC<FeedbackProps> = ({ onClose }) => {
               name="description"
               label="How can we help you?"
             />
+          </Form>
+          <Flex mt={2} justifyContent="flex-end">
             <LoadingButton
+              form={formId}
               loading={loading}
-              sx={{
-                position: 'absolute',
-                zIndex: 1,
-                right: 16,
-                bottom: 44
-              }}
               variant="contained"
               type="submit"
               endIcon={<SendOutlined sx={{ transform: 'rotate(-45deg)', mt: -0.5, fontSize: '1rem!important' }} />}
             >
               Send
             </LoadingButton>
-          </Form>
-          <Typography variant="body2">
-            Or email us at:{' '}
-            <Link target="_blank" href="mailto:support@growthday.com">
-              support@growthday.com
-            </Link>
-          </Typography>
+          </Flex>
         </DialogContent>
       </>
     </>

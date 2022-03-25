@@ -15,7 +15,9 @@ const useAuthOrganization = () => {
 
     const modifiedOrganization = Object.assign({}, organization)
     const subscriptionPlan = strapiSubscriptions?.find(
-      (plan) => plan.level?.toUpperCase() === modifiedOrganization.plan?.toUpperCase()
+      (plan) =>
+        plan.stripeYearlyPriceId === modifiedOrganization.stripePriceId ||
+        plan.level?.toUpperCase() === modifiedOrganization.plan?.toUpperCase()
     )
     if (modifiedOrganization.seats && subscriptionPlan) {
       modifiedOrganization.subscriptionAmount = modifiedOrganization.seats * (subscriptionPlan.yearlyAmount ?? 0)

@@ -29,6 +29,12 @@ export interface OrganizationUpdateAddressRequest {
    * @type {string}
    * @memberof OrganizationUpdateAddressRequest
    */
+  phoneNumber?: string
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationUpdateAddressRequest
+   */
   region?: string
   /**
    *
@@ -36,10 +42,4 @@ export interface OrganizationUpdateAddressRequest {
    * @memberof OrganizationUpdateAddressRequest
    */
   zipCode?: string
-  /**
-   *
-   * @type {string}
-   * @memberof OrganizationUpdateAddressRequest
-   */
-  phoneNumber?: string
 }

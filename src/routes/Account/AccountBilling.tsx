@@ -1,5 +1,6 @@
 import { AddOutlined, NavigateNextOutlined } from '@mui/icons-material'
 import { Button, Card, CardContent, Divider, Grid, Link, Typography } from '@mui/material'
+import { startCase, toLower } from 'lodash-es'
 import { Dispatch, FC, MouseEvent, SetStateAction } from 'react'
 import Moment from 'react-moment'
 import CreditCardLogo from '../../components/CreditCardLogo'
@@ -109,7 +110,8 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 Credit Card Info
               </Typography>
               <Typography display="flex" alignItems="center">
-                <CreditCardLogo type="visa" /> &nbsp; Visa ending in&nbsp;
+                <CreditCardLogo type={toLower(organization?.paymentMethodVendor)} /> &nbsp;{' '}
+                {startCase(organization?.paymentMethodVendor)} ending in&nbsp;
                 <strong>{organization?.paymentMethodLastFour}</strong> &nbsp; &nbsp; Expires&nbsp;
                 <strong>{organization?.paymentMethodExpiry}</strong>
               </Typography>

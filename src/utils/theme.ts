@@ -124,7 +124,8 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: 'rgba(0,0,0,0.4)'
+          color: 'rgba(0,0,0,0.4)',
+          fontWeight: 500
         },
         shrink: {
           position: 'relative',
@@ -139,6 +140,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
+          fontWeight: 500,
           color: 'rgba(0,0,0,0.4)',
           transform: 'scale(0.75)',
           transformOrigin: 'left bottom'

@@ -32,9 +32,9 @@ const StripeCardForm: FC<StripeCardFormProps> = ({ methods, disabled }) => {
       <Grid item xs={12}>
         <FormAutocomplete
           disabled={disabled}
-          placeholder="Country"
+          placeholder="Select country"
           name="country"
-          label="Select your country"
+          label="Country"
           getOptionLabel={(option: string) => countriesMap[option]?.name ?? ''}
           options={countries}
           onChange={() => methods.setValue('region', '')}
@@ -44,25 +44,19 @@ const StripeCardForm: FC<StripeCardFormProps> = ({ methods, disabled }) => {
         <Grid item xs={12}>
           <FormAutocomplete
             disabled={disabled}
-            placeholder="State"
+            placeholder="Select state"
             name="region"
-            label="Select your state"
+            label="State"
             getOptionLabel={(option: string) => statesMap[option]?.name ?? ''}
             options={states}
           />
         </Grid>
       )}
       <Grid item xs={12}>
-        <FormInput disabled={disabled} placeholder="ZIP/postcode" name="zipCode" label="Enter your zip code" />
+        <FormInput disabled={disabled} name="zipCode" label="Zip/postcode" />
       </Grid>
       <Grid item xs={12}>
-        <FormPhoneInput
-          disabled={disabled}
-          country={country}
-          placeholder="Mobile"
-          name="phoneNumber"
-          label="Phone Number"
-        />
+        <FormPhoneInput disabled={disabled} country={country} name="phoneNumber" label="Phone Number" />
       </Grid>
     </>
   )

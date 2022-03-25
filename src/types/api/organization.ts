@@ -101,6 +101,18 @@ export interface Organization {
    * @type {string}
    * @memberof Organization
    */
+  paymentMethodVendor?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Organization
+   */
+  phoneNumber?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Organization
+   */
   plan?: OrganizationPlanEnum
   /**
    *
