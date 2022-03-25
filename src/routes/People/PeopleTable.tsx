@@ -1,23 +1,12 @@
-import { DownloadOutlined, SearchOutlined } from '@mui/icons-material'
-import {
-  Box,
-  Button,
-  InputAdornment,
-  InputBase,
-  LinearProgress,
-  MenuItem,
-  Select,
-  TextField,
-  Typography
-} from '@mui/material'
-import { GridColDef, GridRenderCellParams, GridSortModel, useGridApiRef } from '@mui/x-data-grid-pro'
+import { SearchOutlined } from '@mui/icons-material'
+import { Box, InputAdornment, InputBase, LinearProgress, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
 import { DataGridProProps } from '@mui/x-data-grid-pro/models'
 import { Dispatch, FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { OrganizationUsersFilters, OrganizationUsersRequest } from '../../api/queries/useOrganizationUsersQuery'
 import Flex from '../../components/Flex'
 import TableGrid from '../../components/TableGrid'
-import useMobileView from '../../hooks/useMobileView'
 import { OrganizationUser } from '../../types/api'
 import { PaginationParams } from '../../types/ui/pagination'
 import roles from '../../utils/roles'
@@ -32,7 +21,6 @@ export type PeopleTableProps = Partial<DataGridProProps> & {
   setFilters: Dispatch<Partial<OrganizationUsersFilters>>
   showName?: boolean
   searchable?: boolean
-  exportable?: boolean
   title?: ReactNode
   action?: ReactNode
 }
@@ -56,14 +44,11 @@ const PeopleTable: FC<PeopleTableProps> = ({
   loading,
   showName,
   searchable,
-  exportable,
   title,
   action,
   data = [],
   ...props
 }) => {
-  const apiRef = useGridApiRef()
-  const mobileView = useMobileView()
   const [searchTerm, setSearchTerm] = useState('')
 
   const debouncedSearch = useDebouncedCallback((query: string) => {
@@ -83,20 +68,8 @@ const PeopleTable: FC<PeopleTableProps> = ({
 
   const columns: GridColDef[] = useMemo(
     () => [
-      ...(showName
-        ? [
-            {
-              field: 'name',
-              headerName: 'Name',
-              width: 240
-            }
-          ]
-        : []),
-      {
-        field: 'email',
-        headerName: 'Email',
-        width: 400
-      },
+      ...(showName ? [{ field: 'name', headerName: 'Name', width: 240 }] : []),
+      { field: 'email', headerName: 'Email', width: 400 },
       {
         field: 'roleName',
         headerName: 'Role',
@@ -111,18 +84,10 @@ const PeopleTable: FC<PeopleTableProps> = ({
   const handleSort = (model: GridSortModel) => {
     const sortBy = model[0]?.field as OrganizationUsersRequest['sortBy']
     const order = model[0]?.sort as OrganizationUsersRequest['order']
-    setFilters({
-      sortBy,
-      order
-    })
+    setFilters({ sortBy, order })
   }
 
-  const sortModel: GridSortModel = [
-    {
-      field: filters.sortBy ?? '',
-      sort: filters.order
-    }
-  ]
+  const sortModel: GridSortModel = [{ field: filters.sortBy ?? '', sort: filters.order }]
 
   return (
     <>
@@ -140,16 +105,6 @@ const PeopleTable: FC<PeopleTableProps> = ({
         </Typography>
         <Flex justifyContent="flex-end" alignItems="center">
           {action}
-          {exportable && (
-            <Button
-              onClick={() => apiRef.current.exportDataAsCsv({ allColumns: true, includeHeaders: true })}
-              startIcon={<DownloadOutlined fontSize="small" />}
-              variant="outlined"
-              sx={{ ml: 2, backgroundColor: (theme) => theme.palette.background.paper }}
-            >
-              {mobileView ? 'Export' : 'Export as CSV'}
-            </Button>
-          )}
           {searchable && (
             <TextField
               size="medium"
@@ -196,7 +151,6 @@ const PeopleTable: FC<PeopleTableProps> = ({
           onPageChange={(page) => setPageParams({ page })}
           pageSize={pageParams.size}
           onPageSizeChange={(size) => setPageParams({ size })}
-          apiRef={apiRef}
           rows={data}
           columns={columns}
           {...props}

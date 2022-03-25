@@ -8,27 +8,31 @@ import {
   DialogContent,
   DialogProps,
   Divider,
+  FormHelperText,
   Grid,
   IconButton,
   Link,
   MenuItem,
   styled,
+  Tooltip,
   Typography
 } from '@mui/material'
-import { camelCase, last, mapKeys, toLower } from 'lodash-es'
+import { camelCase, mapKeys, toLower } from 'lodash-es'
 import urlJoin from 'proper-url-join'
 import { ChangeEvent, FC, useRef } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
-import * as XLSX from 'xlsx'
 import * as yup from 'yup'
 import useInviteUsersInOrganizationMutation from '../../api/mutations/useInviteUsersInOrganizationMutation'
+import useOrganizationUsersQuery from '../../api/queries/useOrganizationUsersQuery'
 import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
 import FormInput from '../../components/forms/FormInput'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
+import useAuthOrganization from '../../hooks/useAuthOrganization'
 import { OrganizationUser } from '../../types/api'
 import roles from '../../utils/roles'
+import { fileToJson, jsonToXlsxFile, SheetFileTypes } from '../../utils/sheetsUtil'
 
 const Input = styled('input')({
   display: 'none'
@@ -68,10 +72,15 @@ const parseData = (data: any[] = []): OrganizationUser[] =>
     })
     .filter((row) => row.email)
 
+const errorMessage = 'You cannot invite more users as you have used all your seats. Add more seats to invite users'
+
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
   const { mutateAsync, isLoading } = useInviteUsersInOrganizationMutation()
+  const { data } = useOrganizationUsersQuery({ page: 0, size: 1 }, {}, { cacheTime: 0 })
+  const organization = useAuthOrganization()
+  const seatsLeft = (organization?.seats ?? 0) - (data?.totalRecords ?? 0)
+  const canInvite = seatsLeft > 0
 
   const methods = useForm<IInvitationRequest>({
     defaultValues: {
@@ -79,65 +88,53 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     },
     resolver: yupResolver(validationSchema)
   })
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, replace } = useFieldArray({
     control: methods.control,
     name: 'invitations'
   })
 
   const handleSubmit = async (values: IInvitationRequest) => {
-    const ws = XLSX.utils.json_to_sheet(
-      values.invitations.map(({ email, roleId }) => ({
+    if (canInvite) {
+      const data = values.invitations.slice(0, seatsLeft).map(({ email, roleId }) => ({
         Email: email,
         'Full Name': '',
         Role: roleId,
         Department: ''
       }))
-    )
-    const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws)
-    const ab = XLSX.writeXLSX(wb, { bookType: 'xlsx', type: 'buffer' })
-    const blob = new Blob([ab], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    })
-    await mutateAsync(blob)
-    onClose?.({}, 'backdropClick')
+      const file = jsonToXlsxFile(data)
+      await mutateAsync(file)
+      onClose?.({}, 'backdropClick')
+    }
   }
 
   const handleAppend = () => {
-    append(defaultValues)
-    setTimeout(() => {
-      if (contentRef.current) {
-        contentRef.current.scrollTo({
-          top: contentRef.current.scrollHeight,
-          behavior: 'smooth'
-        })
-      }
-    })
+    const invitations = methods.getValues('invitations')
+    if (canInvite && seatsLeft > invitations.length) {
+      append(defaultValues)
+      setTimeout(() => {
+        if (contentRef.current) {
+          contentRef.current.scrollTo({
+            top: contentRef.current.scrollHeight,
+            behavior: 'smooth'
+          })
+        }
+      })
+    }
   }
 
   const fileUrl = urlJoin(config.publicUrl, 'files', 'invite-members.xls')
 
-  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        const result = reader.result as ArrayBuffer
-        const wb = XLSX.read(result)
-        const data = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
-        const rows = parseData(data)
-        const existingEmails = methods.getValues('invitations').map((row) => row.email)
-        const filteredRows = rows.filter((row) => !existingEmails.includes(row.email))
-        if (!last(existingEmails)) {
-          remove(existingEmails.length - 1)
-        }
-        append(filteredRows)
-      }
-      reader.readAsArrayBuffer(file)
-    }
-
-    if (inputRef.current) {
-      inputRef.current.value = ''
+    event.target.value = ''
+    if (canInvite && file) {
+      const data = await fileToJson(file)
+      const rows = parseData(data)
+      const invitations = methods.getValues('invitations').filter((row) => row.email)
+      const existingEmails = invitations.map((row) => row.email)
+      const filteredRows = rows.filter((row) => !existingEmails.includes(row.email))
+      const newInvitations = [...invitations, ...filteredRows].slice(0, seatsLeft)
+      replace(newInvitations)
     }
   }
 
@@ -167,13 +164,14 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           <Typography variant="body2">New file:</Typography>
           <label htmlFor="invite-members-file">
             <Input
+              disabled={!canInvite}
               onChange={handleFileUpload}
-              ref={inputRef}
-              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              accept={SheetFileTypes}
               id="invite-members-file"
               type="file"
             />
             <Button
+              disabled={!canInvite}
               component="span"
               sx={{ ml: 2 }}
               variant="outlined"
@@ -198,6 +196,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
             <Grid mb={2} spacing={2} container key={item.id}>
               <Grid alignItems="flex-end" container item xs={5}>
                 <FormInput
+                  disabled={!canInvite}
                   placeholder="example@email.com"
                   name={`invitations.${index}.email`}
                   label={index === 0 ? 'Email Address' : ''}
@@ -206,6 +205,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               </Grid>
               <Grid alignItems="flex-end" container item xs={fields.length > 1 ? 3 : 4}>
                 <FormInput
+                  disabled={!canInvite}
                   placeholder="Role"
                   name={`invitations.${index}.roleId`}
                   select
@@ -235,25 +235,38 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               )}
               {index === fields.length - 1 && (
                 <Grid alignItems="flex-end" container item xs={3}>
-                  <Button
-                    size="small"
-                    sx={{ mb: 0.5 }}
-                    onClick={handleAppend}
-                    variant="outlined"
-                    startIcon={<AddOutlined />}
-                  >
-                    Add more
-                  </Button>
+                  <Tooltip title={errorMessage}>
+                    <span>
+                      <Button
+                        disabled={!canInvite || seatsLeft <= fields.length}
+                        size="small"
+                        sx={{ mb: 0.5 }}
+                        onClick={handleAppend}
+                        variant="outlined"
+                        startIcon={<AddOutlined />}
+                      >
+                        Add more
+                      </Button>
+                    </span>
+                  </Tooltip>
                 </Grid>
               )}
             </Grid>
           ))}
         </Form>
       </DialogContent>
-      <DialogActions>
-        <LoadingButton form="invitation-form" loading={isLoading} variant="contained" type="submit">
+      <DialogActions sx={{ justifyContent: 'space-between' }}>
+        <LoadingButton
+          sx={{ mr: 2, flexShrink: 0 }}
+          disabled={!canInvite}
+          form="invitation-form"
+          loading={isLoading}
+          variant="contained"
+          type="submit"
+        >
           Send Invite
         </LoadingButton>
+        {!canInvite && <FormHelperText error>{errorMessage}</FormHelperText>}
       </DialogActions>
     </>
   )

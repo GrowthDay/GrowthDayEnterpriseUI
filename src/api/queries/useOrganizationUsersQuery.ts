@@ -18,13 +18,13 @@ export type OrganizationUsersRequest = {
 
 export type OrganizationUsersFilters = Omit<OrganizationUsersRequest, 'limit' | 'offset'>
 
-export const BASE_ORGANIZATION_USERS_QUERY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USERS']
+export const BASE_ORGANIZATION_USERS_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USERS']
 
 export const getOrganizationUsersQueryKey = (
   paginationParams: PaginationParams,
   filters: OrganizationUsersFilters = {}
 ) => [
-  ...BASE_ORGANIZATION_USERS_QUERY,
+  ...BASE_ORGANIZATION_USERS_QUERY_KEY,
   paginationParams,
   omitBy(filters, (value) => {
     if (isUndefined(value) || isNull(value)) {
@@ -57,7 +57,7 @@ const useOrganizationUsersQuery = (
       axiosGrowthDay.get<PagedResultOrganizationUser>('/organizationUsers', {
         params: {
           ...filters,
-          offset: params.page * params.size + 1,
+          offset: params.page + 1,
           limit: params.size
         }
       }),

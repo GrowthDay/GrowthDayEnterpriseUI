@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { UseMutationOptions } from 'react-query/types/react/types'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
-import { BASE_ORGANIZATION_USERS_QUERY } from '../queries/useOrganizationUsersQuery'
+import { BASE_ORGANIZATION_USERS_QUERY_KEY } from '../queries/useOrganizationUsersQuery'
 
 export const INVITE_USERS_IN_ORGANIZATION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'INVITE_USERS_IN_ORGANIZATION']
 
@@ -22,7 +22,7 @@ const useInviteUsersInOrganizationMutation = (
     {
       ...options,
       onSuccess: (data, ...rest) => {
-        queryClient.invalidateQueries(BASE_ORGANIZATION_USERS_QUERY)
+        queryClient.invalidateQueries(BASE_ORGANIZATION_USERS_QUERY_KEY)
         return options.onSuccess?.(data, ...rest)
       }
     }
