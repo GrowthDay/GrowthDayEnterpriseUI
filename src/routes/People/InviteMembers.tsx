@@ -86,7 +86,12 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
 
   const handleSubmit = async (values: IInvitationRequest) => {
     const ws = XLSX.utils.json_to_sheet(
-      values.invitations.map(({ email, roleId }) => ({ Email: email, Role: roleId, 'Full Name': '', Department: '' }))
+      values.invitations.map(({ email, roleId }) => ({
+        Email: email,
+        'Full Name': '',
+        Role: roleId,
+        Department: ''
+      }))
     )
     const wb = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws)

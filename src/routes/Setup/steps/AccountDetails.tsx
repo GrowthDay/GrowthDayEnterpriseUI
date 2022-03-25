@@ -17,7 +17,7 @@ import { StepComponentProps } from './index'
 
 type IOrganizationCreateRequestType = typeof CreateOrganizationDefaultValues
 
-const AccountDetails: FC<StepComponentProps> = ({ next, active }) => {
+const AccountDetails: FC<StepComponentProps> = ({ active }) => {
   const user = useAuthUser()
   const organization = useAuthOrganization()
   const methods = useForm<IOrganizationCreateRequestType>({
@@ -51,7 +51,6 @@ const AccountDetails: FC<StepComponentProps> = ({ next, active }) => {
         fullName: `${values.firstName ?? ''} ${values.lastName ?? ''}`.trim()
       }
       await mutateAsync(signupRequest)
-      next()
     }
   }
 

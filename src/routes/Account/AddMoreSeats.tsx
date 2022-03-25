@@ -21,6 +21,8 @@ import withDialog from '../../hoc/withDialog'
 import useAuthOrganization from '../../hooks/useAuthOrganization'
 import { formatCurrency } from '../../utils/formatters'
 
+// TODO: Prorated amount
+
 export type AddMoreSeatsProps = Omit<DialogProps, 'children'>
 
 const StyledTableCell = styled(TableCell)({
@@ -54,6 +56,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   const totalSeats = calculatedCount + (organization?.seats ?? 0)
   const totalCost = formatCurrency(perSeat * totalSeats)
   const proratedCost = formatCurrency(perSeat * totalSeats - (organization?.subscriptionAmount ?? 0))
+  const maxSeats = 100 - (organization?.seats ?? 0)
 
   const handleCalculate = () => {
     if (intCount > 0) {
@@ -111,7 +114,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
       <DialogContent>
         <Flex mb={3} alignItems="flex-end">
           <TextField
-            inputProps={{ min: 0 }}
+            inputProps={{ min: 0, max: maxSeats }}
             label="Number of extra seats"
             type="number"
             value={count}
