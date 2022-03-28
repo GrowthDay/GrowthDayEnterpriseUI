@@ -16,6 +16,7 @@ import * as React from 'react'
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
+import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
 import useSetupSubscriptionMutation, {
   SetupSubscriptionDefaultValues,
   SetupSubscriptionRequest,
@@ -28,7 +29,6 @@ import FormInput from '../../../components/forms/FormInput'
 import FormRadioGroup from '../../../components/forms/FormRadioGroup'
 import StripeCardForm from '../../../components/StripeCardForm'
 import withElements from '../../../hoc/withElements'
-import useAuthUser from '../../../hooks/useAuthUser'
 import useStripePayment from '../../../hooks/useStripePayment'
 import checkoutLoadingState from '../../../recoil/atoms/checkoutLoadingState'
 import { formatCurrency } from '../../../utils/formatters'
@@ -51,7 +51,7 @@ const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
 }))
 
 const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
-  const user = useAuthUser()
+  const { data: user } = useOrganizationUserQuery()
   const [_loading, setLoading] = useRecoilState(checkoutLoadingState)
   const { isLoading, mutateAsync } = useSetupSubscriptionMutation()
   const methods = useForm<SetupSubscriptionRequest>({

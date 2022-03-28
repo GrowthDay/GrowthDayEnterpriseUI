@@ -8,11 +8,11 @@ import { FC, useCallback, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
 import FormInput from '../../components/forms/FormInput'
 import withDialog from '../../hoc/withDialog'
-import useAuthUser from '../../hooks/useAuthUser'
 import useFormPersist from '../../hooks/useFormPersist'
 import useUserbackUtils from '../../hooks/useUserbackUtils'
 import getPrefixedKey from '../../utils/getPrefixedKey'
@@ -37,7 +37,7 @@ export type FeedbackProps = Omit<DialogProps, 'children'>
 const formId = 'feedback-form'
 
 const Feedback: FC<FeedbackProps> = ({ onClose }) => {
-  const user = useAuthUser()
+  const { data: user } = useOrganizationUserQuery()
   const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 

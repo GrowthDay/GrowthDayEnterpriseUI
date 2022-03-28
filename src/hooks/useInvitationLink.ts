@@ -1,9 +1,9 @@
 import urlJoin from 'proper-url-join'
+import useOrganizationQuery from '../api/queries/useOrganizationQuery'
 import config from '../config'
-import useAuthOrganization from './useAuthOrganization'
 
 const useInvitationLink = () => {
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   return urlJoin(config.webUrl, 'enterprise', 'join', organization?.organizationSubscribeLink)
 }
 

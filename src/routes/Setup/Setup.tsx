@@ -2,15 +2,15 @@ import { Box, Card, CardContent, CardHeader, Container } from '@mui/material'
 import classNames from 'classnames'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import GrowthDayBackground from '../../components/GrowthDayBackground'
-import useAuthOrganization from '../../hooks/useAuthOrganization'
 import Header from '../Shell/Header'
 import Footer from './Footer'
 import steps from './steps'
 
 const Setup: FC = () => {
   const navigate = useNavigate()
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   const [activeStep, setActiveStep] = useState(0)
   const handleNext = useCallback(() => setActiveStep((active) => active + 1), [])
   const refs = useRef<Record<number, HTMLDivElement | null>>({})

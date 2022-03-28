@@ -16,9 +16,9 @@ import {
 } from '@mui/material'
 import { ChangeEvent, FC, useState } from 'react'
 import useUpdateSubscriptionMutation from '../../api/mutations/useUpdateSubscriptionMutation'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Flex from '../../components/Flex'
 import withDialog from '../../hoc/withDialog'
-import useAuthOrganization from '../../hooks/useAuthOrganization'
 import { formatCurrency } from '../../utils/formatters'
 
 // TODO: Prorated amount
@@ -45,7 +45,7 @@ const StyledPrimaryTableCellHeader = styled(StyledTableCellHeader)(({ theme: { p
 const titleLabelledBy = 'add-seats-dialog-title'
 
 const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   const { mutateAsync, isLoading } = useUpdateSubscriptionMutation()
   const [count, setCount] = useState('0')
   const [showConfirmation, setShowConfirmation] = useState(false)

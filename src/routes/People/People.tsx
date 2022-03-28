@@ -1,12 +1,12 @@
 import { AddOutlined } from '@mui/icons-material'
-import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { Skeleton, TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Card, CardContent, Divider, Tab, Typography } from '@mui/material'
 import { FC, useState } from 'react'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import CopyText from '../../components/CopyText'
 import Flex from '../../components/Flex'
 import Layout from '../../components/Layout'
 import Loading from '../../components/Loading'
-import useAuthOrganization from '../../hooks/useAuthOrganization'
 import useInvitationLink from '../../hooks/useInvitationLink'
 import useMobileView from '../../hooks/useMobileView'
 import AddMoreSeats from '../Account/AddMoreSeats'
@@ -17,7 +17,7 @@ import PendingInvitationsTab from './PendingInvitationsTab'
 import PeopleEmptyState from './PeopleEmptyState'
 
 const People: FC = () => {
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   const invitationLink = useInvitationLink()
   const mobileView = useMobileView()
   const [tab, setTab] = useState('1')
@@ -76,7 +76,16 @@ const People: FC = () => {
           >
             <Flex flex={1} alignItems="center" sx={{ mb: { xs: 1, md: 0 } }}>
               <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600}>
-                {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left
+                {isLoading ? (
+                  <>
+                    <Skeleton height={14} width={120} />
+                    <Skeleton height={14} width={96} />
+                  </>
+                ) : (
+                  <>
+                    {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left
+                  </>
+                )}
               </Typography>
               <Divider flexItem sx={{ mx: 2 }} orientation="vertical" />
               <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={400}>
@@ -112,7 +121,7 @@ const People: FC = () => {
                   filters={peopleFilters}
                   setFilters={setPeopleFilters}
                   data={people?.results}
-                  totalRecords={people?.totalRecords}
+                  rowCount={people?.totalRecords}
                 />
               </TabPanel>
               <TabPanel sx={{ p: 0 }} value="2">
@@ -123,7 +132,7 @@ const People: FC = () => {
                   filters={invitationsPendingFilters}
                   setFilters={setInvitationsPendingFilters}
                   data={invitationsPending?.results}
-                  totalRecords={invitationsPending?.totalRecords}
+                  rowCount={invitationsPending?.totalRecords}
                 />
               </TabPanel>
             </TabContext>

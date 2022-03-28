@@ -1,10 +1,10 @@
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useCallback, useMemo } from 'react'
+import useOrganizationUserQuery from '../api/queries/useOrganizationUserQuery'
 import { SetupSubscriptionRequest } from '../routes/Setup/hooks/useSetupSubscriptionMutation'
-import useAuthUser from './useAuthUser'
 
 const useStripePayment = () => {
-  const user = useAuthUser()
+  const { data: user } = useOrganizationUserQuery()
   const stripe = useStripe()
   const elements = useElements()
   const addPaymentMethod = useCallback(

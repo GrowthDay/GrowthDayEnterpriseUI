@@ -17,13 +17,13 @@ import {
 import { useSnackbar } from 'notistack'
 import { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react'
 import useUpdateOrganizationMutation from '../../api/mutations/useUpdateOrganizationMutation'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Flex from '../../components/Flex'
 import VideoPlayer from '../../components/VideoPlayer'
-import useAuthOrganization from '../../hooks/useAuthOrganization'
 import useCopyToClipboard from '../../hooks/useCopyToClipboard'
 import useInvitationLink from '../../hooks/useInvitationLink'
 
-// Todo: Update logo link
+// Todo: Update video link
 
 const StyledStepContent = styled(StepContent)(({ theme: { palette, spacing } }) => ({
   borderLeft: `1px dashed ${palette.divider}`,
@@ -53,7 +53,7 @@ export type AccountSetupProps = {
 }
 
 const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   const invitationLink = useInvitationLink()
   const [, copy] = useCopyToClipboard()
   const { enqueueSnackbar } = useSnackbar()

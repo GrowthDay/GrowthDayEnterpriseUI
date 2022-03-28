@@ -5,10 +5,10 @@ import { bindTrigger } from 'material-ui-popup-state'
 import { usePopupState } from 'material-ui-popup-state/hooks'
 import { FC } from 'react'
 import { useSetRecoilState } from 'recoil'
+import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import GrowthDayIcon from '../../assets/icons/GrowthDayIcon'
 import ProfileMenu from '../../components/ProfileMenu'
 import config from '../../config'
-import useAuthUser from '../../hooks/useAuthUser'
 import useMobileView from '../../hooks/useMobileView'
 import sidebarState from '../../recoil/atoms/sidebarState'
 
@@ -20,7 +20,7 @@ export type HeaderProps = {
 
 const Header: FC<HeaderProps> = ({ setupMode }) => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'profile-menu' })
-  const user = useAuthUser()
+  const { data: user } = useOrganizationUserQuery()
   const smallDevice = useMobileView('sm')
   const mobileView = useMobileView('md')
   const setSidebarState = useSetRecoilState(sidebarState)

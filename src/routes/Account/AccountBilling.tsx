@@ -3,29 +3,21 @@ import { Button, Card, CardContent, Divider, Grid, Link, Typography } from '@mui
 import { startCase, toLower } from 'lodash-es'
 import { Dispatch, FC, MouseEvent, SetStateAction } from 'react'
 import Moment from 'react-moment'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import CreditCardLogo from '../../components/CreditCardLogo'
 import Flex from '../../components/Flex'
-import useAuthOrganization from '../../hooks/useAuthOrganization'
 import useMobileView from '../../hooks/useMobileView'
-import { OrganizationPaymentMethodTypeEnum, OrganizationPlanFrequencyEnum } from '../../types/api'
+import { OrganizationPlanFrequencyEnum } from '../../types/api'
 import { formatCurrency } from '../../utils/formatters'
 
-// TODO: Credit card type
-
-const frequencyMap = {
+export const frequencyMap = {
   [OrganizationPlanFrequencyEnum.Year]: 'Yearly',
   [OrganizationPlanFrequencyEnum.Month]: 'Monthly'
 }
 
-const paymentFrequencyMap = {
+export const paymentFrequencyMap = {
   [OrganizationPlanFrequencyEnum.Year]: 'Annual',
   [OrganizationPlanFrequencyEnum.Month]: 'Monthly'
-}
-
-const paymentModeMap = {
-  [OrganizationPaymentMethodTypeEnum.Card]: 'Credit Card',
-  [OrganizationPaymentMethodTypeEnum.Paypal]: 'Paypal',
-  [OrganizationPaymentMethodTypeEnum.Apple]: 'Apple Pay'
 }
 
 export type AccountBillingProps = {
@@ -34,7 +26,7 @@ export type AccountBillingProps = {
 }
 
 const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCardOpen }) => {
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   const mobileView = useMobileView()
   const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
@@ -84,14 +76,6 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
               </Typography>
               <Typography variant="h6" fontWeight={600}>
                 {formatCurrency(organization?.subscriptionAmount)}
-              </Typography>
-            </Grid>
-            <Grid item xs>
-              <Typography gutterBottom variant="body2" color="text.disabled">
-                Payment method
-              </Typography>
-              <Typography variant="h6" fontWeight={600}>
-                {organization?.paymentMethodType && paymentModeMap[organization.paymentMethodType]}
               </Typography>
             </Grid>
             <Grid item xs>

@@ -4,10 +4,10 @@ import { LoadingButton } from '@mui/lab'
 import { Grid, IconButton, InputAdornment } from '@mui/material'
 import { FC, useReducer } from 'react'
 import { useForm } from 'react-hook-form'
+import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
+import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
 import Form from '../../../components/forms/Form'
 import FormInput from '../../../components/forms/FormInput'
-import useAuthOrganization from '../../../hooks/useAuthOrganization'
-import useAuthUser from '../../../hooks/useAuthUser'
 import useCreateOrganizationMutation, {
   CreateOrganizationDefaultValues,
   CreateOrganizationValidationSchema
@@ -18,8 +18,8 @@ import { StepComponentProps } from './index'
 type IOrganizationCreateRequestType = typeof CreateOrganizationDefaultValues
 
 const AccountDetails: FC<StepComponentProps> = ({ active }) => {
-  const user = useAuthUser()
-  const organization = useAuthOrganization()
+  const { data: user } = useOrganizationUserQuery()
+  const { data: organization } = useOrganizationQuery()
   const methods = useForm<IOrganizationCreateRequestType>({
     defaultValues: {
       ...CreateOrganizationDefaultValues,

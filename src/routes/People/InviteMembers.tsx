@@ -26,6 +26,7 @@ import { ChangeEvent, FC, useRef } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import useInviteUsersInOrganizationMutation from '../../api/mutations/useInviteUsersInOrganizationMutation'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import useOrganizationUsersQuery from '../../api/queries/useOrganizationUsersQuery'
 import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
@@ -33,7 +34,6 @@ import FormInput from '../../components/forms/FormInput'
 import Loading from '../../components/Loading'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
-import useAuthOrganization from '../../hooks/useAuthOrganization'
 import { OrganizationUser } from '../../types/api'
 import roles, { renderRoleName } from '../../utils/roles'
 import { fileToJson, jsonToXlsxFile, SheetFileTypes } from '../../utils/sheetsUtil'
@@ -82,7 +82,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const { mutateAsync, isLoading } = useInviteUsersInOrganizationMutation()
   const { data, isLoading: isLoadingSeats } = useOrganizationUsersQuery({ page: 0, size: 1 }, {}, { cacheTime: 0 })
-  const organization = useAuthOrganization()
+  const { data: organization } = useOrganizationQuery()
   const seatsLeft = (organization?.seats ?? 0) - (data?.totalRecords ?? 0)
   const canInvite = seatsLeft > 0
   const disabled = isLoadingSeats || !canInvite

@@ -1,25 +1,22 @@
 import { SearchOutlined } from '@mui/icons-material'
-import { Box, InputAdornment, InputBase, LinearProgress, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { InputAdornment, InputBase, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { SelectInputProps } from '@mui/material/Select/SelectInput'
-import { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
+import { GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
 import { DataGridProProps } from '@mui/x-data-grid-pro/models'
+import { GridColumns } from '@mui/x-data-grid/models/colDef/gridColDef'
 import { Dispatch, FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import useUpdateUserRoleMutation from '../../api/mutations/useUpdateUserRoleMutation'
+import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import { OrganizationUsersFilters, OrganizationUsersRequest } from '../../api/queries/useOrganizationUsersQuery'
 import Flex from '../../components/Flex'
 import TableGrid from '../../components/TableGrid'
-import useAuthUser from '../../hooks/useAuthUser'
 import { OrganizationUser } from '../../types/api'
 import { PaginationParams } from '../../types/ui/pagination'
 import roles, { renderRoleName } from '../../utils/roles'
 
-// TODO: on role change, update user object
-
 export type PeopleTableProps = Partial<DataGridProProps> & {
-  totalRecords?: number
   data?: OrganizationUser[]
-  loading: boolean
   pageParams: PaginationParams
   setPageParams: Dispatch<Partial<PaginationParams>>
   filters: OrganizationUsersFilters
@@ -31,7 +28,7 @@ export type PeopleTableProps = Partial<DataGridProProps> & {
 }
 
 const RenderRole = (params: GridRenderCellParams<number, OrganizationUser>) => {
-  const user = useAuthUser()
+  const { data: user } = useOrganizationUserQuery()
   const { mutateAsync } = useUpdateUserRoleMutation()
   const onChange: SelectInputProps<number>['onChange'] = (event) => {
     mutateAsync({
@@ -57,12 +54,10 @@ const RenderRole = (params: GridRenderCellParams<number, OrganizationUser>) => {
 }
 
 const PeopleTable: FC<PeopleTableProps> = ({
-  totalRecords,
   pageParams,
   setPageParams,
   filters,
   setFilters,
-  loading,
   showName,
   searchable,
   title,
@@ -87,7 +82,7 @@ const PeopleTable: FC<PeopleTableProps> = ({
     }
   }, [debouncedSearch, searchTerm])
 
-  const columns: GridColDef[] = useMemo(
+  const columns: GridColumns = useMemo(
     () => [
       ...(showName ? [{ field: 'name', headerName: 'Name', width: 240 }] : []),
       { field: 'email', headerName: 'Email', width: 400 },
@@ -152,35 +147,22 @@ const PeopleTable: FC<PeopleTableProps> = ({
           )}
         </Flex>
       </Flex>
-      <Box position="relative">
-        {loading && (
-          <LinearProgress
-            sx={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, borderRadius: '4px 4px 0 0' }}
-          />
-        )}
-        <TableGrid
-          sx={{
-            '.MuiDataGrid-virtualScroller': { ...(loading ? { opacity: 0.5 } : {}) },
-            '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' }
-          }}
-          sortModel={sortModel}
-          onSortModelChange={handleSort}
-          localeText={{
-            noRowsLabel: filters.query ? `No users found matching the search term "${filters.query}"` : 'No users'
-          }}
-          pagination
-          rowCount={totalRecords}
-          sortingMode="server"
-          paginationMode="server"
-          page={pageParams.page}
-          onPageChange={(page) => setPageParams({ page })}
-          pageSize={pageParams.size}
-          onPageSizeChange={(size) => setPageParams({ size })}
-          rows={data}
-          columns={columns}
-          {...props}
-        />
-      </Box>
+      <TableGrid
+        sortModel={sortModel}
+        onSortModelChange={handleSort}
+        localeText={{
+          noRowsLabel: filters.query ? `No users found matching the search term "${filters.query}"` : 'No users'
+        }}
+        sortingMode="server"
+        paginationMode="server"
+        page={pageParams.page}
+        onPageChange={(page) => setPageParams({ page })}
+        pageSize={pageParams.size}
+        onPageSizeChange={(size) => setPageParams({ size })}
+        rows={data}
+        columns={columns}
+        {...props}
+      />
     </>
   )
 }
