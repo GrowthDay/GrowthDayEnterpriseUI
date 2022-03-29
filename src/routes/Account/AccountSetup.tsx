@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  Link,
   Step,
   StepContent,
   StepIcon,
@@ -20,8 +19,6 @@ import useUpdateOrganizationMutation from '../../api/mutations/useUpdateOrganiza
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Flex from '../../components/Flex'
 import VideoPlayer from '../../components/VideoPlayer'
-import useCopyToClipboard from '../../hooks/useCopyToClipboard'
-import useInvitationLink from '../../hooks/useInvitationLink'
 
 // Todo: Update video link
 
@@ -54,8 +51,6 @@ export type AccountSetupProps = {
 
 const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
   const { data: organization } = useOrganizationQuery()
-  const invitationLink = useInvitationLink()
-  const [, copy] = useCopyToClipboard()
   const { enqueueSnackbar } = useSnackbar()
   const { mutateAsync, isLoading } = useUpdateOrganizationMutation()
   const [organizationName, setOrganizationName] = useState(organization?.name ?? '')
@@ -68,11 +63,6 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
     resetOrganizationNameState()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [organization?.name])
-
-  const handleCopy = () => {
-    copy(invitationLink)
-    enqueueSnackbar('Copied!')
-  }
 
   const handleSave = () => {
     mutateAsync({
@@ -160,21 +150,6 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
                 </Typography>
                 <Button onClick={() => setInviteOpen(true)} variant="outlined" startIcon={<AddOutlined />}>
                   Invite members
-                </Button>
-              </StyledStepContent>
-            </Step>
-            <Step active>
-              <StepLabel StepIconComponent={StyledStepIcon}>
-                <Typography fontWeight={600}>Explain to the team how they can claim their account</Typography>
-              </StepLabel>
-              <StyledStepContent>
-                <Typography mb={2}>
-                  To sign up, the team members needs to know the link they will use to sign up:{' '}
-                  <Link>{invitationLink}</Link> and the email address that you have given us (for example, whether it is
-                  their work or personal email address)
-                </Typography>
-                <Button onClick={handleCopy} variant="outlined">
-                  Copy invite link
                 </Button>
               </StyledStepContent>
             </Step>

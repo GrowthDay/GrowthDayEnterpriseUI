@@ -65,8 +65,8 @@ const AccountTransactions: FC = () => {
         localeText={{ noRowsLabel: 'No transactions' }}
         sx={{ mb: 2 }}
         loading={isLoading}
-        density="compact"
         columns={columns}
+        rowHeight={40}
         rows={transactions ?? []}
       />
       <Typography mb={6} variant="body2" color="text.secondary">

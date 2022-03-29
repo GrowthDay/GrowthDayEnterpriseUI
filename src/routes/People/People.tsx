@@ -3,11 +3,9 @@ import { Skeleton, TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Card, CardContent, Divider, Tab, Typography } from '@mui/material'
 import { FC, useState } from 'react'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
-import CopyText from '../../components/CopyText'
 import Flex from '../../components/Flex'
 import Layout from '../../components/Layout'
 import Loading from '../../components/Loading'
-import useInvitationLink from '../../hooks/useInvitationLink'
 import useMobileView from '../../hooks/useMobileView'
 import AddMoreSeats from '../Account/AddMoreSeats'
 import usePeopleQuery from './hooks/usePeopleQuery'
@@ -18,7 +16,6 @@ import PeopleEmptyState from './PeopleEmptyState'
 
 const People: FC = () => {
   const { data: organization } = useOrganizationQuery()
-  const invitationLink = useInvitationLink()
   const mobileView = useMobileView()
   const [tab, setTab] = useState('1')
   const [inviteOpen, setInviteOpen] = useState(false)
@@ -56,7 +53,7 @@ const People: FC = () => {
     <>
       <InviteMembers open={inviteOpen} onClose={() => setInviteOpen(false)} />
       <AddMoreSeats open={addSeatsOpen} onClose={() => setAddSeatsOpen(false)} />
-      <Layout breadcrumbs="People" header={<CopyText label="Invite link:" text={invitationLink} />}>
+      <Layout breadcrumbs="People">
         <Card elevation={0} sx={{ mb: 4 }}>
           <CardContent
             sx={{

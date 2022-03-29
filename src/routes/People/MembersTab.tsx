@@ -20,7 +20,7 @@ const MembersTab: FC<PeopleTableProps> = (props) => {
       variant="outlined"
       sx={{ ml: 2, backgroundColor: (theme) => theme.palette.background.paper }}
     >
-      {mobileView ? 'Export' : 'Export as XLSX'}
+      {mobileView ? 'Export' : 'Export as CSV'}
     </LoadingButton>
   )
 
