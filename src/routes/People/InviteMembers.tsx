@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AddOutlined, CloseOutlined, FileUploadOutlined, InfoOutlined } from '@mui/icons-material'
+import { AddOutlined, CheckOutlined, CloseOutlined, FileUploadOutlined, InfoOutlined } from '@mui/icons-material'
 import { alpha } from '@mui/system/colorManipulator'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -35,7 +35,7 @@ import Loading from '../../components/Loading'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
 import { OrganizationUser } from '../../types/api'
-import roles, { renderRoleName } from '../../utils/roles'
+import roles, { renderRoleName, renderRoleNameById } from '../../utils/roles'
 import { fileToJson, jsonToXlsxFile, SheetFileTypes } from '../../utils/sheetsUtil'
 
 const Input = styled('input')({
@@ -217,7 +217,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   SelectProps={{
                     displayEmpty: true,
                     renderValue: (value) =>
-                      renderRoleName(roles.find((role) => role.id === (value as number))) || (
+                      renderRoleNameById(value as number) || (
                         <Typography color="text.disabled" component="span">
                           Role
                         </Typography>
@@ -225,8 +225,18 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   }}
                 >
                   {roles.map((role) => (
-                    <MenuItem value={role.id} key={role.id}>
-                      {renderRoleName(role)}
+                    <MenuItem
+                      value={role.id}
+                      key={role.id}
+                      sx={{
+                        minWidth: 140,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        '&:not(.Mui-selected) .MuiSvgIcon-root': { display: 'none' }
+                      }}
+                    >
+                      {renderRoleName(role)} <CheckOutlined sx={{ ml: 2 }} color="primary" fontSize="small" />
                     </MenuItem>
                   ))}
                 </FormInput>

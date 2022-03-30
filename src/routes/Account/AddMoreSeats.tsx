@@ -1,10 +1,12 @@
 import { LoadingButton } from '@mui/lab'
 import {
+  Box,
   Button,
   DialogActions,
   DialogContent,
   DialogProps,
   DialogTitle,
+  FormHelperText,
   Link,
   styled,
   Table,
@@ -14,6 +16,7 @@ import {
   TextField,
   Typography
 } from '@mui/material'
+import * as React from 'react'
 import { ChangeEvent, FC, useState } from 'react'
 import useUpdateSubscriptionMutation from '../../api/mutations/useUpdateSubscriptionMutation'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
@@ -57,6 +60,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   const totalCost = formatCurrency(perSeat * totalSeats)
   const proratedCost = formatCurrency(perSeat * totalSeats - (organization?.subscriptionAmount ?? 0))
   const maxSeats = 100 - (organization?.seats ?? 0)
+  const isInvalid = +count > maxSeats
 
   const handleCalculate = () => {
     if (intCount > 0) {
@@ -112,16 +116,16 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
     <>
       <DialogTitle id={titleLabelledBy}>Add more seats</DialogTitle>
       <DialogContent>
-        <Flex mb={3} alignItems="flex-end">
+        <Flex alignItems="flex-end">
           <TextField
-            inputProps={{ min: 0, max: maxSeats }}
+            error={isInvalid}
             label="Number of extra seats"
             type="number"
             value={count}
             onChange={handleChange}
           />
           <Button
-            disabled={isNaN(intCount) || intCount === 0 || calculatedCount === intCount}
+            disabled={isInvalid || isNaN(intCount) || intCount === 0 || calculatedCount === intCount}
             onClick={handleCalculate}
             sx={{ ml: 2, mb: 0.5 }}
             variant="outlined"
@@ -129,6 +133,15 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             Calculate
           </Button>
         </Flex>
+        {isInvalid && (
+          <FormHelperText error sx={{ mt: 1 }}>
+            If you are buying more than 100 seats,{' '}
+            <Link href="https://www.growthday.com/enterprise" target="_blank">
+              schedule a demo
+            </Link>
+          </FormHelperText>
+        )}
+        <Box mb={3} />
         <Table size="small">
           <TableHead>
             <StyledPrimaryTableCellHeader>Price breakdown</StyledPrimaryTableCellHeader>

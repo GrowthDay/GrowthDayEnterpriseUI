@@ -138,7 +138,10 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body2" mb={2}>
-            If you are buying more than 100 seats, <Link>schedule a demo</Link>
+            If you are buying more than 100 seats,{' '}
+            <Link href="https://www.growthday.com/enterprise" target="_blank">
+              schedule a demo
+            </Link>
           </Typography>
           <Typography variant="body2">You will be billed annually. Cancel at any time.</Typography>
         </Grid>

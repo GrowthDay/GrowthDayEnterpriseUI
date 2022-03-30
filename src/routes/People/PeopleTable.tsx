@@ -1,4 +1,4 @@
-import { SearchOutlined } from '@mui/icons-material'
+import { CheckOutlined, SearchOutlined } from '@mui/icons-material'
 import { InputAdornment, InputBase, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { SelectInputProps } from '@mui/material/Select/SelectInput'
 import { GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
@@ -13,7 +13,7 @@ import Flex from '../../components/Flex'
 import TableGrid from '../../components/TableGrid'
 import { OrganizationUser } from '../../types/api'
 import { PaginationParams } from '../../types/ui/pagination'
-import roles, { renderRoleName } from '../../utils/roles'
+import roles, { renderRoleName, renderRoleNameById } from '../../utils/roles'
 
 export type PeopleTableProps = Partial<DataGridProProps> & {
   data?: OrganizationUser[]
@@ -43,10 +43,21 @@ const RenderRole = (params: GridRenderCellParams<number, OrganizationUser>) => {
       value={params.value}
       input={<InputBase />}
       MenuProps={{ PaperProps: { elevation: 4 } }}
+      renderValue={(value) => renderRoleNameById(value)}
     >
       {roles.map((role) => (
-        <MenuItem value={role.id} key={role.id}>
-          {renderRoleName(role)}
+        <MenuItem
+          sx={{
+            minWidth: 140,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            '&:not(.Mui-selected) .MuiSvgIcon-root': { display: 'none' }
+          }}
+          value={role.id}
+          key={role.id}
+        >
+          {renderRoleName(role)} <CheckOutlined sx={{ ml: 2 }} color="primary" fontSize="small" />
         </MenuItem>
       ))}
     </Select>

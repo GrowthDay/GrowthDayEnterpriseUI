@@ -15,4 +15,6 @@ const roles = [
 
 export default roles
 
+export const renderRoleNameById = (roleId?: number) =>
+  roles.find((role) => role.id === roleId)?.name?.replace('Enterprise', '')
 export const renderRoleName = (role?: typeof roles[0]) => role?.name?.replace('Enterprise', '')

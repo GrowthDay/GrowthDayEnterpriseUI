@@ -18,7 +18,11 @@ const useExportOrganizationUsersMutation = (
   const { enqueueSnackbar } = useSnackbar()
   return useMutation(
     EXPORT_ORGANIZATION_USERS_MUTATION_KEY,
-    () => axiosGrowthDay.get<PagedResultOrganizationUser>('/organizationUsers', { params: { offset: 0, limit: 0 } }),
+    () =>
+      // axiosGrowthDay.get<PagedResultOrganizationUser>('/organizationUsers/download', {
+      //   params: { offset: 0, limit: 0 }
+      // }),
+      axiosGrowthDay.get<PagedResultOrganizationUser>('/organizationUsers', { params: { offset: 0, limit: 0 } }),
     {
       ...options,
       onMutate: (...rest) => {

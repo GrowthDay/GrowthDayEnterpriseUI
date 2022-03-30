@@ -6,8 +6,6 @@ import useMobileView from '../../hooks/useMobileView'
 import PeopleEmptyState from './PeopleEmptyState'
 import PeopleTable, { PeopleTableProps } from './PeopleTable'
 
-// Todo: Download csv file from backend
-
 const MembersTab: FC<PeopleTableProps> = (props) => {
   const mobileView = useMobileView()
   const { mutateAsync, isLoading } = useExportOrganizationUsersMutation()
@@ -20,7 +18,7 @@ const MembersTab: FC<PeopleTableProps> = (props) => {
       variant="outlined"
       sx={{ ml: 2, backgroundColor: (theme) => theme.palette.background.paper }}
     >
-      {mobileView ? 'Export' : 'Export as CSV'}
+      {mobileView ? 'Export' : 'Export as XLSX'}
     </LoadingButton>
   )
 

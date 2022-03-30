@@ -2,12 +2,14 @@ import { AddOutlined } from '@mui/icons-material'
 import { Skeleton, TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Card, CardContent, Divider, Tab, Typography } from '@mui/material'
 import { FC, useState } from 'react'
+import { useRecoilState } from 'recoil'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Flex from '../../components/Flex'
 import Layout from '../../components/Layout'
 import Loading from '../../components/Loading'
 import useMobileView from '../../hooks/useMobileView'
 import AddMoreSeats from '../Account/AddMoreSeats'
+import peopleTabState from './atoms/peopleTabState'
 import usePeopleQuery from './hooks/usePeopleQuery'
 import InviteMembers from './InviteMembers'
 import MembersTab from './MembersTab'
@@ -17,7 +19,7 @@ import PeopleEmptyState from './PeopleEmptyState'
 const People: FC = () => {
   const { data: organization } = useOrganizationQuery()
   const mobileView = useMobileView()
-  const [tab, setTab] = useState('1')
+  const [tab, setTab] = useRecoilState(peopleTabState)
   const [inviteOpen, setInviteOpen] = useState(false)
   const [addSeatsOpen, setAddSeatsOpen] = useState(false)
 
