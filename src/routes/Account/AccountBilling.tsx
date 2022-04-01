@@ -54,7 +54,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
           }}
         >
           <Grid spacing={4} container wrap="wrap">
-            <Grid item xs>
+            <Grid whiteSpace="nowrap" item xs>
               <Typography gutterBottom variant="body2" color="text.disabled">
                 Plan
               </Typography>
@@ -62,7 +62,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 {organization?.planName} {organization?.planFrequency && frequencyMap[organization.planFrequency]}
               </Typography>
             </Grid>
-            <Grid item xs>
+            <Grid whiteSpace="nowrap" item xs>
               <Typography gutterBottom variant="body2" color="text.disabled">
                 Seats
               </Typography>
@@ -70,7 +70,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 {organization?.seats}
               </Typography>
             </Grid>
-            <Grid item xs>
+            <Grid whiteSpace="nowrap" item xs>
               <Typography gutterBottom variant="body2" color="text.disabled">
                 {organization?.planFrequency && paymentFrequencyMap[organization.planFrequency]} payment
               </Typography>
@@ -78,7 +78,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 {formatCurrency(organization?.subscriptionAmount)}
               </Typography>
             </Grid>
-            <Grid item xs>
+            <Grid whiteSpace="nowrap" item xs>
               <Typography gutterBottom variant="body2" color="text.disabled">
                 {organization?.subscriptionCancelled ? 'Expires on' : 'Next payment due'}
               </Typography>

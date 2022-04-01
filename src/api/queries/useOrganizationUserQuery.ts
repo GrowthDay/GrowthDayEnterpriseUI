@@ -12,6 +12,8 @@ export type IUser = OrganizationUser &
   UserMetadata & {
     firstName?: string
     lastName?: string
+    profileImageKey?: string
+    profileImage?: string
   }
 
 const useOrganizationUserQuery = (
@@ -23,11 +25,16 @@ const useOrganizationUserQuery = (
     () =>
       Promise.all([
         axiosGrowthDay.get<OrganizationUser[]>('/organizationUsers/me').then((res) => res[0]),
-        axiosGrowthDay.get<UserRequest & UserMetadata>(`/me`)
-      ]).then(([organizationUser, me]): IUser => {
+        axiosGrowthDay.get<UserRequest & UserMetadata & { profileImageKey?: string }>('/me')
+      ]).then(async ([organizationUser, me]): Promise<IUser> => {
+        let profileImage = ''
+        if (me.profileImageKey) {
+          profileImage = await axiosGrowthDay.get<any>('/users/profilePic').then((res) => res?.profilePicUrl)
+        }
         const [firstName, ...rest] = organizationUser?.name?.split(' ') ?? []
         return {
           ...me,
+          profileImage,
           firstName: firstName?.trim() ?? '',
           lastName: rest?.join(' ')?.trim() ?? '',
           ...organizationUser

@@ -23,12 +23,12 @@ const ProfileMenu: FC<PopupState> = ({ children, ...popupState }) => {
         </ListItemIcon>
         <ListItemText>Contact support</ListItemText>
       </MenuItem>
-      <MenuItem divider onClick={() => handleExternalLink('https://www.growthday.com/enterprise')} dense>
-        <ListItemIcon>
-          <DescriptionOutlined fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Resources</ListItemText>
-      </MenuItem>
+      {/*<MenuItem divider onClick={() => handleExternalLink('https://www.growthday.com/enterprise')} dense>*/}
+      {/*  <ListItemIcon>*/}
+      {/*    <DescriptionOutlined fontSize="small" />*/}
+      {/*  </ListItemIcon>*/}
+      {/*  <ListItemText>Resources</ListItemText>*/}
+      {/*</MenuItem>*/}
       <MenuItem onClick={handleLogout} dense>
         <ListItemIcon>
           <LogoutOutlined fontSize="small" />

@@ -51,7 +51,10 @@ const Header: FC<HeaderProps> = ({ setupMode }) => {
               </Link>
             )}
             <IconButton size="small" {...(setupMode ? {} : bindTrigger(popupState))}>
-              <Avatar sx={{ width: 36, height: 36, backgroundColor: 'primary.light' }}>
+              <Avatar
+                {...(user?.profileImage ? { src: user?.profileImage } : {})}
+                sx={{ width: 36, height: 36, backgroundColor: 'primary.light' }}
+              >
                 {user?.firstName?.slice(0, 1)}
               </Avatar>
             </IconButton>

@@ -37,12 +37,12 @@ import Loading from '../../components/Loading'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
 import useFormPersist from '../../hooks/useFormPersist'
+import useMobileView from '../../hooks/useMobileView'
 import { OrganizationUser } from '../../types/api'
 import getPrefixedKey from '../../utils/getPrefixedKey'
 import roles, { renderRoleName, renderRoleNameById } from '../../utils/roles'
 import { fileToJson, jsonToXlsxFile, SheetFileTypes } from '../../utils/sheetsUtil'
 import invitePollingState from './atoms/invitePollingState'
-import peopleTabState from './atoms/peopleTabState'
 
 const Input = styled('input')({
   display: 'none'
@@ -90,6 +90,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const { mutateAsync, isLoading } = useInviteUsersInOrganizationMutation()
   const { data, isLoading: isLoadingSeats } = useOrganizationUsersQuery({ page: 0, size: 1 }, {}, { cacheTime: 0 })
   const { data: organization } = useOrganizationQuery()
+  const mobileView = useMobileView()
   const seatsLeft = (organization?.seats ?? 0) - (data?.totalRecords ?? 0)
   const canInvite = seatsLeft > 0
   const disabled = isLoadingSeats || !canInvite
@@ -153,6 +154,23 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     }
   }
 
+  const addMoreButton = (
+    <Tooltip title={canInvite ? '' : errorMessage}>
+      <span>
+        <Button
+          disabled={disabled || seatsLeft <= fields.length}
+          size="small"
+          sx={{ mb: 0.5 }}
+          onClick={handleAppend}
+          variant="outlined"
+          startIcon={<AddOutlined />}
+        >
+          Add more
+        </Button>
+      </span>
+    </Tooltip>
+  )
+
   return (
     <>
       <DialogContent ref={contentRef}>
@@ -209,7 +227,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         >
           {fields.map((item, index) => (
             <Grid mb={2} spacing={2} container key={item.id}>
-              <Grid alignItems="flex-end" container item xs={5}>
+              <Grid alignItems="flex-end" container item xs={mobileView ? 7 : 5}>
                 <FormInput
                   disabled={disabled}
                   placeholder="example@email.com"
@@ -218,7 +236,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   type="email"
                 />
               </Grid>
-              <Grid alignItems="flex-end" container item xs={fields.length > 1 ? 3 : 4}>
+              <Grid alignItems="flex-end" container item xs={(fields.length > 1 ? 3 : 4) + (mobileView ? 1 : 0)}>
                 <FormInput
                   disabled={disabled}
                   placeholder="Role"
@@ -258,26 +276,14 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   </IconButton>
                 </Grid>
               )}
-              {index === fields.length - 1 && (
+              {!mobileView && index === fields.length - 1 && (
                 <Grid alignItems="flex-end" container item xs={3}>
-                  <Tooltip title={canInvite ? '' : errorMessage}>
-                    <span>
-                      <Button
-                        disabled={disabled || seatsLeft <= fields.length}
-                        size="small"
-                        sx={{ mb: 0.5 }}
-                        onClick={handleAppend}
-                        variant="outlined"
-                        startIcon={<AddOutlined />}
-                      >
-                        Add more
-                      </Button>
-                    </span>
-                  </Tooltip>
+                  {addMoreButton}
                 </Grid>
               )}
             </Grid>
           ))}
+          {mobileView && addMoreButton}
         </Form>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-between' }}>

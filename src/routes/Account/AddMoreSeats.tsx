@@ -22,6 +22,7 @@ import useUpdateSubscriptionMutation from '../../api/mutations/useUpdateSubscrip
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Flex from '../../components/Flex'
 import withDialog from '../../hoc/withDialog'
+import useMobileView from '../../hooks/useMobileView'
 import { formatCurrency } from '../../utils/formatters'
 
 // TODO: Prorated amount
@@ -53,6 +54,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   const [count, setCount] = useState('0')
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [calculatedCount, setCalculatedCount] = useState(0)
+  const mobileView = useMobileView()
 
   const intCount = parseInt(count)
   const perSeat = (organization?.subscriptionAmount ?? 0) / (organization?.seats ?? 1)
@@ -136,7 +138,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
         {isInvalid && (
           <FormHelperText error sx={{ mt: 1 }}>
             If you are buying more than 100 seats,{' '}
-            <Link href="https://www.growthday.com/enterprise" target="_blank">
+            <Link href="mailto:support@growthday.com" target="_blank">
               schedule a demo
             </Link>
           </FormHelperText>
@@ -164,6 +166,17 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             <StyledTableCell>{calculatedCount ? totalCost : '-'}</StyledTableCell>
           </TableBody>
           <TableBody>
+            <StyledPrimaryTableCell>
+              <Box mt={2} />
+            </StyledPrimaryTableCell>
+            <StyledTableCell>
+              <Box mt={2} />
+            </StyledTableCell>
+            <StyledTableCell>
+              <Box mt={2} />
+            </StyledTableCell>
+          </TableBody>
+          <TableBody>
             <StyledPrimaryTableCell colSpan={2}>
               Prorated bill (for the remainder of the current year)
             </StyledPrimaryTableCell>
@@ -181,7 +194,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           </Button>
         </Flex>
         <Typography variant="body2" color="text.secondary">
-          Need help?{' '}
+          {!mobileView && <>Need help? </>}
           <Link target="_blank" href="mailto:support@growthday.com">
             Contact support
           </Link>

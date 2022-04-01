@@ -82,8 +82,8 @@ const People: FC = () => {
               <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600}>
                 {isLoading ? (
                   <>
-                    <Skeleton height={14} width={120} />
-                    <Skeleton height={14} width={96} />
+                    <Skeleton height={14} width={80} />
+                    <Skeleton height={14} width={72} />
                   </>
                 ) : (
                   <>

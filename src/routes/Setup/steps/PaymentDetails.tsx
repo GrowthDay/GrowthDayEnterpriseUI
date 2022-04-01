@@ -139,7 +139,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
         <Grid item xs={12}>
           <Typography variant="body2" mb={2}>
             If you are buying more than 100 seats,{' '}
-            <Link href="https://www.growthday.com/enterprise" target="_blank">
+            <Link href="mailto:support@growthday.com" target="_blank">
               schedule a demo
             </Link>
           </Typography>
