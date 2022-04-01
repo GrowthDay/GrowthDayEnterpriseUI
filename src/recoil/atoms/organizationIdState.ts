@@ -9,7 +9,7 @@ export type OrganizationIdStateType = string | null
 const organizationIdState = atom<OrganizationIdStateType>({
   key,
   default: null,
-  effects_UNSTABLE: [StorageEffect(key, window.sessionStorage)]
+  effects: [StorageEffect(key, window.sessionStorage)]
 })
 
 export default organizationIdState

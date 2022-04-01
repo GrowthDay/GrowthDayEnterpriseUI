@@ -10,7 +10,7 @@ export type RedirectStateType = { from: Location } | null
 const redirectState = atom<RedirectStateType>({
   key,
   default: null,
-  effects_UNSTABLE: [StorageEffect(key, sessionStorage)]
+  effects: [StorageEffect(key, sessionStorage)]
 })
 
 export default redirectState

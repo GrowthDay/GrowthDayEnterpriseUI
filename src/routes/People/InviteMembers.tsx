@@ -21,9 +21,11 @@ import {
   Typography
 } from '@mui/material'
 import { camelCase, mapKeys, toLower } from 'lodash-es'
+import moment from 'moment'
 import urlJoin from 'proper-url-join'
 import { ChangeEvent, FC, useRef } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
+import { useSetRecoilState } from 'recoil'
 import * as yup from 'yup'
 import useInviteUsersInOrganizationMutation from '../../api/mutations/useInviteUsersInOrganizationMutation'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
@@ -34,9 +36,13 @@ import FormInput from '../../components/forms/FormInput'
 import Loading from '../../components/Loading'
 import config from '../../config'
 import withDialog from '../../hoc/withDialog'
+import useFormPersist from '../../hooks/useFormPersist'
 import { OrganizationUser } from '../../types/api'
+import getPrefixedKey from '../../utils/getPrefixedKey'
 import roles, { renderRoleName, renderRoleNameById } from '../../utils/roles'
 import { fileToJson, jsonToXlsxFile, SheetFileTypes } from '../../utils/sheetsUtil'
+import invitePollingState from './atoms/invitePollingState'
+import peopleTabState from './atoms/peopleTabState'
 
 const Input = styled('input')({
   display: 'none'
@@ -80,6 +86,7 @@ const errorMessage = 'You cannot invite more users as you have used all your sea
 
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
+  const setInvitePollingState = useSetRecoilState(invitePollingState)
   const { mutateAsync, isLoading } = useInviteUsersInOrganizationMutation()
   const { data, isLoading: isLoadingSeats } = useOrganizationUsersQuery({ page: 0, size: 1 }, {}, { cacheTime: 0 })
   const { data: organization } = useOrganizationQuery()
@@ -97,6 +104,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     control: methods.control,
     name: 'invitations'
   })
+  const { clear } = useFormPersist(getPrefixedKey('INVITE_MEMBERS'), methods)
 
   const handleSubmit = async (values: IInvitationRequest) => {
     if (canInvite) {
@@ -108,6 +116,8 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       }))
       const file = jsonToXlsxFile(data)
       await mutateAsync(file)
+      clear()
+      setInvitePollingState(moment().add(1, 'm').valueOf())
       onClose?.({}, 'backdropClick')
     }
   }
@@ -250,7 +260,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               )}
               {index === fields.length - 1 && (
                 <Grid alignItems="flex-end" container item xs={3}>
-                  <Tooltip title={errorMessage}>
+                  <Tooltip title={canInvite ? '' : errorMessage}>
                     <span>
                       <Button
                         disabled={disabled || seatsLeft <= fields.length}

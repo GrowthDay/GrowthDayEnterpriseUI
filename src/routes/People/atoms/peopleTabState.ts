@@ -7,7 +7,7 @@ const key = getPrefixedKey('PEOPLE_TAB')
 const peopleTabState = atom<string>({
   key,
   default: '1',
-  effects_UNSTABLE: [StorageEffect(key, window.sessionStorage)]
+  effects: [StorageEffect(key, window.sessionStorage)]
 })
 
 export default peopleTabState

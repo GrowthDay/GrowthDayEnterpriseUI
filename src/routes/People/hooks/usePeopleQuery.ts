@@ -1,5 +1,6 @@
 import { useReducer } from 'react'
 import { useQueryClient } from 'react-query'
+import { UseQueryOptions } from 'react-query/types/react/types'
 import useOrganizationUsersQuery, {
   getOrganizationUsersQueryKey,
   OrganizationUsersFilters
@@ -10,7 +11,19 @@ import { PaginationParams } from '../../../types/ui/pagination'
 const defaultPageParams: PaginationParams = { page: 0, size: 10 }
 const defaultFilters: OrganizationUsersFilters = {}
 
-const usePeopleQuery = (initialPageParams?: PaginationParams, initialFilters?: OrganizationUsersFilters) => {
+const usePeopleQuery = (
+  initialPageParams?: PaginationParams,
+  initialFilters?: OrganizationUsersFilters,
+  options?: Omit<
+    UseQueryOptions<
+      PagedResultOrganizationUser,
+      unknown,
+      PagedResultOrganizationUser,
+      ReturnType<typeof getOrganizationUsersQueryKey>
+    >,
+    'queryKey' | 'queryFn'
+  >
+) => {
   const queryClient = useQueryClient()
   const [pageParams, setPageParams] = useReducer(
     (prevState: PaginationParams, input: Partial<PaginationParams>) => ({ ...prevState, ...input }),
@@ -22,7 +35,7 @@ const usePeopleQuery = (initialPageParams?: PaginationParams, initialFilters?: O
     { ...defaultFilters, ...initialFilters }
   )
 
-  const queryResult = useOrganizationUsersQuery(pageParams, filters)
+  const queryResult = useOrganizationUsersQuery(pageParams, filters, options)
 
   const defaultData = queryClient.getQueryData<PagedResultOrganizationUser>(
     getOrganizationUsersQueryKey(

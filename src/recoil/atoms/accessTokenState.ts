@@ -9,7 +9,7 @@ export type AccessTokenStateType = string | null
 const accessTokenState = atom<AccessTokenStateType>({
   key,
   default: null,
-  effects_UNSTABLE: [StorageEffect(key)]
+  effects: [StorageEffect(key)]
 })
 
 export default accessTokenState

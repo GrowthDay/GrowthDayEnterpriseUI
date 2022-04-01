@@ -1,14 +1,16 @@
 import { AddOutlined } from '@mui/icons-material'
 import { Skeleton, TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Card, CardContent, Divider, Tab, Typography } from '@mui/material'
+import moment from 'moment'
 import { FC, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Flex from '../../components/Flex'
 import Layout from '../../components/Layout'
 import Loading from '../../components/Loading'
 import useMobileView from '../../hooks/useMobileView'
 import AddMoreSeats from '../Account/AddMoreSeats'
+import invitePollingState from './atoms/invitePollingState'
 import peopleTabState from './atoms/peopleTabState'
 import usePeopleQuery from './hooks/usePeopleQuery'
 import InviteMembers from './InviteMembers'
@@ -20,8 +22,11 @@ const People: FC = () => {
   const { data: organization } = useOrganizationQuery()
   const mobileView = useMobileView()
   const [tab, setTab] = useRecoilState(peopleTabState)
+  const pollingTime = useRecoilValue(invitePollingState)
   const [inviteOpen, setInviteOpen] = useState(false)
   const [addSeatsOpen, setAddSeatsOpen] = useState(false)
+
+  const shouldPoll = Boolean(pollingTime && pollingTime > moment().valueOf())
 
   const {
     defaultData: defaultPeople,
@@ -43,7 +48,7 @@ const People: FC = () => {
     setFilters: setInvitationsPendingFilters,
     pageParams: invitationsPendingPageParams,
     setPageParams: setInvitationsPendingPageParams
-  } = usePeopleQuery(undefined, { invitationPending: true })
+  } = usePeopleQuery(undefined, { invitationPending: true }, { refetchInterval: shouldPoll && 15 * 1000 })
 
   const isLoading = peopleLoading || invitationsPendingLoading
 
