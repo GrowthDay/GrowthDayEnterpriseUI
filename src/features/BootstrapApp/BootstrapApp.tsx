@@ -7,10 +7,11 @@ import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import Loading from '../../components/Loading'
 import accessTokenState from '../../recoil/atoms/accessTokenState'
+import { isAdminRole } from '../../utils/roles'
 
 const BootstrapApp: FC = () => {
   const accessToken = useRecoilValue(accessTokenState)
-  const { mutateAsync, isLoading: logoutLoading } = useLogoutMutation()
+  const { mutateAsync: logout, isLoading: logoutLoading } = useLogoutMutation()
   const [loading, setLoading] = useState(true)
   const { isLoading: userLoading, data: user } = useOrganizationUserQuery({
     enabled: Boolean(!logoutLoading && accessToken)
@@ -20,12 +21,13 @@ const BootstrapApp: FC = () => {
 
   useEffect(() => {
     ;(async () => {
-      if (user && !user.organizationId) {
-        await mutateAsync()
+      const shouldLogout = user && (!user.organizationId || !isAdminRole(user.roleId))
+      if (shouldLogout) {
+        await logout()
         setLoading(false)
       }
     })()
-  }, [user, mutateAsync])
+  }, [user, logout])
 
   useEffect(() => {
     if (!userLoading && !organizationLoading && (user ? user.organizationId : true)) {
