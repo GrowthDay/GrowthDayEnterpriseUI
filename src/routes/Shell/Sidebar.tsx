@@ -2,10 +2,12 @@ import { Drawer as MuiDrawer, styled, Theme, useMediaQuery } from '@mui/material
 import Box from '@mui/material/Box'
 import { DrawerProps } from '@mui/material/Drawer/Drawer'
 import { FC } from 'react'
-import { useRecoilState } from 'recoil'
+import { useLocation } from 'react-router-dom'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import Flex from '../../components/Flex'
 import useMobileView from '../../hooks/useMobileView'
 import useToggleValue from '../../hooks/useToggleValue'
+import useUpdateEffect from '../../hooks/useUpdateEffect'
 import sidebarState from '../../recoil/atoms/sidebarState'
 import NavMenu from './NavMenu'
 
@@ -21,6 +23,13 @@ const Sidebar: FC = ({ children }) => {
   const variant = useToggleValue<DrawerProps['variant']>(useMobileView('md'), 'temporary', 'permanent')
   const largeDevice = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'))
   const [open, setOpen] = useRecoilState(sidebarState)
+  const setSidebarState = useSetRecoilState(sidebarState)
+  const { pathname } = useLocation()
+
+  useUpdateEffect(() => {
+    setSidebarState(false)
+  }, [setSidebarState, pathname])
+
   return (
     <Flex pt={8}>
       <Drawer

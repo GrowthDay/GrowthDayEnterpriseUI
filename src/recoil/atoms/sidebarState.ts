@@ -5,7 +5,7 @@ const key = getPrefixedKey('SIDEBAR')
 
 const sidebarState = atom<boolean>({
   key,
-  default: true
+  default: false
 })
 
 export default sidebarState
