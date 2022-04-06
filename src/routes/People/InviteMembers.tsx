@@ -64,7 +64,7 @@ const validationSchema = yup
 
 const defaultValues: OrganizationUser = {
   email: '',
-  roleId: null as unknown as number
+  roleId: 3
 }
 
 type IInvitationRequest = {
@@ -105,7 +105,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     control: methods.control,
     name: 'invitations'
   })
-  const { clear } = useFormPersist(getPrefixedKey('INVITE_MEMBERS'), methods)
+  useFormPersist(getPrefixedKey('INVITE_MEMBERS'), methods)
 
   const handleSubmit = async (values: IInvitationRequest) => {
     if (canInvite) {
@@ -117,8 +117,8 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       }))
       const file = jsonToXlsxFile(data)
       await mutateAsync(file)
-      clear()
-      setInvitePollingState(moment().add(1, 'm').valueOf())
+      methods.reset({ invitations: [defaultValues] })
+      setInvitePollingState(moment().add(30, 's').valueOf())
       onClose?.({}, 'backdropClick')
     }
   }

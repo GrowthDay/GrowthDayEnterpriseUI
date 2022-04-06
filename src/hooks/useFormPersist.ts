@@ -22,7 +22,7 @@ const useFormPersist = <T>(
   { storage, exclude, include, onDataRestored, validate, dirty }: UseFormPersistOptions<T> = {}
 ) => {
   const values = JSON.stringify((watch as any)(include))
-  const getStorage = useCallback(() => storage || window.localStorage, [storage])
+  const getStorage = useCallback(() => storage || window.sessionStorage, [storage])
 
   useEffect(() => {
     const str = getStorage().getItem(key)

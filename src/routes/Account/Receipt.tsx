@@ -49,9 +49,16 @@ const Receipt: FC<ReceiptProps> = ({ transaction: _transaction }) => {
   const handlePrint = () => {
     const el = prepareInvoice()
     if (el) {
+      const styles = [
+        ...Array.from(document.querySelectorAll('style:not([data-emotion])')).map((style) => style.innerHTML),
+        ...Array.from(document.querySelectorAll('[data-emotion]')).flatMap(({ sheet }: any) =>
+          [...sheet.cssRules].map((rules) => rules.cssText)
+        )
+      ]
       PE.printElement(el, {
         pageTitle: `Receipt: ${transaction?.receiptId}`,
-        printMode: 'popup'
+        printMode: 'popup',
+        styles
       })
     }
   }

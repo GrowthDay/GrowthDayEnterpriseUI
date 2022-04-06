@@ -48,7 +48,7 @@ const People: FC = () => {
     setFilters: setInvitationsPendingFilters,
     pageParams: invitationsPendingPageParams,
     setPageParams: setInvitationsPendingPageParams
-  } = usePeopleQuery(undefined, { invitationPending: true }, { refetchInterval: shouldPoll && 15 * 1000 })
+  } = usePeopleQuery(undefined, { invitationPending: true }, { refetchInterval: shouldPoll && 5 * 1000 })
 
   const isLoading = peopleLoading || invitationsPendingLoading
 
