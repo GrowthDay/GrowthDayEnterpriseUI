@@ -2,6 +2,7 @@ import { LoadingButton } from '@mui/lab'
 import {
   Box,
   Button,
+  CircularProgress,
   DialogActions,
   DialogContent,
   DialogProps,
@@ -19,10 +20,13 @@ import {
 import * as React from 'react'
 import { ChangeEvent, FC, useState } from 'react'
 import useUpdateSubscriptionMutation from '../../api/mutations/useUpdateSubscriptionMutation'
+import useGetProratedAmountQuery from '../../api/queries/useGetProratedAmountQuery'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
+import useSubscriptionPlansQuery from '../../api/queries/useSubscriptionPlansQuery'
 import Flex from '../../components/Flex'
 import withDialog from '../../hoc/withDialog'
 import useMobileView from '../../hooks/useMobileView'
+import { OrganizationUpdateSubscription } from '../../types/api'
 import { formatCurrency } from '../../utils/formatters'
 
 // TODO: Prorated amount
@@ -50,19 +54,32 @@ const titleLabelledBy = 'add-seats-dialog-title'
 
 const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   const { data: organization } = useOrganizationQuery()
+  const { data: subscriptionPlans, isFetching: isSubscriptionLoading } = useSubscriptionPlansQuery()
   const { mutateAsync, isLoading } = useUpdateSubscriptionMutation()
   const [count, setCount] = useState('0')
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [calculatedCount, setCalculatedCount] = useState(0)
   const mobileView = useMobileView()
 
+  const plan = subscriptionPlans?.find((plan) => plan.stripeYearlyPriceId === organization?.stripePriceId)
+
   const intCount = parseInt(count)
-  const perSeat = (organization?.subscriptionAmount ?? 0) / (organization?.seats ?? 1)
+  const perSeat = plan?.yearlyAmount ?? 0
   const totalSeats = calculatedCount + (organization?.seats ?? 0)
   const totalCost = formatCurrency(perSeat * totalSeats)
-  const proratedCost = formatCurrency(perSeat * totalSeats - (organization?.subscriptionAmount ?? 0))
   const maxSeats = 100 - (organization?.seats ?? 0)
   const isInvalid = +count > maxSeats
+
+  const organizationUpdateSubscription: OrganizationUpdateSubscription = {
+    totalSeats,
+    stripePriceId: organization?.stripePriceId
+  }
+  const { data: proratedAmount, isFetching: isProratedAmountFetching } = useGetProratedAmountQuery(
+    organizationUpdateSubscription,
+    { enabled: (organizationUpdateSubscription.totalSeats ?? 0) > (organization?.seats ?? 0) }
+  )
+
+  const proratedCost = formatCurrency((proratedAmount?.subTotalInCents ?? 0) / 100)
 
   const handleCalculate = () => {
     if (intCount > 0) {
@@ -78,7 +95,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   }
 
   const handleSubmit = async () => {
-    await mutateAsync({ totalSeats, stripePriceId: organization?.stripePriceId })
+    await mutateAsync(organizationUpdateSubscription)
     onClose?.({}, 'backdropClick')
   }
 
@@ -89,12 +106,15 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           Adding {calculatedCount} seat{calculatedCount === 1 ? '' : 's'} to the plan
         </DialogTitle>
         <DialogContent>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>
+          <Typography color="text.secondary" mb={2}>
             You will be billed{' '}
             <Typography component="span" color="text.primary">
               {proratedCost}
             </Typography>{' '}
             and from next billing cycle the total amount will be {totalCost}. Do you want to continue?
+          </Typography>
+          <Typography mb={2} color="text.disabled" variant="body2">
+            State and local sales tax will be calculated on your final invoice.
           </Typography>
           <Flex alignItems="center">
             <LoadingButton onClick={handleSubmit} loading={isLoading} variant="text">
@@ -157,12 +177,16 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           </TableBody>
           <TableBody>
             <StyledPrimaryTableCell>Price per seat</StyledPrimaryTableCell>
-            <StyledTableCell>{formatCurrency(perSeat)}</StyledTableCell>
-            <StyledTableCell>{calculatedCount ? formatCurrency(perSeat) : '-'}</StyledTableCell>
+            <StyledTableCell>
+              {isSubscriptionLoading ? <CircularProgress size={14} /> : formatCurrency(perSeat)}
+            </StyledTableCell>
+            <StyledTableCell>
+              {calculatedCount ? isSubscriptionLoading ? <CircularProgress size={14} /> : formatCurrency(perSeat) : '-'}
+            </StyledTableCell>
           </TableBody>
           <TableBody>
             <StyledPrimaryTableCell>Annual bill</StyledPrimaryTableCell>
-            <StyledTableCell>{formatCurrency(organization?.subscriptionAmount)}</StyledTableCell>
+            <StyledTableCell>{formatCurrency((perSeat ?? 0) * (organization?.seats ?? 1))}</StyledTableCell>
             <StyledTableCell>{calculatedCount ? totalCost : '-'}</StyledTableCell>
           </TableBody>
           <TableBody>
@@ -180,13 +204,19 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             <StyledPrimaryTableCell colSpan={2}>
               Prorated bill (for the remainder of the current year)
             </StyledPrimaryTableCell>
-            <StyledTableCell>{calculatedCount ? proratedCost : '-'}</StyledTableCell>
+            <StyledTableCell>
+              {calculatedCount ? isProratedAmountFetching ? <CircularProgress size={14} /> : proratedCost : '-'}
+            </StyledTableCell>
           </TableBody>
         </Table>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-between' }}>
         <Flex alignItems="center">
-          <Button disabled={calculatedCount === 0} onClick={() => setShowConfirmation(true)} variant="contained">
+          <Button
+            disabled={calculatedCount === 0 || isProratedAmountFetching}
+            onClick={() => setShowConfirmation(true)}
+            variant="contained"
+          >
             Update billing
           </Button>
           <Button onClick={() => onClose?.({}, 'backdropClick')} variant="text" color="inherit" sx={{ ml: 1 }}>

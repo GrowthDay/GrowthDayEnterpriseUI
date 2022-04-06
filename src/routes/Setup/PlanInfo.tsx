@@ -74,7 +74,7 @@ const PlanInfo: FC<PlanInfoProps> = ({ plan }) => {
           {plan.name} Annual
         </Typography>
         <Typography gutterBottom textAlign="center" variant="body2" fontWeight={500}>
-          {formatCurrency(plan.yearlyAmount, plan.currency)}/year
+          {formatCurrency(plan.yearlyAmount ?? 0, plan.currency)}/year
         </Typography>
         <List>
           {bulletPoints.map((text, index) => (

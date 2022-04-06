@@ -3,6 +3,7 @@ import { UseMutationOptions } from 'react-query/types/react/types'
 import * as yup from 'yup'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { Organization, OrganizationUpdateSubscription } from '../../types/api'
+import { ORGANIZATION_PAYMENT_TRANSACTIONS_QUERY_KEY } from '../queries/useOrganizationPaymentTransactionsQuery'
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
 
 export const UPDATE_SUBSCRIPTION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'UPDATE_SUBSCRIPTION']
@@ -39,6 +40,7 @@ const useUpdateSubscriptionMutation = (
       ...options,
       onSuccess: (data, ...rest) => {
         queryClient.setQueryData(ORGANIZATION_QUERY_KEY, data)
+        queryClient.invalidateQueries(ORGANIZATION_PAYMENT_TRANSACTIONS_QUERY_KEY)
         return options.onSuccess?.(data, ...rest)
       }
     }

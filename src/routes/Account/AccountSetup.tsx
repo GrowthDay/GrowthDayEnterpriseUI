@@ -13,7 +13,6 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { useSnackbar } from 'notistack'
 import { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react'
 import useUpdateOrganizationMutation from '../../api/mutations/useUpdateOrganizationMutation'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
@@ -51,7 +50,6 @@ export type AccountSetupProps = {
 
 const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
   const { data: organization } = useOrganizationQuery()
-  const { enqueueSnackbar } = useSnackbar()
   const { mutateAsync, isLoading } = useUpdateOrganizationMutation()
   const [organizationName, setOrganizationName] = useState(organization?.name ?? '')
 

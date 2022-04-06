@@ -1,6 +1,9 @@
-.print-no-visible {
-  display: none;
+.print-ready .print-no-visible {
+  display: none !important;
 }
-.print-no-shadow {
-  box-shadow: none;
+.print-ready .print-no-shadow {
+  box-shadow: none !important;
+}
+.pe-body {
+  background-color: #fff;
 }

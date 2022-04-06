@@ -12,12 +12,26 @@
  * Do not edit the class manually.
  */
 
+import { ParticipantData } from './participant-data'
+
 /**
  *
  * @export
  * @interface GrowthGroupInstanceStatus
  */
 export interface GrowthGroupInstanceStatus {
+  /**
+   *
+   * @type {number}
+   * @memberof GrowthGroupInstanceStatus
+   */
+  actualEndTime?: number
+  /**
+   *
+   * @type {boolean}
+   * @memberof GrowthGroupInstanceStatus
+   */
+  cancelled?: boolean
   /**
    *
    * @type {boolean}
@@ -36,4 +50,10 @@ export interface GrowthGroupInstanceStatus {
    * @memberof GrowthGroupInstanceStatus
    */
   joinLimit?: number
+  /**
+   *
+   * @type {Array<ParticipantData>}
+   * @memberof GrowthGroupInstanceStatus
+   */
+  participants?: Array<ParticipantData>
 }

@@ -75,7 +75,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 {organization?.planFrequency && paymentFrequencyMap[organization.planFrequency]} payment
               </Typography>
               <Typography variant="h6" fontWeight={600}>
-                {formatCurrency(organization?.subscriptionAmount)}
+                {formatCurrency((organization?.subscriptionAmount ?? 0) / 100)}
               </Typography>
             </Grid>
             <Grid whiteSpace="nowrap" item xs>

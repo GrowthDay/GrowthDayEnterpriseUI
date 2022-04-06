@@ -20,6 +20,18 @@
 export interface GiftSubscription {
   /**
    *
+   * @type {boolean}
+   * @memberof GiftSubscription
+   */
+  buyerAutomaticTaxEnabled?: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof GiftSubscription
+   */
+  buyerCountry?: string
+  /**
+   *
    * @type {string}
    * @memberof GiftSubscription
    */
@@ -42,6 +54,18 @@ export interface GiftSubscription {
    * @memberof GiftSubscription
    */
   buyerPhoneNumber?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GiftSubscription
+   */
+  buyerRegion?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GiftSubscription
+   */
+  buyerZipCode?: string
   /**
    *
    * @type {string}

@@ -36,4 +36,10 @@ export interface SignupEnterpriseUserRequest {
    * @memberof SignupEnterpriseUserRequest
    */
   password?: string
+  /**
+   *
+   * @type {string}
+   * @memberof SignupEnterpriseUserRequest
+   */
+  token?: string
 }

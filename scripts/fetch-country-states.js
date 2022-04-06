@@ -44,7 +44,7 @@ const download = async () => {
 
   let json = fs.readJsonSync(inputPath)
   // const countryKeys = ['name', 'iso3', 'iso2', 'phone_code', 'region', 'emoji'];
-  const countryKeys = ['name', 'iso2', 'emoji']
+  const countryKeys = ['name', 'iso2', 'emoji', 'states', 'currency', 'currency_name', 'currency_symbol']
   const stateKeys = ['name', 'state_code']
   json = json
     .filter((country) => isSupportedCountry(country.iso2))

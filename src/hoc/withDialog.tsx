@@ -12,7 +12,12 @@ const withDialog =
     const mobileView = useMobileView()
     const allDialogProps = { ...dialogProps, ...props } as unknown as DialogProps
     return (
-      <Dialog fullScreen={mobileView} {...allDialogProps} aria-labelledby={title ? labelledByRef.current : undefined}>
+      <Dialog
+        fullScreen={mobileView}
+        closeAfterTransition
+        {...allDialogProps}
+        aria-labelledby={title ? labelledByRef.current : undefined}
+      >
         {allDialogProps.onClose && (
           <IconButton
             onClick={() => allDialogProps.onClose?.({}, 'backdropClick')}

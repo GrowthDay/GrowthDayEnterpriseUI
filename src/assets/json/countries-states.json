@@ -37,9 +37,20 @@
       { "name": "Takhar", "state_code": "TAK" },
       { "name": "Urozgan", "state_code": "URU" },
       { "name": "Zabul", "state_code": "ZAB" }
-    ]
+    ],
+    "currency": "AFN",
+    "currency_name": "Afghan afghani",
+    "currency_symbol": "؋"
   },
-  { "name": "Aland Islands", "iso2": "AX", "emoji": "🇦🇽", "states": [] },
+  {
+    "name": "Aland Islands",
+    "iso2": "AX",
+    "emoji": "🇦🇽",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Albania",
     "iso2": "AL",
@@ -92,7 +103,10 @@
       { "name": "Tropojë District", "state_code": "TP" },
       { "name": "Vlorë County", "state_code": "12" },
       { "name": "Vlorë District", "state_code": "VL" }
-    ]
+    ],
+    "currency": "ALL",
+    "currency_name": "Albanian lek",
+    "currency_symbol": "Lek"
   },
   {
     "name": "Algeria",
@@ -157,9 +171,20 @@
       { "name": "Tizi Ouzou", "state_code": "15" },
       { "name": "Tlemcen", "state_code": "13" },
       { "name": "Touggourt", "state_code": "55" }
-    ]
+    ],
+    "currency": "DZD",
+    "currency_name": "Algerian dinar",
+    "currency_symbol": "دج"
   },
-  { "name": "American Samoa", "iso2": "AS", "emoji": "🇦🇸", "states": [] },
+  {
+    "name": "American Samoa",
+    "iso2": "AS",
+    "emoji": "🇦🇸",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "US Dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Andorra",
     "iso2": "AD",
@@ -172,7 +197,10 @@
       { "name": "La Massana", "state_code": "04" },
       { "name": "Ordino", "state_code": "05" },
       { "name": "Sant Julià de Lòria", "state_code": "06" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Angola",
@@ -196,9 +224,20 @@
       { "name": "Moxico Province", "state_code": "MOX" },
       { "name": "Uíge Province", "state_code": "UIG" },
       { "name": "Zaire Province", "state_code": "ZAI" }
-    ]
+    ],
+    "currency": "AOA",
+    "currency_name": "Angolan kwanza",
+    "currency_symbol": "Kz"
   },
-  { "name": "Anguilla", "iso2": "AI", "emoji": "🇦🇮", "states": [] },
+  {
+    "name": "Anguilla",
+    "iso2": "AI",
+    "emoji": "🇦🇮",
+    "states": [],
+    "currency": "XCD",
+    "currency_name": "East Caribbean dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Antigua And Barbuda",
     "iso2": "AG",
@@ -212,7 +251,10 @@
       { "name": "Saint Paul Parish", "state_code": "06" },
       { "name": "Saint Peter Parish", "state_code": "07" },
       { "name": "Saint Philip Parish", "state_code": "08" }
-    ]
+    ],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Argentina",
@@ -243,7 +285,10 @@
       { "name": "Santiago del Estero", "state_code": "G" },
       { "name": "Tierra del Fuego", "state_code": "V" },
       { "name": "Tucumán", "state_code": "T" }
-    ]
+    ],
+    "currency": "ARS",
+    "currency_name": "Argentine peso",
+    "currency_symbol": "$"
   },
   {
     "name": "Armenia",
@@ -261,9 +306,20 @@
       { "name": "Tavush Region", "state_code": "TV" },
       { "name": "Vayots Dzor Region", "state_code": "VD" },
       { "name": "Yerevan", "state_code": "ER" }
-    ]
+    ],
+    "currency": "AMD",
+    "currency_name": "Armenian dram",
+    "currency_symbol": "֏"
   },
-  { "name": "Aruba", "iso2": "AW", "emoji": "🇦🇼", "states": [] },
+  {
+    "name": "Aruba",
+    "iso2": "AW",
+    "emoji": "🇦🇼",
+    "states": [],
+    "currency": "AWG",
+    "currency_name": "Aruban florin",
+    "currency_symbol": "ƒ"
+  },
   {
     "name": "Australia",
     "iso2": "AU",
@@ -277,7 +333,10 @@
       { "name": "Tasmania", "state_code": "TAS" },
       { "name": "Victoria", "state_code": "VIC" },
       { "name": "Western Australia", "state_code": "WA" }
-    ]
+    ],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Austria",
@@ -293,7 +352,10 @@
       { "name": "Upper Austria", "state_code": "4" },
       { "name": "Vienna", "state_code": "9" },
       { "name": "Vorarlberg", "state_code": "8" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Azerbaijan",
@@ -375,7 +437,10 @@
       { "name": "Zangilan District", "state_code": "ZAN" },
       { "name": "Zaqatala District", "state_code": "ZAQ" },
       { "name": "Zardab District", "state_code": "ZAR" }
-    ]
+    ],
+    "currency": "AZN",
+    "currency_name": "Azerbaijani manat",
+    "currency_symbol": "m"
   },
   {
     "name": "Bahrain",
@@ -387,7 +452,10 @@
       { "name": "Muharraq Governorate", "state_code": "15" },
       { "name": "Northern Governorate", "state_code": "17" },
       { "name": "Southern Governorate", "state_code": "14" }
-    ]
+    ],
+    "currency": "BHD",
+    "currency_name": "Bahraini dinar",
+    "currency_symbol": ".د.ب"
   },
   {
     "name": "Bangladesh",
@@ -464,7 +532,10 @@
       { "name": "Sylhet Division", "state_code": "G" },
       { "name": "Tangail District", "state_code": "63" },
       { "name": "Thakurgaon District", "state_code": "64" }
-    ]
+    ],
+    "currency": "BDT",
+    "currency_name": "Bangladeshi taka",
+    "currency_symbol": "৳"
   },
   {
     "name": "Barbados",
@@ -482,7 +553,10 @@
       { "name": "Saint Peter", "state_code": "09" },
       { "name": "Saint Philip", "state_code": "10" },
       { "name": "Saint Thomas", "state_code": "11" }
-    ]
+    ],
+    "currency": "BBD",
+    "currency_name": "Barbadian dollar",
+    "currency_symbol": "Bds$"
   },
   {
     "name": "Belarus",
@@ -496,7 +570,10 @@
       { "name": "Minsk Region", "state_code": "MI" },
       { "name": "Mogilev Region", "state_code": "MA" },
       { "name": "Vitebsk Region", "state_code": "VI" }
-    ]
+    ],
+    "currency": "BYN",
+    "currency_name": "Belarusian ruble",
+    "currency_symbol": "Br"
   },
   {
     "name": "Belgium",
@@ -516,7 +593,10 @@
       { "name": "Wallonia", "state_code": "WAL" },
       { "name": "Walloon Brabant", "state_code": "WBR" },
       { "name": "West Flanders", "state_code": "VWV" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Belize",
@@ -529,7 +609,10 @@
       { "name": "Orange Walk District", "state_code": "OW" },
       { "name": "Stann Creek District", "state_code": "SC" },
       { "name": "Toledo District", "state_code": "TOL" }
-    ]
+    ],
+    "currency": "BZD",
+    "currency_name": "Belize dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Benin",
@@ -548,7 +631,10 @@
       { "name": "Ouémé Department", "state_code": "OU" },
       { "name": "Plateau Department", "state_code": "PL" },
       { "name": "Zou Department", "state_code": "ZO" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Bermuda",
@@ -564,7 +650,10 @@
       { "name": "Smith's Parish,", "state_code": "SMI" },
       { "name": "Southampton Parish", "state_code": "SOU" },
       { "name": "Warwick Parish", "state_code": "WAR" }
-    ]
+    ],
+    "currency": "BMD",
+    "currency_name": "Bermudian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Bhutan",
@@ -590,7 +679,10 @@
       { "name": "Tsirang District", "state_code": "21" },
       { "name": "Wangdue Phodrang District", "state_code": "24" },
       { "name": "Zhemgang District", "state_code": "34" }
-    ]
+    ],
+    "currency": "BTN",
+    "currency_name": "Bhutanese ngultrum",
+    "currency_symbol": "Nu."
   },
   {
     "name": "Bolivia",
@@ -606,9 +698,20 @@
       { "name": "Potosí Department", "state_code": "P" },
       { "name": "Santa Cruz Department", "state_code": "S" },
       { "name": "Tarija Department", "state_code": "T" }
-    ]
+    ],
+    "currency": "BOB",
+    "currency_name": "Bolivian boliviano",
+    "currency_symbol": "Bs."
   },
-  { "name": "Bonaire, Sint Eustatius and Saba", "iso2": "BQ", "emoji": "🇧🇶", "states": [] },
+  {
+    "name": "Bonaire, Sint Eustatius and Saba",
+    "iso2": "BQ",
+    "emoji": "🇧🇶",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Bosnia and Herzegovina",
     "iso2": "BA",
@@ -627,7 +730,10 @@
       { "name": "Una-Sana Canton", "state_code": "01" },
       { "name": "West Herzegovina Canton", "state_code": "08" },
       { "name": "Zenica-Doboj Canton", "state_code": "04" }
-    ]
+    ],
+    "currency": "BAM",
+    "currency_name": "Bosnia and Herzegovina convertible mark",
+    "currency_symbol": "KM"
   },
   {
     "name": "Botswana",
@@ -644,7 +750,10 @@
       { "name": "North-West District", "state_code": "NW" },
       { "name": "South-East District", "state_code": "SE" },
       { "name": "Southern District", "state_code": "SO" }
-    ]
+    ],
+    "currency": "BWP",
+    "currency_name": "Botswana pula",
+    "currency_symbol": "P"
   },
   {
     "name": "Brazil",
@@ -678,9 +787,20 @@
       { "name": "São Paulo", "state_code": "SP" },
       { "name": "Sergipe", "state_code": "SE" },
       { "name": "Tocantins", "state_code": "TO" }
-    ]
+    ],
+    "currency": "BRL",
+    "currency_name": "Brazilian real",
+    "currency_symbol": "R$"
   },
-  { "name": "British Indian Ocean Territory", "iso2": "IO", "emoji": "🇮🇴", "states": [] },
+  {
+    "name": "British Indian Ocean Territory",
+    "iso2": "IO",
+    "emoji": "🇮🇴",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Brunei",
     "iso2": "BN",
@@ -690,7 +810,10 @@
       { "name": "Brunei-Muara District", "state_code": "BM" },
       { "name": "Temburong District", "state_code": "TE" },
       { "name": "Tutong District", "state_code": "TU" }
-    ]
+    ],
+    "currency": "BND",
+    "currency_name": "Brunei dollar",
+    "currency_symbol": "B$"
   },
   {
     "name": "Bulgaria",
@@ -725,7 +848,10 @@
       { "name": "Vidin Province", "state_code": "05" },
       { "name": "Vratsa Province", "state_code": "06" },
       { "name": "Yambol Province", "state_code": "28" }
-    ]
+    ],
+    "currency": "BGN",
+    "currency_name": "Bulgarian lev",
+    "currency_symbol": "Лв."
   },
   {
     "name": "Burkina Faso",
@@ -789,7 +915,10 @@
       { "name": "Ziro Province", "state_code": "ZIR" },
       { "name": "Zondoma Province", "state_code": "ZON" },
       { "name": "Zoundwéogo Province", "state_code": "ZOU" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Burundi",
@@ -814,7 +943,10 @@
       { "name": "Rumonge Province", "state_code": "RM" },
       { "name": "Rutana Province", "state_code": "RT" },
       { "name": "Ruyigi Province", "state_code": "RY" }
-    ]
+    ],
+    "currency": "BIF",
+    "currency_name": "Burundian franc",
+    "currency_symbol": "FBu"
   },
   {
     "name": "Cambodia",
@@ -845,7 +977,10 @@
       { "name": "Stung Treng", "state_code": "19" },
       { "name": "Svay Rieng", "state_code": "20" },
       { "name": "Takeo", "state_code": "21" }
-    ]
+    ],
+    "currency": "KHR",
+    "currency_name": "Cambodian riel",
+    "currency_symbol": "KHR"
   },
   {
     "name": "Cameroon",
@@ -862,7 +997,10 @@
       { "name": "South", "state_code": "SU" },
       { "name": "Southwest", "state_code": "SW" },
       { "name": "West", "state_code": "OU" }
-    ]
+    ],
+    "currency": "XAF",
+    "currency_name": "Central African CFA franc",
+    "currency_symbol": "FCFA"
   },
   {
     "name": "Canada",
@@ -882,7 +1020,10 @@
       { "name": "Quebec", "state_code": "QC" },
       { "name": "Saskatchewan", "state_code": "SK" },
       { "name": "Yukon", "state_code": "YT" }
-    ]
+    ],
+    "currency": "CAD",
+    "currency_name": "Canadian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Cape Verde",
@@ -912,9 +1053,20 @@
       { "name": "Sotavento Islands", "state_code": "S" },
       { "name": "Tarrafal", "state_code": "TA" },
       { "name": "Tarrafal de São Nicolau", "state_code": "TS" }
-    ]
+    ],
+    "currency": "CVE",
+    "currency_name": "Cape Verdean escudo",
+    "currency_symbol": "$"
   },
-  { "name": "Cayman Islands", "iso2": "KY", "emoji": "🇰🇾", "states": [] },
+  {
+    "name": "Cayman Islands",
+    "iso2": "KY",
+    "emoji": "🇰🇾",
+    "states": [],
+    "currency": "KYD",
+    "currency_name": "Cayman Islands dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Central African Republic",
     "iso2": "CF",
@@ -937,7 +1089,10 @@
       { "name": "Ouham-Pendé Prefecture", "state_code": "OP" },
       { "name": "Sangha-Mbaéré", "state_code": "SE" },
       { "name": "Vakaga Prefecture", "state_code": "VK" }
-    ]
+    ],
+    "currency": "XAF",
+    "currency_name": "Central African CFA franc",
+    "currency_symbol": "FCFA"
   },
   {
     "name": "Chad",
@@ -967,7 +1122,10 @@
       { "name": "Tandjilé Region", "state_code": "TA" },
       { "name": "Tibesti Region", "state_code": "TI" },
       { "name": "Wadi Fira Region", "state_code": "WF" }
-    ]
+    ],
+    "currency": "XAF",
+    "currency_name": "Central African CFA franc",
+    "currency_symbol": "FCFA"
   },
   {
     "name": "Chile",
@@ -990,7 +1148,10 @@
       { "name": "Región Metropolitana de Santiago", "state_code": "RM" },
       { "name": "Tarapacá", "state_code": "TA" },
       { "name": "Valparaíso", "state_code": "VS" }
-    ]
+    ],
+    "currency": "CLP",
+    "currency_name": "Chilean peso",
+    "currency_symbol": "$"
   },
   {
     "name": "China",
@@ -1031,10 +1192,29 @@
       { "name": "Xizang", "state_code": "XZ" },
       { "name": "Yunnan", "state_code": "YN" },
       { "name": "Zhejiang", "state_code": "ZJ" }
-    ]
+    ],
+    "currency": "CNY",
+    "currency_name": "Chinese yuan",
+    "currency_symbol": "¥"
   },
-  { "name": "Christmas Island", "iso2": "CX", "emoji": "🇨🇽", "states": [] },
-  { "name": "Cocos (Keeling) Islands", "iso2": "CC", "emoji": "🇨🇨", "states": [] },
+  {
+    "name": "Christmas Island",
+    "iso2": "CX",
+    "emoji": "🇨🇽",
+    "states": [],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
+  },
+  {
+    "name": "Cocos (Keeling) Islands",
+    "iso2": "CC",
+    "emoji": "🇨🇨",
+    "states": [],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Colombia",
     "iso2": "CO",
@@ -1073,7 +1253,10 @@
       { "name": "Valle del Cauca", "state_code": "VAC" },
       { "name": "Vaupés", "state_code": "VAU" },
       { "name": "Vichada", "state_code": "VID" }
-    ]
+    ],
+    "currency": "COP",
+    "currency_name": "Colombian peso",
+    "currency_symbol": "$"
   },
   {
     "name": "Comoros",
@@ -1083,7 +1266,10 @@
       { "name": "Anjouan", "state_code": "A" },
       { "name": "Grande Comore", "state_code": "G" },
       { "name": "Mohéli", "state_code": "M" }
-    ]
+    ],
+    "currency": "KMF",
+    "currency_name": "Comorian franc",
+    "currency_symbol": "CF"
   },
   {
     "name": "Congo",
@@ -1102,9 +1288,20 @@
       { "name": "Pointe-Noire", "state_code": "16" },
       { "name": "Pool Department", "state_code": "12" },
       { "name": "Sangha Department", "state_code": "13" }
-    ]
+    ],
+    "currency": "XAF",
+    "currency_name": "Central African CFA franc",
+    "currency_symbol": "FC"
   },
-  { "name": "Cook Islands", "iso2": "CK", "emoji": "🇨🇰", "states": [] },
+  {
+    "name": "Cook Islands",
+    "iso2": "CK",
+    "emoji": "🇨🇰",
+    "states": [],
+    "currency": "NZD",
+    "currency_name": "Cook Islands dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Costa Rica",
     "iso2": "CR",
@@ -1117,7 +1314,10 @@
       { "name": "Provincia de Cartago", "state_code": "C" },
       { "name": "Puntarenas Province", "state_code": "P" },
       { "name": "San José Province", "state_code": "SJ" }
-    ]
+    ],
+    "currency": "CRC",
+    "currency_name": "Costa Rican colón",
+    "currency_symbol": "₡"
   },
   {
     "name": "Cote D'Ivoire (Ivory Coast)",
@@ -1155,7 +1355,10 @@
       { "name": "Worodougou", "state_code": "14" },
       { "name": "Yamoussoukro", "state_code": "YM" },
       { "name": "Zanzan Region", "state_code": "ZZ" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Croatia",
@@ -1183,7 +1386,10 @@
       { "name": "Zadar County", "state_code": "13" },
       { "name": "Zagreb", "state_code": "21" },
       { "name": "Zagreb County", "state_code": "01" }
-    ]
+    ],
+    "currency": "HRK",
+    "currency_name": "Croatian kuna",
+    "currency_symbol": "kn"
   },
   {
     "name": "Cuba",
@@ -1206,9 +1412,20 @@
       { "name": "Sancti Spíritus Province", "state_code": "07" },
       { "name": "Santiago de Cuba Province", "state_code": "13" },
       { "name": "Villa Clara Province", "state_code": "05" }
-    ]
+    ],
+    "currency": "CUP",
+    "currency_name": "Cuban peso",
+    "currency_symbol": "$"
   },
-  { "name": "Curaçao", "iso2": "CW", "emoji": "🇨🇼", "states": [] },
+  {
+    "name": "Curaçao",
+    "iso2": "CW",
+    "emoji": "🇨🇼",
+    "states": [],
+    "currency": "ANG",
+    "currency_name": "Netherlands Antillean guilder",
+    "currency_symbol": "ƒ"
+  },
   {
     "name": "Cyprus",
     "iso2": "CY",
@@ -1220,7 +1437,10 @@
       { "name": "Limassol District (Leymasun)", "state_code": "02" },
       { "name": "Nicosia District (Lefkoşa)", "state_code": "01" },
       { "name": "Paphos District (Pafos)", "state_code": "05" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Czech Republic",
@@ -1317,7 +1537,10 @@
       { "name": "Zlín", "state_code": "724" },
       { "name": "Zlínský kraj", "state_code": "72" },
       { "name": "Znojmo", "state_code": "647" }
-    ]
+    ],
+    "currency": "CZK",
+    "currency_name": "Czech koruna",
+    "currency_symbol": "Kč"
   },
   {
     "name": "Democratic Republic of the Congo",
@@ -1350,7 +1573,10 @@
       { "name": "Tanganyika", "state_code": "TA" },
       { "name": "Tshopo", "state_code": "TO" },
       { "name": "Tshuapa", "state_code": "TU" }
-    ]
+    ],
+    "currency": "CDF",
+    "currency_name": "Congolese Franc",
+    "currency_symbol": "FC"
   },
   {
     "name": "Denmark",
@@ -1362,7 +1588,10 @@
       { "name": "North Denmark Region", "state_code": "81" },
       { "name": "Region of Southern Denmark", "state_code": "83" },
       { "name": "Region Zealand", "state_code": "85" }
-    ]
+    ],
+    "currency": "DKK",
+    "currency_name": "Danish krone",
+    "currency_symbol": "Kr."
   },
   {
     "name": "Djibouti",
@@ -1375,7 +1604,10 @@
       { "name": "Djibouti", "state_code": "DJ" },
       { "name": "Obock Region", "state_code": "OB" },
       { "name": "Tadjourah Region", "state_code": "TA" }
-    ]
+    ],
+    "currency": "DJF",
+    "currency_name": "Djiboutian franc",
+    "currency_symbol": "Fdj"
   },
   {
     "name": "Dominica",
@@ -1392,7 +1624,10 @@
       { "name": "Saint Patrick Parish", "state_code": "09" },
       { "name": "Saint Paul Parish", "state_code": "10" },
       { "name": "Saint Peter Parish", "state_code": "11" }
-    ]
+    ],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Dominican Republic",
@@ -1430,7 +1665,10 @@
       { "name": "Santiago Rodríguez Province", "state_code": "26" },
       { "name": "Santo Domingo Province", "state_code": "32" },
       { "name": "Valverde Province", "state_code": "27" }
-    ]
+    ],
+    "currency": "DOP",
+    "currency_name": "Dominican peso",
+    "currency_symbol": "$"
   },
   {
     "name": "East Timor",
@@ -1449,7 +1687,10 @@
       { "name": "Manatuto District", "state_code": "MT" },
       { "name": "Manufahi Municipality", "state_code": "MF" },
       { "name": "Viqueque Municipality", "state_code": "VI" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Ecuador",
@@ -1480,7 +1721,10 @@
       { "name": "Sucumbíos", "state_code": "U" },
       { "name": "Tungurahua", "state_code": "T" },
       { "name": "Zamora Chinchipe", "state_code": "Z" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Egypt",
@@ -1514,7 +1758,10 @@
       { "name": "Sohag", "state_code": "SHG" },
       { "name": "South Sinai", "state_code": "JS" },
       { "name": "Suez", "state_code": "SUZ" }
-    ]
+    ],
+    "currency": "EGP",
+    "currency_name": "Egyptian pound",
+    "currency_symbol": "ج.م"
   },
   {
     "name": "El Salvador",
@@ -1535,7 +1782,10 @@
       { "name": "Santa Ana Department", "state_code": "SA" },
       { "name": "Sonsonate Department", "state_code": "SO" },
       { "name": "Usulután Department", "state_code": "US" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Equatorial Guinea",
@@ -1551,7 +1801,10 @@
       { "name": "Litoral Province", "state_code": "LI" },
       { "name": "Río Muni", "state_code": "C" },
       { "name": "Wele-Nzas Province", "state_code": "WN" }
-    ]
+    ],
+    "currency": "XAF",
+    "currency_name": "Central African CFA franc",
+    "currency_symbol": "FCFA"
   },
   {
     "name": "Eritrea",
@@ -1564,7 +1817,10 @@
       { "name": "Maekel Region", "state_code": "MA" },
       { "name": "Northern Red Sea Region", "state_code": "SK" },
       { "name": "Southern Red Sea Region", "state_code": "DK" }
-    ]
+    ],
+    "currency": "ERN",
+    "currency_name": "Eritrean nakfa",
+    "currency_symbol": "Nfk"
   },
   {
     "name": "Estonia",
@@ -1586,7 +1842,10 @@
       { "name": "Valga County", "state_code": "82" },
       { "name": "Viljandi County", "state_code": "84" },
       { "name": "Võru County", "state_code": "86" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Ethiopia",
@@ -1604,10 +1863,29 @@
       { "name": "Somali Region", "state_code": "SO" },
       { "name": "Southern Nations, Nationalities, and Peoples' Region", "state_code": "SN" },
       { "name": "Tigray Region", "state_code": "TI" }
-    ]
+    ],
+    "currency": "ETB",
+    "currency_name": "Ethiopian birr",
+    "currency_symbol": "Nkf"
   },
-  { "name": "Falkland Islands", "iso2": "FK", "emoji": "🇫🇰", "states": [] },
-  { "name": "Faroe Islands", "iso2": "FO", "emoji": "🇫🇴", "states": [] },
+  {
+    "name": "Falkland Islands",
+    "iso2": "FK",
+    "emoji": "🇫🇰",
+    "states": [],
+    "currency": "FKP",
+    "currency_name": "Falkland Islands pound",
+    "currency_symbol": "£"
+  },
+  {
+    "name": "Faroe Islands",
+    "iso2": "FO",
+    "emoji": "🇫🇴",
+    "states": [],
+    "currency": "DKK",
+    "currency_name": "Danish krone",
+    "currency_symbol": "Kr."
+  },
   {
     "name": "Fiji Islands",
     "iso2": "FJ",
@@ -1632,7 +1910,10 @@
       { "name": "Serua", "state_code": "13" },
       { "name": "Tailevu", "state_code": "14" },
       { "name": "Western Division", "state_code": "W" }
-    ]
+    ],
+    "currency": "FJD",
+    "currency_name": "Fijian dollar",
+    "currency_symbol": "FJ$"
   },
   {
     "name": "Finland",
@@ -1660,7 +1941,10 @@
       { "name": "Southern Savonia", "state_code": "04" },
       { "name": "Tavastia Proper", "state_code": "06" },
       { "name": "Uusimaa", "state_code": "18" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "France",
@@ -1790,10 +2074,29 @@
       { "name": "Wallis and Futuna", "state_code": "WF" },
       { "name": "Yonne", "state_code": "89" },
       { "name": "Yvelines", "state_code": "78" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "French Guiana", "iso2": "GF", "emoji": "🇬🇫", "states": [] },
-  { "name": "French Polynesia", "iso2": "PF", "emoji": "🇵🇫", "states": [] },
+  {
+    "name": "French Guiana",
+    "iso2": "GF",
+    "emoji": "🇬🇫",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
+  {
+    "name": "French Polynesia",
+    "iso2": "PF",
+    "emoji": "🇵🇫",
+    "states": [],
+    "currency": "XPF",
+    "currency_name": "CFP franc",
+    "currency_symbol": "₣"
+  },
   {
     "name": "Gabon",
     "iso2": "GA",
@@ -1808,7 +2111,10 @@
       { "name": "Ogooué-Lolo Province", "state_code": "7" },
       { "name": "Ogooué-Maritime Province", "state_code": "8" },
       { "name": "Woleu-Ntem Province", "state_code": "9" }
-    ]
+    ],
+    "currency": "XAF",
+    "currency_name": "Central African CFA franc",
+    "currency_symbol": "FCFA"
   },
   {
     "name": "Gambia The",
@@ -1821,7 +2127,10 @@
       { "name": "North Bank Division", "state_code": "N" },
       { "name": "Upper River Division", "state_code": "U" },
       { "name": "West Coast Division", "state_code": "W" }
-    ]
+    ],
+    "currency": "GMD",
+    "currency_name": "Gambian dalasi",
+    "currency_symbol": "D"
   },
   {
     "name": "Georgia",
@@ -1842,7 +2151,10 @@
       { "name": "Senaki Municipality", "state_code": "50" },
       { "name": "Shida Kartli", "state_code": "SK" },
       { "name": "Tbilisi", "state_code": "TB" }
-    ]
+    ],
+    "currency": "GEL",
+    "currency_name": "Georgian lari",
+    "currency_symbol": "ლ"
   },
   {
     "name": "Germany",
@@ -1865,7 +2177,10 @@
       { "name": "Saxony-Anhalt", "state_code": "ST" },
       { "name": "Schleswig-Holstein", "state_code": "SH" },
       { "name": "Thuringia", "state_code": "TH" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Ghana",
@@ -1888,9 +2203,20 @@
       { "name": "Volta", "state_code": "TV" },
       { "name": "Western", "state_code": "WP" },
       { "name": "Western North", "state_code": "WN" }
-    ]
+    ],
+    "currency": "GHS",
+    "currency_name": "Ghanaian cedi",
+    "currency_symbol": "GH₵"
   },
-  { "name": "Gibraltar", "iso2": "GI", "emoji": "🇬🇮", "states": [] },
+  {
+    "name": "Gibraltar",
+    "iso2": "GI",
+    "emoji": "🇬🇮",
+    "states": [],
+    "currency": "GIP",
+    "currency_name": "Gibraltar pound",
+    "currency_symbol": "£"
+  },
   {
     "name": "Greece",
     "iso2": "GR",
@@ -1934,9 +2260,20 @@
       { "name": "Thessaloniki Regional Unit", "state_code": "54" },
       { "name": "West Greece Region", "state_code": "G" },
       { "name": "West Macedonia Region", "state_code": "C" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "Greenland", "iso2": "GL", "emoji": "🇬🇱", "states": [] },
+  {
+    "name": "Greenland",
+    "iso2": "GL",
+    "emoji": "🇬🇱",
+    "states": [],
+    "currency": "DKK",
+    "currency_name": "Danish krone",
+    "currency_symbol": "Kr."
+  },
   {
     "name": "Grenada",
     "iso2": "GD",
@@ -1949,10 +2286,29 @@
       { "name": "Saint John Parish", "state_code": "04" },
       { "name": "Saint Mark Parish", "state_code": "05" },
       { "name": "Saint Patrick Parish", "state_code": "06" }
-    ]
+    ],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Guadeloupe", "iso2": "GP", "emoji": "🇬🇵", "states": [] },
-  { "name": "Guam", "iso2": "GU", "emoji": "🇬🇺", "states": [] },
+  {
+    "name": "Guadeloupe",
+    "iso2": "GP",
+    "emoji": "🇬🇵",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
+  {
+    "name": "Guam",
+    "iso2": "GU",
+    "emoji": "🇬🇺",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "US Dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Guatemala",
     "iso2": "GT",
@@ -1979,9 +2335,20 @@
       { "name": "Sololá Department", "state_code": "SO" },
       { "name": "Suchitepéquez Department", "state_code": "SU" },
       { "name": "Totonicapán Department", "state_code": "TO" }
-    ]
+    ],
+    "currency": "GTQ",
+    "currency_name": "Guatemalan quetzal",
+    "currency_symbol": "Q"
   },
-  { "name": "Guernsey and Alderney", "iso2": "GG", "emoji": "🇬🇬", "states": [] },
+  {
+    "name": "Guernsey and Alderney",
+    "iso2": "GG",
+    "emoji": "🇬🇬",
+    "states": [],
+    "currency": "GBP",
+    "currency_name": "British pound",
+    "currency_symbol": "£"
+  },
   {
     "name": "Guinea",
     "iso2": "GN",
@@ -2027,7 +2394,10 @@
       { "name": "Télimélé Prefecture", "state_code": "TE" },
       { "name": "Tougué Prefecture", "state_code": "TO" },
       { "name": "Yomou Prefecture", "state_code": "YO" }
-    ]
+    ],
+    "currency": "GNF",
+    "currency_name": "Guinean franc",
+    "currency_symbol": "FG"
   },
   {
     "name": "Guinea-Bissau",
@@ -2045,7 +2415,10 @@
       { "name": "Quinara Region", "state_code": "QU" },
       { "name": "Sul Province", "state_code": "S" },
       { "name": "Tombali Region", "state_code": "TO" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Guyana",
@@ -2062,7 +2435,10 @@
       { "name": "Potaro-Siparuni", "state_code": "PT" },
       { "name": "Upper Demerara-Berbice", "state_code": "UD" },
       { "name": "Upper Takutu-Upper Essequibo", "state_code": "UT" }
-    ]
+    ],
+    "currency": "GYD",
+    "currency_name": "Guyanese dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Haiti",
@@ -2079,7 +2455,10 @@
       { "name": "Ouest", "state_code": "OU" },
       { "name": "Sud", "state_code": "SD" },
       { "name": "Sud-Est", "state_code": "SE" }
-    ]
+    ],
+    "currency": "HTG",
+    "currency_name": "Haitian gourde",
+    "currency_symbol": "G"
   },
   {
     "name": "Honduras",
@@ -2104,7 +2483,10 @@
       { "name": "Santa Bárbara Department", "state_code": "SB" },
       { "name": "Valle Department", "state_code": "VA" },
       { "name": "Yoro Department", "state_code": "YO" }
-    ]
+    ],
+    "currency": "HNL",
+    "currency_name": "Honduran lempira",
+    "currency_symbol": "L"
   },
   {
     "name": "Hong Kong S.A.R.",
@@ -2129,7 +2511,10 @@
       { "name": "Wong Tai Sin", "state_code": "KWT" },
       { "name": "Yau Tsim Mong", "state_code": "KYT" },
       { "name": "Yuen Long District", "state_code": "NYL" }
-    ]
+    ],
+    "currency": "HKD",
+    "currency_name": "Hong Kong dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Hungary",
@@ -2178,7 +2563,10 @@
       { "name": "Veszprém County", "state_code": "VE" },
       { "name": "Zala County", "state_code": "ZA" },
       { "name": "Zalaegerszeg", "state_code": "ZE" }
-    ]
+    ],
+    "currency": "HUF",
+    "currency_name": "Hungarian forint",
+    "currency_symbol": "Ft"
   },
   {
     "name": "Iceland",
@@ -2193,7 +2581,10 @@
       { "name": "Southern Region", "state_code": "8" },
       { "name": "Western Region", "state_code": "3" },
       { "name": "Westfjords", "state_code": "4" }
-    ]
+    ],
+    "currency": "ISK",
+    "currency_name": "Icelandic króna",
+    "currency_symbol": "kr"
   },
   {
     "name": "India",
@@ -2236,7 +2627,10 @@
       { "name": "Uttar Pradesh", "state_code": "UP" },
       { "name": "Uttarakhand", "state_code": "UT" },
       { "name": "West Bengal", "state_code": "WB" }
-    ]
+    ],
+    "currency": "INR",
+    "currency_name": "Indian rupee",
+    "currency_symbol": "₹"
   },
   {
     "name": "Indonesia",
@@ -2277,7 +2671,10 @@
       { "name": "Sumatera Barat", "state_code": "SB" },
       { "name": "Sumatera Selatan", "state_code": "SS" },
       { "name": "Sumatera Utara", "state_code": "SU" }
-    ]
+    ],
+    "currency": "IDR",
+    "currency_name": "Indonesian rupiah",
+    "currency_symbol": "Rp"
   },
   {
     "name": "Iran",
@@ -2315,7 +2712,10 @@
       { "name": "West Azarbaijan", "state_code": "04" },
       { "name": "Yazd", "state_code": "21" },
       { "name": "Zanjan", "state_code": "19" }
-    ]
+    ],
+    "currency": "IRR",
+    "currency_name": "Iranian rial",
+    "currency_symbol": "﷼"
   },
   {
     "name": "Iraq",
@@ -2340,7 +2740,10 @@
       { "name": "Saladin Governorate", "state_code": "SD" },
       { "name": "Sulaymaniyah Governorate", "state_code": "SU" },
       { "name": "Wasit Governorate", "state_code": "WA" }
-    ]
+    ],
+    "currency": "IQD",
+    "currency_name": "Iraqi dinar",
+    "currency_symbol": "د.ع"
   },
   {
     "name": "Ireland",
@@ -2376,7 +2779,10 @@
       { "name": "Westmeath", "state_code": "WH" },
       { "name": "Wexford", "state_code": "WX" },
       { "name": "Wicklow", "state_code": "WW" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Israel",
@@ -2389,7 +2795,10 @@
       { "name": "Northern District", "state_code": "Z" },
       { "name": "Southern District", "state_code": "D" },
       { "name": "Tel Aviv District", "state_code": "TA" }
-    ]
+    ],
+    "currency": "ILS",
+    "currency_name": "Israeli new shekel",
+    "currency_symbol": "₪"
   },
   {
     "name": "Italy",
@@ -2524,7 +2933,10 @@
       { "name": "Tuscany", "state_code": "52" },
       { "name": "Umbria", "state_code": "55" },
       { "name": "Veneto", "state_code": "34" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Jamaica",
@@ -2545,7 +2957,10 @@
       { "name": "Saint Thomas Parish", "state_code": "03" },
       { "name": "Trelawny Parish", "state_code": "07" },
       { "name": "Westmoreland Parish", "state_code": "10" }
-    ]
+    ],
+    "currency": "JMD",
+    "currency_name": "Jamaican dollar",
+    "currency_symbol": "J$"
   },
   {
     "name": "Japan",
@@ -2599,9 +3014,20 @@
       { "name": "Yamagata Prefecture", "state_code": "06" },
       { "name": "Yamaguchi Prefecture", "state_code": "35" },
       { "name": "Yamanashi Prefecture", "state_code": "19" }
-    ]
+    ],
+    "currency": "JPY",
+    "currency_name": "Japanese yen",
+    "currency_symbol": "¥"
   },
-  { "name": "Jersey", "iso2": "JE", "emoji": "🇯🇪", "states": [] },
+  {
+    "name": "Jersey",
+    "iso2": "JE",
+    "emoji": "🇯🇪",
+    "states": [],
+    "currency": "GBP",
+    "currency_name": "British pound",
+    "currency_symbol": "£"
+  },
   {
     "name": "Jordan",
     "iso2": "JO",
@@ -2619,7 +3045,10 @@
       { "name": "Mafraq Governorate", "state_code": "MA" },
       { "name": "Tafilah Governorate", "state_code": "AT" },
       { "name": "Zarqa Governorate", "state_code": "AZ" }
-    ]
+    ],
+    "currency": "JOD",
+    "currency_name": "Jordanian dinar",
+    "currency_symbol": "ا.د"
   },
   {
     "name": "Kazakhstan",
@@ -2643,7 +3072,10 @@
       { "name": "Pavlodar Region", "state_code": "PAV" },
       { "name": "Turkestan Region", "state_code": "YUZ" },
       { "name": "West Kazakhstan Province", "state_code": "ZAP" }
-    ]
+    ],
+    "currency": "KZT",
+    "currency_name": "Kazakhstani tenge",
+    "currency_symbol": "лв"
   },
   {
     "name": "Kenya",
@@ -2697,7 +3129,10 @@
       { "name": "Vihiga", "state_code": "45" },
       { "name": "Wajir", "state_code": "46" },
       { "name": "West Pokot", "state_code": "47" }
-    ]
+    ],
+    "currency": "KES",
+    "currency_name": "Kenyan shilling",
+    "currency_symbol": "KSh"
   },
   {
     "name": "Kiribati",
@@ -2707,7 +3142,10 @@
       { "name": "Gilbert Islands", "state_code": "G" },
       { "name": "Line Islands", "state_code": "L" },
       { "name": "Phoenix Islands", "state_code": "P" }
-    ]
+    ],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Kosovo",
@@ -2721,7 +3159,10 @@
       { "name": "Pristina (Priştine)", "state_code": "XPI" },
       { "name": "Prizren District", "state_code": "XPR" },
       { "name": "Uroševac District (Ferizaj)", "state_code": "XUF" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Kuwait",
@@ -2734,7 +3175,10 @@
       { "name": "Capital Governorate", "state_code": "KU" },
       { "name": "Hawalli Governorate", "state_code": "HA" },
       { "name": "Mubarak Al-Kabeer Governorate", "state_code": "MU" }
-    ]
+    ],
+    "currency": "KWD",
+    "currency_name": "Kuwaiti dinar",
+    "currency_symbol": "ك.د"
   },
   {
     "name": "Kyrgyzstan",
@@ -2750,7 +3194,10 @@
       { "name": "Osh", "state_code": "GO" },
       { "name": "Osh Region", "state_code": "O" },
       { "name": "Talas Region", "state_code": "T" }
-    ]
+    ],
+    "currency": "KGS",
+    "currency_name": "Kyrgyzstani som",
+    "currency_symbol": "лв"
   },
   {
     "name": "Laos",
@@ -2776,7 +3223,10 @@
       { "name": "Xaisomboun", "state_code": "XN" },
       { "name": "Xaisomboun Province", "state_code": "XS" },
       { "name": "Xiangkhouang Province", "state_code": "XI" }
-    ]
+    ],
+    "currency": "LAK",
+    "currency_name": "Lao kip",
+    "currency_symbol": "₭"
   },
   {
     "name": "Latvia",
@@ -2901,7 +3351,10 @@
       { "name": "Viļaka Municipality", "state_code": "108" },
       { "name": "Viļāni Municipality", "state_code": "109" },
       { "name": "Zilupe Municipality", "state_code": "110" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Lebanon",
@@ -2916,7 +3369,10 @@
       { "name": "Nabatieh Governorate", "state_code": "NA" },
       { "name": "North Governorate", "state_code": "AS" },
       { "name": "South Governorate", "state_code": "JA" }
-    ]
+    ],
+    "currency": "LBP",
+    "currency_name": "Lebanese pound",
+    "currency_symbol": "£"
   },
   {
     "name": "Lesotho",
@@ -2933,7 +3389,10 @@
       { "name": "Qacha's Nek District", "state_code": "H" },
       { "name": "Quthing District", "state_code": "G" },
       { "name": "Thaba-Tseka District", "state_code": "K" }
-    ]
+    ],
+    "currency": "LSL",
+    "currency_name": "Lesotho loti",
+    "currency_symbol": "L"
   },
   {
     "name": "Liberia",
@@ -2955,7 +3414,10 @@
       { "name": "River Cess County", "state_code": "RI" },
       { "name": "River Gee County", "state_code": "RG" },
       { "name": "Sinoe County", "state_code": "SI" }
-    ]
+    ],
+    "currency": "LRD",
+    "currency_name": "Liberian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Libya",
@@ -2983,7 +3445,10 @@
       { "name": "Wadi al Hayaa District", "state_code": "WD" },
       { "name": "Wadi al Shatii District", "state_code": "WS" },
       { "name": "Zawiya District", "state_code": "ZA" }
-    ]
+    ],
+    "currency": "LYD",
+    "currency_name": "Libyan dinar",
+    "currency_symbol": "د.ل"
   },
   {
     "name": "Liechtenstein",
@@ -3001,7 +3466,10 @@
       { "name": "Triesen", "state_code": "09" },
       { "name": "Triesenberg", "state_code": "10" },
       { "name": "Vaduz", "state_code": "11" }
-    ]
+    ],
+    "currency": "CHF",
+    "currency_name": "Swiss franc",
+    "currency_symbol": "CHf"
   },
   {
     "name": "Lithuania",
@@ -3077,7 +3545,10 @@
       { "name": "Vilnius District Municipality", "state_code": "58" },
       { "name": "Visaginas Municipality", "state_code": "59" },
       { "name": "Zarasai District Municipality", "state_code": "60" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Luxembourg",
@@ -3099,9 +3570,20 @@
       { "name": "Diekirch District", "state_code": "D" },
       { "name": "Grevenmacher District", "state_code": "G" },
       { "name": "Luxembourg District", "state_code": "L" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "Macau S.A.R.", "iso2": "MO", "emoji": "🇲🇴", "states": [] },
+  {
+    "name": "Macau S.A.R.",
+    "iso2": "MO",
+    "emoji": "🇲🇴",
+    "states": [],
+    "currency": "MOP",
+    "currency_name": "Macanese pataca",
+    "currency_symbol": "$"
+  },
   {
     "name": "Macedonia",
     "iso2": "MK",
@@ -3191,7 +3673,10 @@
       { "name": "Zelenikovo Municipality", "state_code": "32" },
       { "name": "Želino Municipality", "state_code": "30" },
       { "name": "Zrnovci Municipality", "state_code": "33" }
-    ]
+    ],
+    "currency": "MKD",
+    "currency_name": "Denar",
+    "currency_symbol": "ден"
   },
   {
     "name": "Madagascar",
@@ -3204,7 +3689,10 @@
       { "name": "Mahajanga Province", "state_code": "M" },
       { "name": "Toamasina Province", "state_code": "A" },
       { "name": "Toliara Province", "state_code": "U" }
-    ]
+    ],
+    "currency": "MGA",
+    "currency_name": "Malagasy ariary",
+    "currency_symbol": "Ar"
   },
   {
     "name": "Malawi",
@@ -3241,7 +3729,10 @@
       { "name": "Southern Region", "state_code": "S" },
       { "name": "Thyolo District", "state_code": "TH" },
       { "name": "Zomba District", "state_code": "ZO" }
-    ]
+    ],
+    "currency": "MWK",
+    "currency_name": "Malawian kwacha",
+    "currency_symbol": "MK"
   },
   {
     "name": "Malaysia",
@@ -3264,7 +3755,10 @@
       { "name": "Sarawak", "state_code": "13" },
       { "name": "Selangor", "state_code": "10" },
       { "name": "Terengganu", "state_code": "11" }
-    ]
+    ],
+    "currency": "MYR",
+    "currency_name": "Malaysian ringgit",
+    "currency_symbol": "RM"
   },
   {
     "name": "Maldives",
@@ -3297,7 +3791,10 @@
       { "name": "Thaa Atoll", "state_code": "08" },
       { "name": "Upper South Province", "state_code": "US" },
       { "name": "Vaavu Atoll", "state_code": "04" }
-    ]
+    ],
+    "currency": "MVR",
+    "currency_name": "Maldivian rufiyaa",
+    "currency_symbol": "Rf"
   },
   {
     "name": "Mali",
@@ -3315,7 +3812,10 @@
       { "name": "Sikasso Region", "state_code": "3" },
       { "name": "Taoudénit Region", "state_code": "10" },
       { "name": "Tombouctou Region", "state_code": "6" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Malta",
@@ -3389,9 +3889,20 @@
       { "name": "Żebbuġ Malta", "state_code": "66" },
       { "name": "Żejtun", "state_code": "67" },
       { "name": "Żurrieq", "state_code": "68" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "Man (Isle of)", "iso2": "IM", "emoji": "🇮🇲", "states": [] },
+  {
+    "name": "Man (Isle of)",
+    "iso2": "IM",
+    "emoji": "🇮🇲",
+    "states": [],
+    "currency": "GBP",
+    "currency_name": "British pound",
+    "currency_symbol": "£"
+  },
   {
     "name": "Marshall Islands",
     "iso2": "MH",
@@ -3399,9 +3910,20 @@
     "states": [
       { "name": "Ralik Chain", "state_code": "L" },
       { "name": "Ratak Chain", "state_code": "T" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Martinique", "iso2": "MQ", "emoji": "🇲🇶", "states": [] },
+  {
+    "name": "Martinique",
+    "iso2": "MQ",
+    "emoji": "🇲🇶",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Mauritania",
     "iso2": "MR",
@@ -3422,7 +3944,10 @@
       { "name": "Tagant Region", "state_code": "09" },
       { "name": "Tiris Zemmour Region", "state_code": "11" },
       { "name": "Trarza Region", "state_code": "06" }
-    ]
+    ],
+    "currency": "MRO",
+    "currency_name": "Mauritanian ouguiya",
+    "currency_symbol": "MRU"
   },
   {
     "name": "Mauritius",
@@ -3446,9 +3971,20 @@
       { "name": "Rodrigues", "state_code": "RO" },
       { "name": "Savanne District", "state_code": "SA" },
       { "name": "Vacoas-Phoenix", "state_code": "VP" }
-    ]
+    ],
+    "currency": "MUR",
+    "currency_name": "Mauritian rupee",
+    "currency_symbol": "₨"
   },
-  { "name": "Mayotte", "iso2": "YT", "emoji": "🇾🇹", "states": [] },
+  {
+    "name": "Mayotte",
+    "iso2": "YT",
+    "emoji": "🇾🇹",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Mexico",
     "iso2": "MX",
@@ -3486,7 +4022,10 @@
       { "name": "Veracruz de Ignacio de la Llave", "state_code": "VER" },
       { "name": "Yucatán", "state_code": "YUC" },
       { "name": "Zacatecas", "state_code": "ZAC" }
-    ]
+    ],
+    "currency": "MXN",
+    "currency_name": "Mexican peso",
+    "currency_symbol": "$"
   },
   {
     "name": "Micronesia",
@@ -3497,7 +4036,10 @@
       { "name": "Kosrae State", "state_code": "KSA" },
       { "name": "Pohnpei State", "state_code": "PNI" },
       { "name": "Yap State", "state_code": "YAP" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Moldova",
@@ -3540,7 +4082,10 @@
       { "name": "Telenești District", "state_code": "TE" },
       { "name": "Transnistria autonomous territorial unit", "state_code": "SN" },
       { "name": "Ungheni District", "state_code": "UN" }
-    ]
+    ],
+    "currency": "MDL",
+    "currency_name": "Moldovan leu",
+    "currency_symbol": "L"
   },
   {
     "name": "Monaco",
@@ -3550,7 +4095,10 @@
       { "name": "La Colle", "state_code": "CL" },
       { "name": "La Condamine", "state_code": "CO" },
       { "name": "Moneghetti", "state_code": "MG" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Mongolia",
@@ -3578,7 +4126,10 @@
       { "name": "Töv Province", "state_code": "047" },
       { "name": "Uvs Province", "state_code": "046" },
       { "name": "Zavkhan Province", "state_code": "057" }
-    ]
+    ],
+    "currency": "MNT",
+    "currency_name": "Mongolian tögrög",
+    "currency_symbol": "₮"
   },
   {
     "name": "Montenegro",
@@ -3607,9 +4158,20 @@
       { "name": "Tivat Municipality", "state_code": "19" },
       { "name": "Ulcinj Municipality", "state_code": "20" },
       { "name": "Žabljak Municipality", "state_code": "21" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "Montserrat", "iso2": "MS", "emoji": "🇲🇸", "states": [] },
+  {
+    "name": "Montserrat",
+    "iso2": "MS",
+    "emoji": "🇲🇸",
+    "states": [],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Morocco",
     "iso2": "MA",
@@ -3702,7 +4264,10 @@
       { "name": "Tiznit", "state_code": "TIZ" },
       { "name": "Youssoufia", "state_code": "YUS" },
       { "name": "Zagora", "state_code": "ZAG" }
-    ]
+    ],
+    "currency": "MAD",
+    "currency_name": "Moroccan dirham",
+    "currency_symbol": "DH"
   },
   {
     "name": "Mozambique",
@@ -3720,7 +4285,10 @@
       { "name": "Sofala Province", "state_code": "S" },
       { "name": "Tete Province", "state_code": "T" },
       { "name": "Zambezia Province", "state_code": "Q" }
-    ]
+    ],
+    "currency": "MZN",
+    "currency_name": "Mozambican metical",
+    "currency_symbol": "MT"
   },
   {
     "name": "Myanmar",
@@ -3742,7 +4310,10 @@
       { "name": "Shan State", "state_code": "17" },
       { "name": "Tanintharyi Region", "state_code": "05" },
       { "name": "Yangon Region", "state_code": "06" }
-    ]
+    ],
+    "currency": "MMK",
+    "currency_name": "Burmese kyat",
+    "currency_symbol": "K"
   },
   {
     "name": "Namibia",
@@ -3763,7 +4334,10 @@
       { "name": "Oshikoto Region", "state_code": "OT" },
       { "name": "Otjozondjupa Region", "state_code": "OD" },
       { "name": "Zambezi Region", "state_code": "CA" }
-    ]
+    ],
+    "currency": "NAD",
+    "currency_name": "Namibian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Nauru",
@@ -3784,7 +4358,10 @@
       { "name": "Nibok District", "state_code": "12" },
       { "name": "Uaboe District", "state_code": "13" },
       { "name": "Yaren District", "state_code": "14" }
-    ]
+    ],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Nepal",
@@ -3810,7 +4387,10 @@
       { "name": "Sagarmatha Zone", "state_code": "SA" },
       { "name": "Seti Zone", "state_code": "SE" },
       { "name": "Western Region", "state_code": "3" }
-    ]
+    ],
+    "currency": "NPR",
+    "currency_name": "Nepalese rupee",
+    "currency_symbol": "₨"
   },
   {
     "name": "Netherlands",
@@ -3832,9 +4412,20 @@
       { "name": "South Holland", "state_code": "ZH" },
       { "name": "Utrecht", "state_code": "UT" },
       { "name": "Zeeland", "state_code": "ZE" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "New Caledonia", "iso2": "NC", "emoji": "🇳🇨", "states": [] },
+  {
+    "name": "New Caledonia",
+    "iso2": "NC",
+    "emoji": "🇳🇨",
+    "states": [],
+    "currency": "XPF",
+    "currency_name": "CFP franc",
+    "currency_symbol": "₣"
+  },
   {
     "name": "New Zealand",
     "iso2": "NZ",
@@ -3857,7 +4448,10 @@
       { "name": "Waikato Region", "state_code": "WKO" },
       { "name": "Wellington Region", "state_code": "WGN" },
       { "name": "West Coast Region", "state_code": "WTC" }
-    ]
+    ],
+    "currency": "NZD",
+    "currency_name": "New Zealand dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Nicaragua",
@@ -3881,7 +4475,10 @@
       { "name": "Río San Juan", "state_code": "SJ" },
       { "name": "Rivas", "state_code": "RI" },
       { "name": "South Caribbean Coast", "state_code": "AS" }
-    ]
+    ],
+    "currency": "NIO",
+    "currency_name": "Nicaraguan córdoba",
+    "currency_symbol": "C$"
   },
   {
     "name": "Niger",
@@ -3895,7 +4492,10 @@
       { "name": "Tahoua Region", "state_code": "5" },
       { "name": "Tillabéri Region", "state_code": "6" },
       { "name": "Zinder Region", "state_code": "7" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Nigeria",
@@ -3939,10 +4539,29 @@
       { "name": "Taraba", "state_code": "TA" },
       { "name": "Yobe", "state_code": "YO" },
       { "name": "Zamfara", "state_code": "ZA" }
-    ]
+    ],
+    "currency": "NGN",
+    "currency_name": "Nigerian naira",
+    "currency_symbol": "₦"
   },
-  { "name": "Niue", "iso2": "NU", "emoji": "🇳🇺", "states": [] },
-  { "name": "Norfolk Island", "iso2": "NF", "emoji": "🇳🇫", "states": [] },
+  {
+    "name": "Niue",
+    "iso2": "NU",
+    "emoji": "🇳🇺",
+    "states": [],
+    "currency": "NZD",
+    "currency_name": "New Zealand dollar",
+    "currency_symbol": "$"
+  },
+  {
+    "name": "Norfolk Island",
+    "iso2": "NF",
+    "emoji": "🇳🇫",
+    "states": [],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "North Korea",
     "iso2": "KP",
@@ -3959,9 +4578,20 @@
       { "name": "South Hamgyong Province", "state_code": "08" },
       { "name": "South Hwanghae Province", "state_code": "05" },
       { "name": "South Pyongan Province", "state_code": "02" }
-    ]
+    ],
+    "currency": "KPW",
+    "currency_name": "North Korean Won",
+    "currency_symbol": "₩"
   },
-  { "name": "Northern Mariana Islands", "iso2": "MP", "emoji": "🇲🇵", "states": [] },
+  {
+    "name": "Northern Mariana Islands",
+    "iso2": "MP",
+    "emoji": "🇲🇵",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Norway",
     "iso2": "NO",
@@ -3988,7 +4618,10 @@
       { "name": "Trøndelag", "state_code": "50" },
       { "name": "Vest-Agder", "state_code": "10" },
       { "name": "Vestfold", "state_code": "07" }
-    ]
+    ],
+    "currency": "NOK",
+    "currency_name": "Norwegian krone",
+    "currency_symbol": "kr"
   },
   {
     "name": "Oman",
@@ -4008,7 +4641,10 @@
       { "name": "Dhofar Governorate", "state_code": "ZU" },
       { "name": "Musandam Governorate", "state_code": "MU" },
       { "name": "Muscat Governorate", "state_code": "MA" }
-    ]
+    ],
+    "currency": "OMR",
+    "currency_name": "Omani rial",
+    "currency_symbol": ".ع.ر"
   },
   {
     "name": "Pakistan",
@@ -4023,7 +4659,10 @@
       { "name": "Khyber Pakhtunkhwa", "state_code": "KP" },
       { "name": "Punjab", "state_code": "PB" },
       { "name": "Sindh", "state_code": "SD" }
-    ]
+    ],
+    "currency": "PKR",
+    "currency_name": "Pakistani rupee",
+    "currency_symbol": "₨"
   },
   {
     "name": "Palau",
@@ -4046,9 +4685,20 @@
       { "name": "Ngiwal", "state_code": "228" },
       { "name": "Peleliu", "state_code": "350" },
       { "name": "Sonsorol", "state_code": "370" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Palestinian Territory Occupied", "iso2": "PS", "emoji": "🇵🇸", "states": [] },
+  {
+    "name": "Palestinian Territory Occupied",
+    "iso2": "PS",
+    "emoji": "🇵🇸",
+    "states": [],
+    "currency": "ILS",
+    "currency_name": "Israeli new shekel",
+    "currency_symbol": "₪"
+  },
   {
     "name": "Panama",
     "iso2": "PA",
@@ -4067,7 +4717,10 @@
       { "name": "Panamá Oeste Province", "state_code": "10" },
       { "name": "Panamá Province", "state_code": "8" },
       { "name": "Veraguas Province", "state_code": "9" }
-    ]
+    ],
+    "currency": "PAB",
+    "currency_name": "Panamanian balboa",
+    "currency_symbol": "B/."
   },
   {
     "name": "Papua new Guinea",
@@ -4095,7 +4748,10 @@
       { "name": "West New Britain Province", "state_code": "WBK" },
       { "name": "Western Highlands Province", "state_code": "WHM" },
       { "name": "Western Province", "state_code": "WPD" }
-    ]
+    ],
+    "currency": "PGK",
+    "currency_name": "Papua New Guinean kina",
+    "currency_symbol": "K"
   },
   {
     "name": "Paraguay",
@@ -4119,7 +4775,10 @@
       { "name": "Paraguarí Department", "state_code": "9" },
       { "name": "Presidente Hayes Department", "state_code": "15" },
       { "name": "San Pedro Department", "state_code": "2" }
-    ]
+    ],
+    "currency": "PYG",
+    "currency_name": "Paraguayan guarani",
+    "currency_symbol": "₲"
   },
   {
     "name": "Peru",
@@ -4151,7 +4810,10 @@
       { "name": "Tacna", "state_code": "TAC" },
       { "name": "Tumbes", "state_code": "TUM" },
       { "name": "Ucayali", "state_code": "UCA" }
-    ]
+    ],
+    "currency": "PEN",
+    "currency_name": "Peruvian sol",
+    "currency_symbol": "S/."
   },
   {
     "name": "Philippines",
@@ -4255,7 +4917,10 @@
       { "name": "Zamboanga del Sur", "state_code": "ZAS" },
       { "name": "Zamboanga Peninsula", "state_code": "09" },
       { "name": "Zamboanga Sibugay", "state_code": "ZSI" }
-    ]
+    ],
+    "currency": "PHP",
+    "currency_name": "Philippine peso",
+    "currency_symbol": "₱"
   },
   {
     "name": "Poland",
@@ -4278,7 +4943,10 @@
       { "name": "Świętokrzyskie Voivodeship", "state_code": "SK" },
       { "name": "Warmian-Masurian Voivodeship", "state_code": "WN" },
       { "name": "West Pomeranian Voivodeship", "state_code": "ZP" }
-    ]
+    ],
+    "currency": "PLN",
+    "currency_name": "Polish złoty",
+    "currency_symbol": "zł"
   },
   {
     "name": "Portugal",
@@ -4305,9 +4973,20 @@
       { "name": "Viana do Castelo", "state_code": "16" },
       { "name": "Vila Real", "state_code": "17" },
       { "name": "Viseu", "state_code": "18" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
-  { "name": "Puerto Rico", "iso2": "PR", "emoji": "🇵🇷", "states": [] },
+  {
+    "name": "Puerto Rico",
+    "iso2": "PR",
+    "emoji": "🇵🇷",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Qatar",
     "iso2": "QA",
@@ -4321,9 +5000,20 @@
       { "name": "Doha", "state_code": "DA" },
       { "name": "Madinat ash Shamal", "state_code": "MS" },
       { "name": "Umm Salal Municipality", "state_code": "US" }
-    ]
+    ],
+    "currency": "QAR",
+    "currency_name": "Qatari riyal",
+    "currency_symbol": "ق.ر"
   },
-  { "name": "Reunion", "iso2": "RE", "emoji": "🇷🇪", "states": [] },
+  {
+    "name": "Reunion",
+    "iso2": "RE",
+    "emoji": "🇷🇪",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Romania",
     "iso2": "RO",
@@ -4371,7 +5061,10 @@
       { "name": "Vâlcea County", "state_code": "VL" },
       { "name": "Vaslui County", "state_code": "VS" },
       { "name": "Vrancea County", "state_code": "VN" }
-    ]
+    ],
+    "currency": "RON",
+    "currency_name": "Romanian leu",
+    "currency_symbol": "lei"
   },
   {
     "name": "Russia",
@@ -4462,7 +5155,10 @@
       { "name": "Yamalo-Nenets Autonomous Okrug", "state_code": "YAN" },
       { "name": "Yaroslavl Oblast", "state_code": "YAR" },
       { "name": "Zabaykalsky Krai", "state_code": "ZAB" }
-    ]
+    ],
+    "currency": "RUB",
+    "currency_name": "Russian ruble",
+    "currency_symbol": "₽"
   },
   {
     "name": "Rwanda",
@@ -4474,9 +5170,20 @@
       { "name": "Northern Province", "state_code": "03" },
       { "name": "Southern Province", "state_code": "05" },
       { "name": "Western Province", "state_code": "04" }
-    ]
+    ],
+    "currency": "RWF",
+    "currency_name": "Rwandan franc",
+    "currency_symbol": "FRw"
   },
-  { "name": "Saint Helena", "iso2": "SH", "emoji": "🇸🇭", "states": [] },
+  {
+    "name": "Saint Helena",
+    "iso2": "SH",
+    "emoji": "🇸🇭",
+    "states": [],
+    "currency": "SHP",
+    "currency_name": "Saint Helena pound",
+    "currency_symbol": "£"
+  },
   {
     "name": "Saint Kitts And Nevis",
     "iso2": "KN",
@@ -4497,7 +5204,10 @@
       { "name": "Saint Thomas Lowland Parish", "state_code": "12" },
       { "name": "Saint Thomas Middle Island Parish", "state_code": "13" },
       { "name": "Trinity Palmetto Point Parish", "state_code": "15" }
-    ]
+    ],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Saint Lucia",
@@ -4516,9 +5226,20 @@
       { "name": "Praslin Quarter", "state_code": "09" },
       { "name": "Soufrière Quarter", "state_code": "10" },
       { "name": "Vieux Fort Quarter", "state_code": "11" }
-    ]
+    ],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Saint Pierre and Miquelon", "iso2": "PM", "emoji": "🇵🇲", "states": [] },
+  {
+    "name": "Saint Pierre and Miquelon",
+    "iso2": "PM",
+    "emoji": "🇵🇲",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Saint Vincent And The Grenadines",
     "iso2": "VC",
@@ -4530,10 +5251,29 @@
       { "name": "Saint David Parish", "state_code": "03" },
       { "name": "Saint George Parish", "state_code": "04" },
       { "name": "Saint Patrick Parish", "state_code": "05" }
-    ]
+    ],
+    "currency": "XCD",
+    "currency_name": "Eastern Caribbean dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Saint-Barthelemy", "iso2": "BL", "emoji": "🇧🇱", "states": [] },
-  { "name": "Saint-Martin (French part)", "iso2": "MF", "emoji": "🇲🇫", "states": [] },
+  {
+    "name": "Saint-Barthelemy",
+    "iso2": "BL",
+    "emoji": "🇧🇱",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
+  {
+    "name": "Saint-Martin (French part)",
+    "iso2": "MF",
+    "emoji": "🇲🇫",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Samoa",
     "iso2": "WS",
@@ -4550,7 +5290,10 @@
       { "name": "Tuamasaga", "state_code": "TU" },
       { "name": "Va'a-o-Fonoti", "state_code": "VF" },
       { "name": "Vaisigano", "state_code": "VS" }
-    ]
+    ],
+    "currency": "WST",
+    "currency_name": "Samoan tālā",
+    "currency_symbol": "SAT"
   },
   {
     "name": "San Marino",
@@ -4566,7 +5309,10 @@
       { "name": "Montegiardino", "state_code": "08" },
       { "name": "San Marino", "state_code": "07" },
       { "name": "Serravalle", "state_code": "09" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Sao Tome and Principe",
@@ -4575,7 +5321,10 @@
     "states": [
       { "name": "Príncipe Province", "state_code": "P" },
       { "name": "São Tomé Province", "state_code": "S" }
-    ]
+    ],
+    "currency": "STD",
+    "currency_name": "Dobra",
+    "currency_symbol": "Db"
   },
   {
     "name": "Saudi Arabia",
@@ -4595,7 +5344,10 @@
       { "name": "Northern Borders", "state_code": "08" },
       { "name": "Riyadh", "state_code": "01" },
       { "name": "Tabuk", "state_code": "07" }
-    ]
+    ],
+    "currency": "SAR",
+    "currency_name": "Saudi riyal",
+    "currency_symbol": "﷼"
   },
   {
     "name": "Senegal",
@@ -4616,7 +5368,10 @@
       { "name": "Tambacounda Region", "state_code": "TC" },
       { "name": "Thiès Region", "state_code": "TH" },
       { "name": "Ziguinchor", "state_code": "ZG" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
   {
     "name": "Serbia",
@@ -4649,7 +5404,10 @@
       { "name": "West Bačka District", "state_code": "05" },
       { "name": "Zaječar District", "state_code": "15" },
       { "name": "Zlatibor District", "state_code": "16" }
-    ]
+    ],
+    "currency": "RSD",
+    "currency_name": "Serbian dinar",
+    "currency_symbol": "din"
   },
   {
     "name": "Seychelles",
@@ -4680,7 +5438,10 @@
       { "name": "Roche Caiman", "state_code": "25" },
       { "name": "Saint Louis", "state_code": "22" },
       { "name": "Takamaka", "state_code": "23" }
-    ]
+    ],
+    "currency": "SCR",
+    "currency_name": "Seychellois rupee",
+    "currency_symbol": "SRe"
   },
   {
     "name": "Sierra Leone",
@@ -4691,7 +5452,10 @@
       { "name": "Northern Province", "state_code": "N" },
       { "name": "Southern Province", "state_code": "S" },
       { "name": "Western Area", "state_code": "W" }
-    ]
+    ],
+    "currency": "SLL",
+    "currency_name": "Sierra Leonean leone",
+    "currency_symbol": "Le"
   },
   {
     "name": "Singapore",
@@ -4703,9 +5467,20 @@
       { "name": "North West Community Development Council", "state_code": "03" },
       { "name": "South East Community Development Council", "state_code": "04" },
       { "name": "South West Community Development Council", "state_code": "05" }
-    ]
+    ],
+    "currency": "SGD",
+    "currency_name": "Singapore dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Sint Maarten (Dutch part)", "iso2": "SX", "emoji": "🇸🇽", "states": [] },
+  {
+    "name": "Sint Maarten (Dutch part)",
+    "iso2": "SX",
+    "emoji": "🇸🇽",
+    "states": [],
+    "currency": "ANG",
+    "currency_name": "Netherlands Antillean guilder",
+    "currency_symbol": "ƒ"
+  },
   {
     "name": "Slovakia",
     "iso2": "SK",
@@ -4719,7 +5494,10 @@
       { "name": "Trenčín Region", "state_code": "TC" },
       { "name": "Trnava Region", "state_code": "TA" },
       { "name": "Žilina Region", "state_code": "ZI" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Slovenia",
@@ -4937,7 +5715,10 @@
       { "name": "Žirovnica Municipality", "state_code": "192" },
       { "name": "Zreče Municipality", "state_code": "144" },
       { "name": "Žužemberk Municipality", "state_code": "193" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Solomon Islands",
@@ -4954,7 +5735,10 @@
       { "name": "Rennell and Bellona Province", "state_code": "RB" },
       { "name": "Temotu Province", "state_code": "TE" },
       { "name": "Western Province", "state_code": "WE" }
-    ]
+    ],
+    "currency": "SBD",
+    "currency_name": "Solomon Islands dollar",
+    "currency_symbol": "Si$"
   },
   {
     "name": "Somalia",
@@ -4977,7 +5761,10 @@
       { "name": "Nugal", "state_code": "NU" },
       { "name": "Sanaag Region", "state_code": "SA" },
       { "name": "Togdheer Region", "state_code": "TO" }
-    ]
+    ],
+    "currency": "SOS",
+    "currency_name": "Somali shilling",
+    "currency_symbol": "Sh.so."
   },
   {
     "name": "South Africa",
@@ -4993,7 +5780,10 @@
       { "name": "North West", "state_code": "NW" },
       { "name": "Northern Cape", "state_code": "NC" },
       { "name": "Western Cape", "state_code": "WC" }
-    ]
+    ],
+    "currency": "ZAR",
+    "currency_name": "South African rand",
+    "currency_symbol": "R"
   },
   {
     "name": "South Korea",
@@ -5017,7 +5807,10 @@
       { "name": "South Gyeongsang Province", "state_code": "48" },
       { "name": "South Jeolla Province", "state_code": "46" },
       { "name": "Ulsan", "state_code": "31" }
-    ]
+    ],
+    "currency": "KRW",
+    "currency_name": "Won",
+    "currency_symbol": "₩"
   },
   {
     "name": "South Sudan",
@@ -5034,7 +5827,10 @@
       { "name": "Warrap", "state_code": "WR" },
       { "name": "Western Bahr el Ghazal", "state_code": "BW" },
       { "name": "Western Equatoria", "state_code": "EW" }
-    ]
+    ],
+    "currency": "SSP",
+    "currency_name": "South Sudanese pound",
+    "currency_symbol": "£"
   },
   {
     "name": "Spain",
@@ -5069,7 +5865,10 @@
       { "name": "Valencia", "state_code": "VC" },
       { "name": "Valladolid Province", "state_code": "VA" },
       { "name": "Zamora Province", "state_code": "ZA" }
-    ]
+    ],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
   },
   {
     "name": "Sri Lanka",
@@ -5109,7 +5908,10 @@
       { "name": "Uva Province", "state_code": "8" },
       { "name": "Vavuniya District", "state_code": "44" },
       { "name": "Western Province", "state_code": "1" }
-    ]
+    ],
+    "currency": "LKR",
+    "currency_name": "Sri Lankan rupee",
+    "currency_symbol": "Rs"
   },
   {
     "name": "Sudan",
@@ -5134,7 +5936,10 @@
       { "name": "West Darfur", "state_code": "DW" },
       { "name": "West Kordofan", "state_code": "GK" },
       { "name": "White Nile", "state_code": "NW" }
-    ]
+    ],
+    "currency": "SDG",
+    "currency_name": "Sudanese pound",
+    "currency_symbol": ".س.ج"
   },
   {
     "name": "Suriname",
@@ -5151,9 +5956,20 @@
       { "name": "Saramacca District", "state_code": "SA" },
       { "name": "Sipaliwini District", "state_code": "SI" },
       { "name": "Wanica District", "state_code": "WA" }
-    ]
+    ],
+    "currency": "SRD",
+    "currency_name": "Surinamese dollar",
+    "currency_symbol": "$"
   },
-  { "name": "Svalbard And Jan Mayen Islands", "iso2": "SJ", "emoji": "🇸🇯", "states": [] },
+  {
+    "name": "Svalbard And Jan Mayen Islands",
+    "iso2": "SJ",
+    "emoji": "🇸🇯",
+    "states": [],
+    "currency": "NOK",
+    "currency_name": "Norwegian Krone",
+    "currency_symbol": "kr"
+  },
   {
     "name": "Swaziland",
     "iso2": "SZ",
@@ -5163,7 +5979,10 @@
       { "name": "Lubombo District", "state_code": "LU" },
       { "name": "Manzini District", "state_code": "MA" },
       { "name": "Shiselweni District", "state_code": "SH" }
-    ]
+    ],
+    "currency": "SZL",
+    "currency_name": "Lilangeni",
+    "currency_symbol": "E"
   },
   {
     "name": "Sweden",
@@ -5190,7 +6009,10 @@
       { "name": "Västernorrland County", "state_code": "Y" },
       { "name": "Västmanland County", "state_code": "U" },
       { "name": "Västra Götaland County", "state_code": "O" }
-    ]
+    ],
+    "currency": "SEK",
+    "currency_name": "Swedish krona",
+    "currency_symbol": "kr"
   },
   {
     "name": "Switzerland",
@@ -5223,7 +6045,10 @@
       { "name": "Vaud", "state_code": "VD" },
       { "name": "Zug", "state_code": "ZG" },
       { "name": "Zürich", "state_code": "ZH" }
-    ]
+    ],
+    "currency": "CHF",
+    "currency_name": "Swiss franc",
+    "currency_symbol": "CHf"
   },
   {
     "name": "Syria",
@@ -5244,7 +6069,10 @@
       { "name": "Quneitra Governorate", "state_code": "QU" },
       { "name": "Rif Dimashq Governorate", "state_code": "RD" },
       { "name": "Tartus Governorate", "state_code": "TA" }
-    ]
+    ],
+    "currency": "SYP",
+    "currency_name": "Syrian pound",
+    "currency_symbol": "LS"
   },
   {
     "name": "Taiwan",
@@ -5273,7 +6101,10 @@
       { "name": "Taoyuan", "state_code": "TAO" },
       { "name": "Yilan", "state_code": "ILA" },
       { "name": "Yunlin", "state_code": "YUN" }
-    ]
+    ],
+    "currency": "TWD",
+    "currency_name": "New Taiwan dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Tajikistan",
@@ -5284,7 +6115,10 @@
       { "name": "Gorno-Badakhshan Autonomous Province", "state_code": "GB" },
       { "name": "Khatlon Province", "state_code": "KT" },
       { "name": "Sughd Province", "state_code": "SU" }
-    ]
+    ],
+    "currency": "TJS",
+    "currency_name": "Tajikistani somoni",
+    "currency_symbol": "SM"
   },
   {
     "name": "Tanzania",
@@ -5322,7 +6156,10 @@
       { "name": "Zanzibar North", "state_code": "07" },
       { "name": "Zanzibar South", "state_code": "11" },
       { "name": "Zanzibar West", "state_code": "15" }
-    ]
+    ],
+    "currency": "TZS",
+    "currency_name": "Tanzanian shilling",
+    "currency_symbol": "TSh"
   },
   {
     "name": "Thailand",
@@ -5407,7 +6244,10 @@
       { "name": "Uttaradit", "state_code": "53" },
       { "name": "Yala", "state_code": "95" },
       { "name": "Yasothon", "state_code": "35" }
-    ]
+    ],
+    "currency": "THB",
+    "currency_name": "Thai baht",
+    "currency_symbol": "฿"
   },
   {
     "name": "The Bahamas",
@@ -5456,7 +6296,10 @@
       { "name": "South Eleuthera", "state_code": "SE" },
       { "name": "Spanish Wells", "state_code": "SW" },
       { "name": "West Grand Bahama", "state_code": "WG" }
-    ]
+    ],
+    "currency": "BSD",
+    "currency_name": "Bahamian dollar",
+    "currency_symbol": "B$"
   },
   {
     "name": "Togo",
@@ -5468,9 +6311,20 @@
       { "name": "Maritime", "state_code": "M" },
       { "name": "Plateaux Region", "state_code": "P" },
       { "name": "Savanes Region", "state_code": "S" }
-    ]
+    ],
+    "currency": "XOF",
+    "currency_name": "West African CFA franc",
+    "currency_symbol": "CFA"
   },
-  { "name": "Tokelau", "iso2": "TK", "emoji": "🇹🇰", "states": [] },
+  {
+    "name": "Tokelau",
+    "iso2": "TK",
+    "emoji": "🇹🇰",
+    "states": [],
+    "currency": "NZD",
+    "currency_name": "New Zealand dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Tonga",
     "iso2": "TO",
@@ -5481,7 +6335,10 @@
       { "name": "Niuas", "state_code": "03" },
       { "name": "Tongatapu", "state_code": "04" },
       { "name": "Vavaʻu", "state_code": "05" }
-    ]
+    ],
+    "currency": "TOP",
+    "currency_name": "Tongan paʻanga",
+    "currency_symbol": "$"
   },
   {
     "name": "Trinidad And Tobago",
@@ -5504,7 +6361,10 @@
       { "name": "Siparia Regional Corporation", "state_code": "SIP" },
       { "name": "Tunapuna-Piarco Regional Corporation", "state_code": "TUP" },
       { "name": "Western Tobago", "state_code": "WTO" }
-    ]
+    ],
+    "currency": "TTD",
+    "currency_name": "Trinidad and Tobago dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Tunisia",
@@ -5534,7 +6394,10 @@
       { "name": "Tozeur Governorate", "state_code": "72" },
       { "name": "Tunis Governorate", "state_code": "11" },
       { "name": "Zaghouan Governorate", "state_code": "22" }
-    ]
+    ],
+    "currency": "TND",
+    "currency_name": "Tunisian dinar",
+    "currency_symbol": "ت.د"
   },
   {
     "name": "Turkey",
@@ -5622,7 +6485,10 @@
       { "name": "Yalova", "state_code": "77" },
       { "name": "Yozgat", "state_code": "66" },
       { "name": "Zonguldak", "state_code": "67" }
-    ]
+    ],
+    "currency": "TRY",
+    "currency_name": "Turkish lira",
+    "currency_symbol": "₺"
   },
   {
     "name": "Turkmenistan",
@@ -5635,9 +6501,20 @@
       { "name": "Daşoguz Region", "state_code": "D" },
       { "name": "Lebap Region", "state_code": "L" },
       { "name": "Mary Region", "state_code": "M" }
-    ]
+    ],
+    "currency": "TMT",
+    "currency_name": "Turkmenistan manat",
+    "currency_symbol": "T"
   },
-  { "name": "Turks And Caicos Islands", "iso2": "TC", "emoji": "🇹🇨", "states": [] },
+  {
+    "name": "Turks And Caicos Islands",
+    "iso2": "TC",
+    "emoji": "🇹🇨",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
   {
     "name": "Tuvalu",
     "iso2": "TV",
@@ -5651,7 +6528,10 @@
       { "name": "Nukufetau", "state_code": "NKF" },
       { "name": "Nukulaelae", "state_code": "NKL" },
       { "name": "Vaitupu", "state_code": "VAI" }
-    ]
+    ],
+    "currency": "AUD",
+    "currency_name": "Australian dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Uganda",
@@ -5783,7 +6663,10 @@
       { "name": "Western Region", "state_code": "W" },
       { "name": "Yumbe District", "state_code": "313" },
       { "name": "Zombo District", "state_code": "330" }
-    ]
+    ],
+    "currency": "UGX",
+    "currency_name": "Ugandan shilling",
+    "currency_symbol": "USh"
   },
   {
     "name": "Ukraine",
@@ -5816,7 +6699,10 @@
       { "name": "Zakarpatska Oblast", "state_code": "21" },
       { "name": "Zaporizka oblast", "state_code": "23" },
       { "name": "Zhytomyrska oblast", "state_code": "18" }
-    ]
+    ],
+    "currency": "UAH",
+    "currency_name": "Ukrainian hryvnia",
+    "currency_symbol": "₴"
   },
   {
     "name": "United Arab Emirates",
@@ -5830,7 +6716,10 @@
       { "name": "Ras al-Khaimah", "state_code": "RK" },
       { "name": "Sharjah Emirate", "state_code": "SH" },
       { "name": "Umm al-Quwain", "state_code": "UQ" }
-    ]
+    ],
+    "currency": "AED",
+    "currency_name": "United Arab Emirates dirham",
+    "currency_symbol": "إ.د"
   },
   {
     "name": "United Kingdom",
@@ -6084,7 +6973,10 @@
       { "name": "Wokingham", "state_code": "WOK" },
       { "name": "Worcestershire", "state_code": "WOR" },
       { "name": "Wrexham County Borough", "state_code": "WRX" }
-    ]
+    ],
+    "currency": "GBP",
+    "currency_name": "British pound",
+    "currency_symbol": "£"
   },
   {
     "name": "United States",
@@ -6157,7 +7049,10 @@
       { "name": "West Virginia", "state_code": "WV" },
       { "name": "Wisconsin", "state_code": "WI" },
       { "name": "Wyoming", "state_code": "WY" }
-    ]
+    ],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
   },
   {
     "name": "Uruguay",
@@ -6183,7 +7078,10 @@
       { "name": "Soriano Department", "state_code": "SO" },
       { "name": "Tacuarembó Department", "state_code": "TA" },
       { "name": "Treinta y Tres Department", "state_code": "TT" }
-    ]
+    ],
+    "currency": "UYU",
+    "currency_name": "Uruguayan peso",
+    "currency_symbol": "$"
   },
   {
     "name": "Uzbekistan",
@@ -6204,7 +7102,10 @@
       { "name": "Tashkent", "state_code": "TK" },
       { "name": "Tashkent Region", "state_code": "TO" },
       { "name": "Xorazm Region", "state_code": "XO" }
-    ]
+    ],
+    "currency": "UZS",
+    "currency_name": "Uzbekistani soʻm",
+    "currency_symbol": "лв"
   },
   {
     "name": "Vanuatu",
@@ -6217,9 +7118,20 @@
       { "name": "Shefa", "state_code": "SEE" },
       { "name": "Tafea", "state_code": "TAE" },
       { "name": "Torba", "state_code": "TOB" }
-    ]
+    ],
+    "currency": "VUV",
+    "currency_name": "Vanuatu vatu",
+    "currency_symbol": "VT"
   },
-  { "name": "Vatican City State (Holy See)", "iso2": "VA", "emoji": "🇻🇦", "states": [] },
+  {
+    "name": "Vatican City State (Holy See)",
+    "iso2": "VA",
+    "emoji": "🇻🇦",
+    "states": [],
+    "currency": "EUR",
+    "currency_name": "Euro",
+    "currency_symbol": "€"
+  },
   {
     "name": "Venezuela",
     "iso2": "VE",
@@ -6250,7 +7162,10 @@
       { "name": "Trujillo", "state_code": "T" },
       { "name": "Yaracuy", "state_code": "U" },
       { "name": "Zulia", "state_code": "V" }
-    ]
+    ],
+    "currency": "VEF",
+    "currency_name": "Bolívar",
+    "currency_symbol": "Bs"
   },
   {
     "name": "Vietnam",
@@ -6320,12 +7235,47 @@
       { "name": "Vĩnh Long", "state_code": "49" },
       { "name": "Vĩnh Phúc", "state_code": "70" },
       { "name": "Yên Bái", "state_code": "06" }
-    ]
+    ],
+    "currency": "VND",
+    "currency_name": "Vietnamese đồng",
+    "currency_symbol": "₫"
   },
-  { "name": "Virgin Islands (British)", "iso2": "VG", "emoji": "🇻🇬", "states": [] },
-  { "name": "Virgin Islands (US)", "iso2": "VI", "emoji": "🇻🇮", "states": [] },
-  { "name": "Wallis And Futuna Islands", "iso2": "WF", "emoji": "🇼🇫", "states": [] },
-  { "name": "Western Sahara", "iso2": "EH", "emoji": "🇪🇭", "states": [] },
+  {
+    "name": "Virgin Islands (British)",
+    "iso2": "VG",
+    "emoji": "🇻🇬",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
+  {
+    "name": "Virgin Islands (US)",
+    "iso2": "VI",
+    "emoji": "🇻🇮",
+    "states": [],
+    "currency": "USD",
+    "currency_name": "United States dollar",
+    "currency_symbol": "$"
+  },
+  {
+    "name": "Wallis And Futuna Islands",
+    "iso2": "WF",
+    "emoji": "🇼🇫",
+    "states": [],
+    "currency": "XPF",
+    "currency_name": "CFP franc",
+    "currency_symbol": "₣"
+  },
+  {
+    "name": "Western Sahara",
+    "iso2": "EH",
+    "emoji": "🇪🇭",
+    "states": [],
+    "currency": "MAD",
+    "currency_name": "Moroccan Dirham",
+    "currency_symbol": "MAD"
+  },
   {
     "name": "Yemen",
     "iso2": "YE",
@@ -6352,7 +7302,10 @@
       { "name": "Shabwah Governorate", "state_code": "SH" },
       { "name": "Socotra Governorate", "state_code": "SU" },
       { "name": "Ta'izz Governorate", "state_code": "TA" }
-    ]
+    ],
+    "currency": "YER",
+    "currency_name": "Yemeni rial",
+    "currency_symbol": "﷼"
   },
   {
     "name": "Zambia",
@@ -6369,7 +7322,10 @@
       { "name": "Northwestern Province", "state_code": "06" },
       { "name": "Southern Province", "state_code": "07" },
       { "name": "Western Province", "state_code": "01" }
-    ]
+    ],
+    "currency": "ZMW",
+    "currency_name": "Zambian kwacha",
+    "currency_symbol": "ZK"
   },
   {
     "name": "Zimbabwe",
@@ -6386,6 +7342,9 @@
       { "name": "Matabeleland North Province", "state_code": "MN" },
       { "name": "Matabeleland South Province", "state_code": "MS" },
       { "name": "Midlands Province", "state_code": "MI" }
-    ]
+    ],
+    "currency": "ZWL",
+    "currency_name": "Zimbabwe Dollar",
+    "currency_symbol": "$"
   }
 ]

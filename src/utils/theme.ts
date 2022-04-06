@@ -20,7 +20,11 @@ const theme = createTheme({
       contrastText: '#fff'
     },
     success: {
-      main: '#4FCD6A'
+      main: '#4FCD6A',
+      contrastText: '#fff'
+    },
+    background: {
+      default: '#fafafa'
     }
   },
   typography: {

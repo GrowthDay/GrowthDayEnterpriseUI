@@ -17,6 +17,7 @@ import { FC, PropsWithChildren, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
+import { useDefaultCountryState } from '../../../hooks/useCountryState'
 import useSetupSubscriptionMutation, {
   SetupSubscriptionDefaultValues,
   SetupSubscriptionRequest,
@@ -51,6 +52,7 @@ const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
 }))
 
 const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
+  const { data } = useDefaultCountryState()
   const { data: user } = useOrganizationUserQuery()
   const [_loading, setLoading] = useRecoilState(checkoutLoadingState)
   const { isLoading, mutateAsync } = useSetupSubscriptionMutation()
@@ -80,6 +82,13 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
       methods.setValue('fullName', user.name ?? '')
     }
   }, [user, methods])
+
+  useEffect(() => {
+    if (data?.country) {
+      methods.setValue('country', data.country)
+      methods.setValue('region', data.state ?? '')
+    }
+  }, [data, methods])
 
   return (
     <Form<SetupSubscriptionRequest> id="signup-checkout-form" methods={methods} onSuccess={handleSubmit}>
@@ -146,6 +155,11 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
           <Typography variant="body2">You will be billed annually. Cancel at any time.</Typography>
         </Grid>
         <StripeCardForm methods={methods} disabled={!active} />
+        <Grid item xs={12}>
+          <Typography color="text.disabled" align="center" variant="body2">
+            State and local sales tax will be calculated on your final invoice.
+          </Typography>
+        </Grid>
       </Grid>
     </Form>
   )

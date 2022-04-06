@@ -1,4 +1,4 @@
-import { AccountCircleOutlined, DescriptionOutlined, LogoutOutlined } from '@mui/icons-material'
+import { AccountCircleOutlined, LogoutOutlined } from '@mui/icons-material'
 import { ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 import { bindMenu } from 'material-ui-popup-state'
 import { PopupState } from 'material-ui-popup-state/core'

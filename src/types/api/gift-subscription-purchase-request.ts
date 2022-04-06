@@ -47,6 +47,12 @@ export interface GiftSubscriptionPurchaseRequest {
    * @type {string}
    * @memberof GiftSubscriptionPurchaseRequest
    */
+  country?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GiftSubscriptionPurchaseRequest
+   */
   deduplicationKey?: string
   /**
    *
@@ -59,6 +65,12 @@ export interface GiftSubscriptionPurchaseRequest {
    * @type {string}
    * @memberof GiftSubscriptionPurchaseRequest
    */
+  region?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GiftSubscriptionPurchaseRequest
+   */
   stripePaymentMethodId?: string
   /**
    *
@@ -66,4 +78,10 @@ export interface GiftSubscriptionPurchaseRequest {
    * @memberof GiftSubscriptionPurchaseRequest
    */
   stripePlanId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GiftSubscriptionPurchaseRequest
+   */
+  zipCode?: string
 }
