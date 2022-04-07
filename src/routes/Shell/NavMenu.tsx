@@ -10,7 +10,6 @@ import feedbackModalState from '../../recoil/atoms/feedbackModalState'
 import FeedbackIcon from './assets/FeedbackIcon'
 import SettingIcon from './assets/SettingIcon'
 import UserIcon from './assets/UserIcon'
-import UserIconActive from './assets/UserIconActive'
 
 export type MenuItem = ButtonProps<'button'> & {
   icon: ComponentType<SvgIconProps>
@@ -24,13 +23,11 @@ const topNavMenuItems: MenuItem[] = [
   {
     title: 'People',
     icon: UserIcon,
-    activeIcon: UserIconActive,
     to: '/people'
   },
   {
     title: 'Account',
     icon: SettingIcon,
-    activeIcon: UserIconActive,
     to: '/account'
   }
 ]
@@ -80,14 +77,14 @@ const RenderNavItem: FC<MenuItem & { active?: boolean }> = ({
               }
             : {})}
         >
-          <Icon color="inherit" />
+          <Icon color="inherit" />{' '}
           {title && (
             <Typography color="text.primary" mt={0.25} variant="body2">
               {title}
             </Typography>
           )}
         </Button>
-      </Box>
+      </Box>{' '}
       {divider && <Divider variant="middle" sx={{ my: 0.5 }} />}
     </>
   )
