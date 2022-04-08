@@ -68,7 +68,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   const totalSeats = calculatedCount + (organization?.seats ?? 0)
   const totalCost = formatCurrency(perSeat * totalSeats)
   const maxSeats = 100 - (organization?.seats ?? 0)
-  const isInvalid = +count > maxSeats
+  const isInvalid = +count > maxSeats || +count < 0
 
   const organizationUpdateSubscription: OrganizationUpdateSubscription = {
     totalSeats,
@@ -82,7 +82,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   const proratedCost = formatCurrency((proratedAmount?.subTotalInCents ?? 0) / 100)
 
   const handleCalculate = () => {
-    if (intCount > 0) {
+    if (intCount > 0 && !isInvalid) {
       setCalculatedCount(intCount)
     }
   }
@@ -145,6 +145,10 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             type="number"
             value={count}
             onChange={handleChange}
+            inputProps={{
+              min: 0,
+              max: maxSeats
+            }}
           />
           <Button
             disabled={isInvalid || isNaN(intCount) || intCount === 0 || calculatedCount === intCount}
@@ -157,10 +161,16 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
         </Flex>
         {isInvalid && (
           <FormHelperText error sx={{ mt: 1 }}>
-            If you are buying more than 100 seats,{' '}
-            <Link href="mailto:support@growthday.com" target="_blank">
-              schedule a demo
-            </Link>
+            {+count < 0 ? (
+              <>Should be greater than 0</>
+            ) : (
+              <>
+                If you are buying more than 100 seats,{' '}
+                <Link href="mailto:support@growthday.com" target="_blank">
+                  schedule a demo
+                </Link>
+              </>
+            )}
           </FormHelperText>
         )}
         <Box mb={3} />
