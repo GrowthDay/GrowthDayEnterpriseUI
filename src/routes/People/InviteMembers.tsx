@@ -147,7 +147,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       const data = await fileToJson(file)
       const rows = parseData(data)
       const invitations = methods.getValues('invitations').filter((row) => row.email)
-      const newInvitations = uniqBy([...invitations, ...rows], 'email').slice(0, seatsLeft)
+      const newInvitations = uniqBy([...invitations, ...rows], (row) => toLower(row.email)).slice(0, seatsLeft)
       replace(newInvitations)
     }
   }
