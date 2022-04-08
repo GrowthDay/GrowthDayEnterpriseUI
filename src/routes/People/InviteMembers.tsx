@@ -20,7 +20,7 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import { camelCase, mapKeys, toLower } from 'lodash-es'
+import { camelCase, mapKeys, toLower, uniqBy } from 'lodash-es'
 import moment from 'moment'
 import urlJoin from 'proper-url-join'
 import { ChangeEvent, FC, useRef } from 'react'
@@ -147,9 +147,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       const data = await fileToJson(file)
       const rows = parseData(data)
       const invitations = methods.getValues('invitations').filter((row) => row.email)
-      const existingEmails = invitations.map((row) => row.email)
-      const filteredRows = rows.filter((row) => !existingEmails.includes(row.email))
-      const newInvitations = [...invitations, ...filteredRows].slice(0, seatsLeft)
+      const newInvitations = uniqBy([...invitations, ...rows], 'email').slice(0, seatsLeft)
       replace(newInvitations)
     }
   }
