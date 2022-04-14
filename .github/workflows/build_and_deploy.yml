@@ -12,6 +12,7 @@ jobs :
   build_and_deploy :
     name : Build and Deploy
     runs-on : ubuntu-18.04
+    environment: AWS
     steps :
       # Action environment set up
       - name : Checkout Repository
