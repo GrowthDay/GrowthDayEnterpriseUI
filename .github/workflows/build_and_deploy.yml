@@ -85,22 +85,22 @@ jobs :
       - name : Try Upload to UAT S3
         if : startsWith(github.ref, 'refs/heads/uat') == true
         run : |
-          aws s3 cp s3://growth-enterprise-uat/index.html s3://growth-enterprise-uat/index-old-${{ github.run_id }}.html
-          aws s3 cp ./build s3://growth-enterprise-uat --recursive --acl public-read --cache-control 'max-age=604800'
-          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-enterprise-uat/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
-          # aws s3 cp ./build/apple-app-site-association s3://growth-enterprise-uat/apple-app-site-association --acl public-read --content-type 'application/json'
-          aws s3 cp ./build/index.html s3://growth-enterprise-uat/index.html --acl public-read --cache-control 'no-cache'
+          aws s3 cp s3://growth-day-enterprise-uat/index.html s3://growth-day-enterprise-uat/index-old-${{ github.run_id }}.html
+          aws s3 cp ./build s3://growth-day-enterprise-uat --recursive --acl public-read --cache-control 'max-age=604800'
+          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-day-enterprise-uat/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
+          # aws s3 cp ./build/apple-app-site-association s3://growth-day-enterprise-uat/apple-app-site-association --acl public-read --content-type 'application/json'
+          aws s3 cp ./build/index.html s3://growth-day-enterprise-uat/index.html --acl public-read --cache-control 'no-cache'
         env :
           AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name : Try Upload to Poduction S3
         if : startsWith(github.ref, 'refs/tags/v') == true
         run : |
-          aws s3 cp s3://growth-enterprise-prod/index.html s3://growth-enterprise-prod/index-old-${{ github.run_id }}.html
-          aws s3 cp ./build s3://growth-enterprise-prod --recursive --acl public-read --cache-control 'max-age=604800'
-          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-enterprise-prod/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
-          # aws s3 cp ./build/apple-app-site-association s3://growth-enterprise-prod/apple-app-site-association --acl public-read --content-type 'application/json'
-          aws s3 cp ./build/index.html s3://growth-enterprise-prod/index.html --acl public-read --cache-control 'no-cache'
+          aws s3 cp s3://growth-day-enterprise-prod/index.html s3://growth-day-enterprise-prod/index-old-${{ github.run_id }}.html
+          aws s3 cp ./build s3://growth-day-enterprise-prod --recursive --acl public-read --cache-control 'max-age=604800'
+          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-day-enterprise-prod/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
+          # aws s3 cp ./build/apple-app-site-association s3://growth-day-enterprise-prod/apple-app-site-association --acl public-read --content-type 'application/json'
+          aws s3 cp ./build/index.html s3://growth-day-enterprise-prod/index.html --acl public-read --cache-control 'no-cache'
         env :
           AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
