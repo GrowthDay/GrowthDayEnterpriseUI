@@ -1,0 +1,16 @@
+name : Sync Files
+on : [push, workflow_dispatch]
+jobs :
+  sync :
+    runs-on : ubuntu-latest
+    steps :
+      - name : Checkout Repository
+        uses : actions/checkout@v1
+      - name: Create configuration file
+        run: |
+          cat .github/sync-template.yml | sed "s~{{branch}}~${GITHUB_REF#refs/heads/}~g" > .github/sync-config.yml
+      - name : Run GitHub File Sync
+        uses : Redocly/repo-file-sync-action@master
+        with :
+          GH_PAT : ${{ secrets.GH_PAT }}
+          CONFIG_PATH : .github/sync-config.yml

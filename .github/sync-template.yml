@@ -1,0 +1,3 @@
+GrowthDay/GrowthDayEnterpriseUI@{{branch}}:
+  - source: src/core/
+    dest: src/
