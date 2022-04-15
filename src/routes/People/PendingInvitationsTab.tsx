@@ -36,6 +36,7 @@ const PendingInvitationsTab: FC<PeopleTableProps> = (props) => {
       }
       variant="outlined"
       sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+      data-cy="people-pending-reinvite-button"
     >
       {hasSent ? 'Sent' : 'Re-Invite'}
     </LoadingButton>
@@ -73,14 +74,25 @@ const PendingInvitationsTab: FC<PeopleTableProps> = (props) => {
         }}
         PaperProps={{ sx: { p: 1.5, maxWidth: 240, m: 1.5 } }}
       >
-        <Typography fontWeight={300} mb={2}>
+        <Typography fontWeight={300} mb={2} data-cy="people-pending-reinvite-confirmation-text">
           Invite email will resend to selected pending members
         </Typography>
         <Flex>
-          <Button size="small" sx={{ borderRadius: 1 }} onClick={handleSend}>
+          <Button
+            size="small"
+            sx={{ borderRadius: 1 }}
+            onClick={handleSend}
+            data-cy="people-pending-reinvite-confirmation-send-button"
+          >
             SEND
           </Button>
-          <Button size="small" sx={{ borderRadius: 1, ml: 1 }} variant="outlined" onClick={() => popupState.close()}>
+          <Button
+            size="small"
+            sx={{ borderRadius: 1, ml: 1 }}
+            variant="outlined"
+            onClick={() => popupState.close()}
+            data-cy="people-pending-reinvite-confirmation-cancel-button"
+          >
             CANCEL
           </Button>
         </Flex>

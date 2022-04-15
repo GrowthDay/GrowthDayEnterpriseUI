@@ -62,7 +62,7 @@ const AccountTransactions: FC = () => {
     <>
       <Receipt transaction={transaction} open={Boolean(transaction)} onClose={() => setTransaction(undefined)} />
       <Flex mb={2}>
-        <Typography fontWeight={700} variant="h5">
+        <Typography fontWeight={700} variant="h5" data-cy="account-payment-history-title-text">
           Payment history
         </Typography>
       </Flex>

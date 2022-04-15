@@ -79,7 +79,7 @@ const People: FC = () => {
             }}
           >
             <Flex flex={1} alignItems="center" sx={{ mb: { xs: 1, md: 0 } }}>
-              <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600}>
+              <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600} data-cy="people-seats-left-text">
                 {isLoading ? (
                   <>
                     <Skeleton height={14} width={80} />
@@ -92,16 +92,25 @@ const People: FC = () => {
                 )}
               </Typography>
               <Divider flexItem sx={{ mx: 2 }} orientation="vertical" />
-              <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={400}>
+              <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={400} data-cy="people-total-seats-text">
                 {totalLeft} total seat{totalLeft === 1 ? '' : 's'}
               </Typography>
             </Flex>
             <Flex flex={1} alignItems="center" justifyContent="flex-end">
-              <Button onClick={() => setAddSeatsOpen(true)} startIcon={<AddOutlined />}>
+              <Button
+                onClick={() => setAddSeatsOpen(true)}
+                startIcon={<AddOutlined />}
+                data-cy="people-add-more-seats-button"
+              >
                 {mobileView ? 'Add seats' : 'Add more seats'}
               </Button>
               <Box mx={1} />
-              <Button onClick={() => setInviteOpen(true)} variant="outlined" startIcon={<AddOutlined />}>
+              <Button
+                onClick={() => setInviteOpen(true)}
+                variant="outlined"
+                startIcon={<AddOutlined />}
+                data-cy="people-invite-members-button"
+              >
                 {mobileView ? 'Invite' : 'Invite members'}
               </Button>
             </Flex>
@@ -113,8 +122,16 @@ const People: FC = () => {
           <>
             <TabContext value={tab}>
               <TabList scrollButtons={false} variant="scrollable" onChange={(_, value) => setTab(value)}>
-                <Tab value="1" label={<>Team members ({defaultPeople?.totalRecords ?? 0})</>} />
-                <Tab value="2" label={<>Pending Invitations ({defaultInvitationsPending?.totalRecords ?? 0})</>} />
+                <Tab
+                  value="1"
+                  label={<>Team members ({defaultPeople?.totalRecords ?? 0})</>}
+                  data-cy="people-tabs-members-button"
+                />
+                <Tab
+                  value="2"
+                  label={<>Pending Invitations ({defaultInvitationsPending?.totalRecords ?? 0})</>}
+                  data-cy="people-tabs-pending-button"
+                />
               </TabList>
               <Divider sx={{ mb: 4, mt: '-1.5px' }} />
               <TabPanel sx={{ p: 0 }} value="1">

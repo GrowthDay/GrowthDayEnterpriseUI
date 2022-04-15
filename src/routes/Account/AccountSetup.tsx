@@ -92,7 +92,7 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
             <Step active>
               <StepLabel StepIconComponent={StyledStepIcon} />
               <StyledStepContent>
-                <VideoPlayer url="https://www.youtube.com/watch?v=Scfw5x35AAw" />
+                <VideoPlayer url="https://www.youtube.com/watch?v=Scfw5x35AAw" data-cy="account-setup-video" />
                 <Typography mb={2} fontWeight={600}>
                   Welcome to GrowthDay Enterprise!
                 </Typography>
@@ -108,6 +108,7 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
                     placeholder="Organization Name"
                     value={organizationName}
                     onChange={(event) => setOrganizationName(event.target.value)}
+                    data-cy="account-setup-organization-name-input"
                   />
                   {organizationName !== organization?.name && (
                     <>
@@ -118,6 +119,7 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
                         disabled={!organizationName}
                         size="small"
                         sx={{ mb: 0.5, ml: 4 }}
+                        data-cy="account-setup-organization-name-save-button"
                       >
                         Save
                       </LoadingButton>
@@ -127,6 +129,7 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
                         size="small"
                         variant="outlined"
                         sx={{ mb: 0.5, ml: 1 }}
+                        data-cy="account-setup-organization-name-reset-button"
                       >
                         Reset
                       </Button>
@@ -146,7 +149,12 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
                   their email address one after the other. Once done, each person that you listed will be able to sign
                   up for GrowthDay.
                 </Typography>
-                <Button onClick={() => setInviteOpen(true)} variant="outlined" startIcon={<AddOutlined />}>
+                <Button
+                  onClick={() => setInviteOpen(true)}
+                  variant="outlined"
+                  startIcon={<AddOutlined />}
+                  data-cy="account-setup-invite-button"
+                >
                   Invite members
                 </Button>
               </StyledStepContent>

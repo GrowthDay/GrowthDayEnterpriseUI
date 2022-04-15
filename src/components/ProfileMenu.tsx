@@ -17,7 +17,7 @@ const ProfileMenu: FC<PopupState> = ({ children, ...popupState }) => {
   }
   return (
     <Menu {...bindMenu(popupState)}>
-      <MenuItem onClick={() => handleExternalLink('mailto:support@growthday.com')} dense>
+      <MenuItem onClick={() => handleExternalLink('mailto:support@growthday.com')} dense data-cy="header-menu-contact">
         <ListItemIcon>
           <AccountCircleOutlined fontSize="small" />
         </ListItemIcon>
@@ -29,7 +29,7 @@ const ProfileMenu: FC<PopupState> = ({ children, ...popupState }) => {
       {/*  </ListItemIcon>*/}
       {/*  <ListItemText>Resources</ListItemText>*/}
       {/*</MenuItem>*/}
-      <MenuItem onClick={handleLogout} dense>
+      <MenuItem onClick={handleLogout} dense data-cy="header-menu-logout">
         <ListItemIcon>
           <LogoutOutlined fontSize="small" />
         </ListItemIcon>
