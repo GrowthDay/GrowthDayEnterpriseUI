@@ -154,6 +154,7 @@ const PeopleTable: FC<PeopleTableProps> = ({
                 )
               }}
               variant="standard"
+              data-cy="people-table-search-input"
             />
           )}
         </Flex>

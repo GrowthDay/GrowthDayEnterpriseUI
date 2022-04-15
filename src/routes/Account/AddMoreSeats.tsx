@@ -102,22 +102,27 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
   if (showConfirmation) {
     return (
       <>
-        <DialogTitle id={titleLabelledBy}>
+        <DialogTitle id={titleLabelledBy} data-cy="add-more-seats-confirmation-title-text">
           Adding {calculatedCount} seat{calculatedCount === 1 ? '' : 's'} to the plan
         </DialogTitle>
         <DialogContent>
-          <Typography color="text.secondary" mb={2}>
+          <Typography color="text.secondary" mb={2} data-cy="add-more-seats-confirmation-subtitle-text">
             You will be billed{' '}
             <Typography component="span" color="text.primary">
               {proratedCost}
             </Typography>{' '}
             and from next billing cycle the total amount will be {totalCost}. Do you want to continue?
           </Typography>
-          <Typography mb={2} color="text.disabled" variant="body2">
+          <Typography mb={2} color="text.disabled" variant="body2" data-cy="add-more-seats-confirmation-taxes-text">
             State and local sales tax will be calculated on your final invoice.
           </Typography>
           <Flex alignItems="center">
-            <LoadingButton onClick={handleSubmit} loading={isLoading} variant="text">
+            <LoadingButton
+              onClick={handleSubmit}
+              loading={isLoading}
+              variant="text"
+              data-cy="add-more-seats-confirmation-continue-button"
+            >
               Continue
             </LoadingButton>
             <Button
@@ -125,6 +130,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
               variant="text"
               color="inherit"
               sx={{ ml: 1, opacity: 0.54 }}
+              data-cy="add-more-seats-confirmation-goback-button"
             >
               Go back
             </Button>
@@ -136,7 +142,9 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
 
   return (
     <>
-      <DialogTitle id={titleLabelledBy}>Add more seats</DialogTitle>
+      <DialogTitle id={titleLabelledBy} data-cy="add-more-seats-title-text">
+        Add more seats
+      </DialogTitle>
       <DialogContent>
         <Flex alignItems="flex-end">
           <TextField
@@ -149,12 +157,14 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
               min: 0,
               max: maxSeats
             }}
+            data-cy="add-more-seats-number-input"
           />
           <Button
             disabled={isInvalid || isNaN(intCount) || intCount === 0 || calculatedCount === intCount}
             onClick={handleCalculate}
             sx={{ ml: 2, mb: 0.5 }}
             variant="outlined"
+            data-cy="add-more-seats-calculate-button"
           >
             Calculate
           </Button>
@@ -174,7 +184,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           </FormHelperText>
         )}
         <Box mb={3} />
-        <Table size="small">
+        <Table size="small" data-cy="add-more-seats-calculations-table">
           <TableHead>
             <StyledPrimaryTableCellHeader>Price breakdown</StyledPrimaryTableCellHeader>
             <StyledTableCellHeader>Before</StyledTableCellHeader>
@@ -226,16 +236,23 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             disabled={calculatedCount === 0 || isProratedAmountFetching}
             onClick={() => setShowConfirmation(true)}
             variant="contained"
+            data-cy="add-more-seats-update-billing-button"
           >
             Update billing
           </Button>
-          <Button onClick={() => onClose?.({}, 'backdropClick')} variant="text" color="inherit" sx={{ ml: 1 }}>
+          <Button
+            onClick={() => onClose?.({}, 'backdropClick')}
+            variant="text"
+            color="inherit"
+            sx={{ ml: 1 }}
+            data-cy="add-more-seats-cancel-button"
+          >
             Cancel
           </Button>
         </Flex>
         <Typography variant="body2" color="text.secondary">
           {!mobileView && <>Need help? </>}
-          <Link target="_blank" href="mailto:support@growthday.com">
+          <Link target="_blank" href="mailto:support@growthday.com" data-cy="add-more-seats-contact-link">
             Contact support
           </Link>
         </Typography>

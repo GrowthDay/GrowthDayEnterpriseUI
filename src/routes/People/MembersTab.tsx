@@ -17,6 +17,7 @@ const MembersTab: FC<PeopleTableProps> = (props) => {
       startIcon={<DownloadOutlined fontSize="small" />}
       variant="outlined"
       sx={{ ml: 2, backgroundColor: (theme) => theme.palette.background.paper }}
+      data-cy="people-members-export-button"
     >
       {mobileView ? 'Export' : 'Export as XLSX'}
     </LoadingButton>

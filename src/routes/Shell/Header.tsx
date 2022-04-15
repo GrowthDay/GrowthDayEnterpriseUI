@@ -33,11 +33,11 @@ const Header: FC<HeaderProps> = ({ setupMode }) => {
             <MenuOutlined />
           </IconButton>
         )}
-        <GrowthDayIcon sx={{ width: { xs: 160, md: 190 } }} />
+        <GrowthDayIcon sx={{ width: { xs: 160, md: 190 } }} data-cy="header-logo-svg" />
         {!smallDevice && (
           <>
             <Divider orientation="vertical" flexItem variant="middle" color="white" sx={{ mx: 3, width: 2 }} />
-            <Typography variant="h6" fontWeight="bold">
+            <Typography variant="h6" fontWeight="bold" data-cy="header-title-text">
               Enterprise
             </Typography>
           </>
@@ -46,11 +46,11 @@ const Header: FC<HeaderProps> = ({ setupMode }) => {
           <>
             <Box flex={1} />
             {!setupMode && (
-              <Link fontWeight={500} color="white" mr={2} href={config.webUrl}>
+              <Link fontWeight={500} color="white" mr={2} href={config.webUrl} data-cy="header-back-link">
                 Back to App
               </Link>
             )}
-            <IconButton size="small" {...(setupMode ? {} : bindTrigger(popupState))}>
+            <IconButton size="small" {...(setupMode ? {} : bindTrigger(popupState))} data-cy="header-avatar-button">
               <Avatar
                 {...(user?.profileImage ? { src: user?.profileImage } : {})}
                 sx={{ width: 36, height: 36, backgroundColor: 'primary.light' }}

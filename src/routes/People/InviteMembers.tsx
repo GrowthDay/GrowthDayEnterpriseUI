@@ -162,6 +162,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           onClick={handleAppend}
           variant="outlined"
           startIcon={<AddOutlined />}
+          data-cy="invite-modal-add-more-button"
         >
           Add more
         </Button>
@@ -172,7 +173,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   return (
     <>
       <DialogContent ref={contentRef}>
-        <Box mb={3} bgcolor="action.hover" p={2} borderRadius={2}>
+        <Box mb={3} bgcolor="action.hover" p={2} borderRadius={2} data-cy="invite-modal-text">
           <Typography variant="body2" paragraph>
             Upload an Excel or .csv file with the following parameters:
           </Typography>
@@ -200,6 +201,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               accept={SheetFileTypes}
               id="invite-members-file"
               type="file"
+              data-cy="invite-modal-file-input"
             />
             <Button
               disabled={disabled}
@@ -207,6 +209,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               sx={{ ml: 2 }}
               variant="outlined"
               startIcon={<FileUploadOutlined fontSize="small" />}
+              data-cy="invite-modal-upload-button"
             >
               Upload xls or csv
             </Button>
@@ -222,6 +225,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           methods={methods}
           onSuccess={handleSubmit}
           sx={{ position: 'relative', my: 2 }}
+          data-cy="invite-modal-form"
         >
           {fields.map((item, index) => (
             <Grid mb={2} spacing={2} container key={item.id}>
@@ -232,6 +236,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   name={`invitations.${index}.email`}
                   label={index === 0 ? 'Email Address' : ''}
                   type="email"
+                  data-cy="invite-modal-email-input"
                 />
               </Grid>
               <Grid alignItems="flex-end" container item xs={(fields.length > 1 ? 3 : 4) + (mobileView ? 1 : 0)}>
@@ -249,6 +254,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                         </Typography>
                       )
                   }}
+                  data-cy="invite-modal-role-input"
                 >
                   {roles.map((role) => (
                     <MenuItem
@@ -261,6 +267,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                         justifyContent: 'space-between',
                         '&:not(.Mui-selected) .MuiSvgIcon-root': { display: 'none' }
                       }}
+                      data-cy={`invite-modal-role-${role.name}`}
                     >
                       {renderRoleName(role)} <CheckOutlined sx={{ ml: 2 }} color="primary" fontSize="small" />
                     </MenuItem>
@@ -292,6 +299,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           loading={isLoading}
           variant="contained"
           type="submit"
+          data-cy="invite-modal-send-button"
         >
           Send Invite
         </LoadingButton>

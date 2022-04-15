@@ -38,14 +38,25 @@ const UpdateCreditCard: FC<UpdateCreditCardProps> = ({ onClose }) => {
   return (
     <>
       <DialogContent>
-        <Form<UpdatePaymentMethodRequest> id="update-card-form" onSuccess={handleSubmit} methods={methods}>
+        <Form<UpdatePaymentMethodRequest>
+          id="update-card-form"
+          onSuccess={handleSubmit}
+          methods={methods}
+          data-cy="update-card-modal-form"
+        >
           <Grid spacing={2} container>
             <StripeCardForm methods={methods} />
           </Grid>
         </Form>
       </DialogContent>
       <DialogActions>
-        <LoadingButton loading={loading} form="update-card-form" variant="contained" type="submit">
+        <LoadingButton
+          loading={loading}
+          form="update-card-form"
+          variant="contained"
+          type="submit"
+          data-cy="update-card-modal-submit-button"
+        >
           Update
         </LoadingButton>
       </DialogActions>

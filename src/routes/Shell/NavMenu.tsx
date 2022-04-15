@@ -76,6 +76,7 @@ const RenderNavItem: FC<MenuItem & { active?: boolean }> = ({
                 className: clsx(active && 'active')
               }
             : {})}
+          data-cy={`sidebar-${title?.toLowerCase()}-button`}
         >
           <Icon color="inherit" />{' '}
           {title && (
