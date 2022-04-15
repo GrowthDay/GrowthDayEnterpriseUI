@@ -114,7 +114,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             label="Password"
             type={inputType}
             InputProps={{ endAdornment }}
-            data-cy="password"
+            data-cy="account-details-password-input"
           />
         </Grid>
         <Grid mt={4} item xs={12}>
