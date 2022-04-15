@@ -67,10 +67,16 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
   )
 
   return (
-    <Form<IOrganizationCreateRequestType> methods={methods} onSuccess={handleSubmit}>
+    <Form<IOrganizationCreateRequestType> methods={methods} onSuccess={handleSubmit} data-cy="account-details-form">
       <Grid spacing={2} container>
         <Grid item xs={12}>
-          <FormInput disabled={!active} placeholder="GrowthDay Inc." name="name" label="Company Name" />
+          <FormInput
+            disabled={!active}
+            placeholder="GrowthDay Inc."
+            name="name"
+            label="Company Name"
+            data-cy="account-details-company-name-input"
+          />
         </Grid>
         <Grid item xs={12}>
           <FormInput
@@ -79,13 +85,26 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             name="email"
             label="Email Address"
             type="email"
+            data-cy="account-details-email-input"
           />
         </Grid>
         <Grid item xs={6}>
-          <FormInput disabled={!active} placeholder="John" name="firstName" label="First Name" />
+          <FormInput
+            disabled={!active}
+            placeholder="John"
+            name="firstName"
+            label="First Name"
+            data-cy="account-details-first-name-input"
+          />
         </Grid>
         <Grid item xs={6}>
-          <FormInput disabled={!active} placeholder="Doe" name="lastName" label="Last Name" />
+          <FormInput
+            disabled={!active}
+            placeholder="Doe"
+            name="lastName"
+            label="Last Name"
+            data-cy="account-details-last-name-input"
+          />
         </Grid>
         <Grid item xs={12}>
           <FormInput
@@ -95,10 +114,18 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             label="Password"
             type={inputType}
             InputProps={{ endAdornment }}
+            data-cy="account-details-password-input"
           />
         </Grid>
         <Grid mt={4} item xs={12}>
-          <LoadingButton disabled={!active} sx={{ minWidth: 156 }} loading={isLoading} variant="outlined" type="submit">
+          <LoadingButton
+            disabled={!active}
+            sx={{ minWidth: 156 }}
+            loading={isLoading}
+            variant="outlined"
+            type="submit"
+            data-cy="account-details-next-button"
+          >
             Next
           </LoadingButton>
         </Grid>
