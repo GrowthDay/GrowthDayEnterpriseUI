@@ -24,10 +24,22 @@ const StripeCardForm: FC<StripeCardFormProps> = ({ methods, disabled }) => {
   return (
     <>
       <Grid item xs={12}>
-        <FormCardElement placeholder="Card number" disabled={disabled} name="card" label="Card details" />
+        <FormCardElement
+          placeholder="Card number"
+          disabled={disabled}
+          name="card"
+          label="Card details"
+          data-cy="stripe-card-number-input"
+        />
       </Grid>
       <Grid item xs={12}>
-        <FormInput disabled={disabled} placeholder="John Doe" name="fullName" label="Name on card" />
+        <FormInput
+          disabled={disabled}
+          placeholder="John Doe"
+          name="fullName"
+          label="Name on card"
+          data-cy="stripe-card-name-input"
+        />
       </Grid>
       <Grid item xs={12}>
         <FormAutocomplete
@@ -38,6 +50,7 @@ const StripeCardForm: FC<StripeCardFormProps> = ({ methods, disabled }) => {
           getOptionLabel={(option: string) => countriesMap[option]?.name ?? ''}
           options={countries}
           onChange={() => methods.setValue('region', '')}
+          data-cy="stripe-card-country-dropdown"
         />
       </Grid>
       {states.length > 0 && (
@@ -49,14 +62,21 @@ const StripeCardForm: FC<StripeCardFormProps> = ({ methods, disabled }) => {
             label="State"
             getOptionLabel={(option: string) => statesMap[option]?.name ?? ''}
             options={states}
+            data-cy="stripe-card-state-dropdown"
           />
         </Grid>
       )}
       <Grid item xs={12}>
-        <FormInput disabled={disabled} name="zipCode" label="Zip/postcode" />
+        <FormInput disabled={disabled} name="zipCode" label="Zip/postcode" data-cy="stripe-card-zip-input" />
       </Grid>
       <Grid item xs={12}>
-        <FormPhoneInput disabled={disabled} country={country} name="phoneNumber" label="Phone Number" />
+        <FormPhoneInput
+          disabled={disabled}
+          country={country}
+          name="phoneNumber"
+          label="Phone Number"
+          data-cy="stripe-card-phone-input"
+        />
       </Grid>
     </>
   )

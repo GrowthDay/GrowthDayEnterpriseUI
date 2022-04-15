@@ -56,10 +56,11 @@ const Footer: FC<FooterProps> = ({ activeStep }) => {
 
   return (
     <AppBar position="fixed" color="default" sx={{ top: 'auto', bottom: 0 }}>
-      <Toolbar sx={{ justifyContent: 'center' }}>
+      <Toolbar sx={{ justifyContent: 'center' }} data-cy="footer">
         <Stepper className="hide-scrollbar" sx={{ mr: 4, overflowX: 'auto', height: '100%' }} activeStep={activeStep}>
           {steps.map(({ label }, index) => (
             <Step
+              data-cy="footer-form-step"
               ref={(ref) => (refs.current[index] = ref as HTMLDivElement)}
               key={index}
               sx={{ mx: 2, whiteSpace: 'nowrap' }}
@@ -75,6 +76,7 @@ const Footer: FC<FooterProps> = ({ activeStep }) => {
           form="signup-checkout-form"
           sx={{ flexShrink: 0 }}
           disabled={activeStep + 1 < steps.length}
+          data-cy="footer-checkout-button"
         >
           Checkout
         </LoadingButton>

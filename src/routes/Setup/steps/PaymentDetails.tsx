@@ -91,7 +91,12 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   }, [data, methods])
 
   return (
-    <Form<SetupSubscriptionRequest> id="signup-checkout-form" methods={methods} onSuccess={handleSubmit}>
+    <Form<SetupSubscriptionRequest>
+      id="signup-checkout-form"
+      methods={methods}
+      onSuccess={handleSubmit}
+      data-cy="payment-form"
+    >
       <Grid spacing={2} container>
         <Grid item xs={12}>
           <FormRadioGroup name="stripePriceId" label="Select a plan">
@@ -107,6 +112,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
                   mx: 0,
                   borderRadius: 1
                 }}
+                data-cy="payment-subscription-plan-radio"
                 disabled={!active}
                 key={subscriptionPlan.stripeYearlyPriceId}
                 value={subscriptionPlan.stripeYearlyPriceId}
@@ -143,6 +149,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
             name="totalSeats"
             label="Number of seats"
             type="number"
+            data-cy="payment-seats-number-input"
           />
         </Grid>
         <Grid item xs={12}>
