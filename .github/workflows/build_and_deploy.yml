@@ -1,47 +1,45 @@
-on :
-  push :
-    branches :
+on:
+  push:
+    branches:
       - dev
       - uat
-    tags :
+    tags:
       - 'v*'
 
-env :
-  ACTIONS_ALLOW_UNSECURE_COMMANDS : true
-jobs :
-  build_and_deploy :
-    name : Build and Deploy
-    runs-on : ubuntu-18.04
-    environment: AWS
-    steps :
-      # Action environment set up
-      - name : Checkout Repository
-        uses : actions/checkout@v1
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
-      - name : Setup Node.js
-        uses : actions/setup-node@v1
-        with :
-          node-version : "14.x"
+jobs:
+  build_and_deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-18.04
+    environment: AWS
+    steps:
+      # Action environment set up
+      - name: Checkout Repository
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
 
       # Setting up .env file
-      - name : Try Setup Dev Environment File
-        if : startsWith(github.ref, 'refs/heads/dev') == true
-        run : |
+      - name: Try Setup Dev Environment File
+        if: startsWith(github.ref, 'refs/heads/dev') == true
+        run: |
           echo "REACT_APP_ENV=dev" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
-          echo "APP_URL=https://enterprise.dev.gday-stack.com" >> .env
-      - name : Try Setup UAT Environment File
-        if : startsWith(github.ref, 'refs/heads/uat') == true
-        run : |
+      - name: Try Setup UAT Environment File
+        if: startsWith(github.ref, 'refs/heads/uat') == true
+        run: |
           echo "REACT_APP_ENV=uat" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
-          echo "APP_URL=https://enterprise.uat.gday-stack.com" >> .env
-      - name : Try Setup Production Environment File
-        if : startsWith(github.ref, 'refs/tags/v') == true
-        run : |
+      - name: Try Setup Production Environment File
+        if: startsWith(github.ref, 'refs/tags/v') == true
+        run: |
           echo "REACT_APP_ENV=production" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
-          echo "APP_URL=https://enterprise.growthday.com" >> .env
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -56,78 +54,71 @@ jobs :
             ${{ runner.os }}-yarn-
 
       # Install npm dependencies
-      - name : Install Dependencies
-        run : yarn install --frozen-lockfile
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
 
       # Build react app
-      - name : Build
-        run : yarn build
+      - name: Build
+        run: yarn build
 
       # Create version html for debugging
-      - name : Create Version HTML
-        run : |
+      - name: Create Version HTML
+        run: |
           echo "${GITHUB_REF##*/}-${GITHUB_SHA::7}" > version.html
           cp -rf version.html ./build
 
       # Upload zip artifact to S3
-      - uses : chrislennon/action-aws-cli@v1.1
-      - name : Try Upload to Dev S3
-        if : startsWith(github.ref, 'refs/heads/dev') == true
-        run : |
+      - uses: chrislennon/action-aws-cli@v1.1
+      - name: Try Upload to Dev S3
+        if: startsWith(github.ref, 'refs/heads/dev') == true
+        run: |
           aws s3 cp s3://growth-day-enterprise-dev/index.html s3://growth-day-enterprise-dev/index-old-${{ github.run_id }}.html
           aws s3 cp ./build s3://growth-day-enterprise-dev --recursive --acl public-read --cache-control 'max-age=604800'
-          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-day-enterprise-dev/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
-          # aws s3 cp ./build/apple-app-site-association s3://growth-day-enterprise-dev/apple-app-site-association --acl public-read --content-type 'application/json'
           aws s3 cp ./build/index.html s3://growth-day-enterprise-dev/index.html --acl public-read --cache-control 'no-cache'
-        env :
-          AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name : Try Upload to UAT S3
-        if : startsWith(github.ref, 'refs/heads/uat') == true
-        run : |
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Try Upload to UAT S3
+        if: startsWith(github.ref, 'refs/heads/uat') == true
+        run: |
           aws s3 cp s3://growth-day-enterprise-uat/index.html s3://growth-day-enterprise-uat/index-old-${{ github.run_id }}.html
           aws s3 cp ./build s3://growth-day-enterprise-uat --recursive --acl public-read --cache-control 'max-age=604800'
-          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-day-enterprise-uat/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
-          # aws s3 cp ./build/apple-app-site-association s3://growth-day-enterprise-uat/apple-app-site-association --acl public-read --content-type 'application/json'
           aws s3 cp ./build/index.html s3://growth-day-enterprise-uat/index.html --acl public-read --cache-control 'no-cache'
-        env :
-          AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name : Try Upload to Poduction S3
-        if : startsWith(github.ref, 'refs/tags/v') == true
-        run : |
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Try Upload to Production S3
+        if: startsWith(github.ref, 'refs/tags/v') == true
+        run: |
           aws s3 cp s3://growth-day-enterprise-prod/index.html s3://growth-day-enterprise-prod/index-old-${{ github.run_id }}.html
           aws s3 cp ./build s3://growth-day-enterprise-prod --recursive --acl public-read --cache-control 'max-age=604800'
-          # aws s3 cp ./build/.well-known/apple-app-site-association s3://growth-day-enterprise-prod/.well-known/apple-app-site-association --acl public-read --content-type 'application/json'
-          # aws s3 cp ./build/apple-app-site-association s3://growth-day-enterprise-prod/apple-app-site-association --acl public-read --content-type 'application/json'
           aws s3 cp ./build/index.html s3://growth-day-enterprise-prod/index.html --acl public-read --cache-control 'no-cache'
-        env :
-          AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       #Slack notifications
-      - name : Slack Notification for Dev
-        if : startsWith(github.ref, 'refs/heads/dev') == true
-        uses : rtCamp/action-slack-notify@v2
-        env :
-          SLACK_WEBHOOK : ${{ secrets.RELEASE_DEV_SLACK_WEBHOOK }}
-          SLACK_ICON : https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
-          SLACK_USERNAME : GitHub
-          SLACK_TITLE : Web
-      - name : Slack Notification for UAT
-        if : startsWith(github.ref, 'refs/heads/uat') == true
-        uses : rtCamp/action-slack-notify@v2
-        env :
-          SLACK_WEBHOOK : ${{ secrets.RELEASE_UAT_SLACK_WEBHOOK }}
-          SLACK_ICON : https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
-          SLACK_USERNAME : GitHub
-          SLACK_TITLE : Web
-      - name : Slack Notification for Poduction
-        if : startsWith(github.ref, 'refs/tags/v') == true
-        uses : rtCamp/action-slack-notify@v2
-        env :
-          SLACK_WEBHOOK : ${{ secrets.RELEASE_PROD_SLACK_WEBHOOK }}
-          SLACK_ICON : https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
-          SLACK_USERNAME : GitHub
-          SLACK_TITLE : Web
-
+      - name: Slack Notification for Dev
+        if: startsWith(github.ref, 'refs/heads/dev') == true
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.RELEASE_DEV_SLACK_WEBHOOK }}
+          SLACK_ICON: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
+          SLACK_USERNAME: GitHub
+          SLACK_TITLE: Web
+      - name: Slack Notification for UAT
+        if: startsWith(github.ref, 'refs/heads/uat') == true
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.RELEASE_UAT_SLACK_WEBHOOK }}
+          SLACK_ICON: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
+          SLACK_USERNAME: GitHub
+          SLACK_TITLE: Web
+      - name: Slack Notification for Production
+        if: startsWith(github.ref, 'refs/tags/v') == true
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.RELEASE_PROD_SLACK_WEBHOOK }}
+          SLACK_ICON: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
+          SLACK_USERNAME: GitHub
+          SLACK_TITLE: Web

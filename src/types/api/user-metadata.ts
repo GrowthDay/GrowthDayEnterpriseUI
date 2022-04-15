@@ -32,6 +32,12 @@ export interface UserMetadata {
   deleteTimestamp?: number
   /**
    *
+   * @type {number}
+   * @memberof UserMetadata
+   */
+  growthGroupUpsellPopupCount?: number
+  /**
+   *
    * @type {string}
    * @memberof UserMetadata
    */

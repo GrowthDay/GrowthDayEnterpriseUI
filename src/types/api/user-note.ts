@@ -56,6 +56,12 @@ export interface UserNote {
   id?: string
   /**
    *
+   * @type {{ [key: string]: string; }}
+   * @memberof UserNote
+   */
+  notePhotos?: { [key: string]: string }
+  /**
+   *
    * @type {boolean}
    * @memberof UserNote
    */

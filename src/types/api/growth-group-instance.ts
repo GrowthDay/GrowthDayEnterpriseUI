@@ -14,6 +14,7 @@
 
 import { Hms } from './hms'
 import { ParticipantData } from './participant-data'
+import { ZoneId1 } from './zone-id1'
 
 /**
  *
@@ -99,6 +100,12 @@ export interface GrowthGroupInstance {
    * @memberof GrowthGroupInstance
    */
   hms?: Hms
+  /**
+   *
+   * @type {ZoneId1}
+   * @memberof GrowthGroupInstance
+   */
+  ianaTimezone?: ZoneId1
   /**
    *
    * @type {string}
