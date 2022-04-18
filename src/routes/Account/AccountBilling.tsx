@@ -63,7 +63,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 Plan
               </Typography>
               <Typography variant="h6" fontWeight={600} data-cy="account-billing-plan-text">
-                {organization?.planName} {organization?.planFrequency && frequencyMap[organization.planFrequency]}
+                {organization?.planName} Plan
               </Typography>
             </Grid>
             <Grid whiteSpace="nowrap" item xs>

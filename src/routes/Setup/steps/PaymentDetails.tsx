@@ -156,7 +156,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
                   <>
                     <div>
                       <Typography variant="body1" fontWeight={500}>
-                        {subscriptionPlan.name}
+                        {subscriptionPlan.name} Plan
                       </Typography>
                       <Typography variant="body2">
                         {formatCurrency(subscriptionPlan.yearlyAmount ?? 0, subscriptionPlan.currency)}/year
