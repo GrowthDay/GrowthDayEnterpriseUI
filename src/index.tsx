@@ -2,7 +2,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import { LicenseInfo } from '@mui/x-data-grid-pro'
 import { SnackbarProvider } from 'notistack'
-import { createRoot } from 'react-dom/client'
+import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { RecoilRoot } from 'recoil'
 import App from './App'
@@ -37,9 +37,14 @@ const Main = (
   </StrictMode>
 )
 
-const container = document.getElementById('root')
-const root = createRoot(container!)
-root.render(Main)
+const container = document.getElementById('root')!
+
+// v17
+render(Main, container)
+
+// v18
+// const root = createRoot(container!)
+// root.render(Main)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

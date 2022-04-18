@@ -105,7 +105,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.RELEASE_DEV_SLACK_WEBHOOK }}
           SLACK_ICON: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
           SLACK_USERNAME: GitHub
-          SLACK_TITLE: Web
+          SLACK_TITLE: Enterprise UI
       - name: Slack Notification for UAT
         if: startsWith(github.ref, 'refs/heads/uat') == true
         uses: rtCamp/action-slack-notify@v2
@@ -113,7 +113,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.RELEASE_UAT_SLACK_WEBHOOK }}
           SLACK_ICON: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
           SLACK_USERNAME: GitHub
-          SLACK_TITLE: Web
+          SLACK_TITLE: Enterprise UI
       - name: Slack Notification for Production
         if: startsWith(github.ref, 'refs/tags/v') == true
         uses: rtCamp/action-slack-notify@v2
@@ -121,4 +121,4 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.RELEASE_PROD_SLACK_WEBHOOK }}
           SLACK_ICON: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png
           SLACK_USERNAME: GitHub
-          SLACK_TITLE: Web
+          SLACK_TITLE: Enterprise UI

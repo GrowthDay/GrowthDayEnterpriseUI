@@ -104,7 +104,7 @@ const Receipt: FC<ReceiptProps> = ({ transaction: _transaction }) => {
             </Typography>
           </Typography>
           <Typography gutterBottom fontWeight={600} variant="h5">
-            GrowthDay Pro
+            GrowthDay Enterprise
           </Typography>
           <Box mb={4}>
             <Typography

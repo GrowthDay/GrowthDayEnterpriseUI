@@ -41,11 +41,13 @@ export interface ISubscriptionPlans {
   webhooks: IWebhooks[]
   tooltips: ITooltips[]
   onboarding?: IOnboarding
+  enterprise?: boolean
+  minimumQuantity?: number
   created_at?: string | null
 }
 
 export enum EnumSubscriptionPlansLevel {
   basic = 'basic',
-  growth = 'growth',
-  mastery = 'mastery'
+  mastery = 'mastery',
+  enterprise = 'enterprise'
 }

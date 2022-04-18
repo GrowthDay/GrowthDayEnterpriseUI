@@ -21,6 +21,7 @@ import isPopularPlan from '../../utils/isPopularPlan'
 
 export type PlanInfoProps = {
   plan: ISubscriptionPlans
+  hideChip?: boolean
 }
 
 const StyledCardContent = styled(CardContent)(
@@ -32,7 +33,7 @@ const StyledCardContent = styled(CardContent)(
   }) => ({
     position: 'relative',
     '&, &:last-child': {
-      padding: spacing(8, 4, 6)
+      padding: spacing(6, 4, 4)
     },
     '&.popular': {
       background: 'linear-gradient(138.18deg, #9fbda9 .31%,#5635af 81.83%)',
@@ -55,21 +56,21 @@ const StyledChip = styled(Chip)(
     borderBottomRightRadius: 0,
     position: 'absolute',
     right: 0,
-    top: spacing(3)
+    top: spacing(2)
   })
 )
 
 const getBulletPointsArray = (bulletPoints?: string | null): string[] =>
   bulletPoints?.split('\n')?.filter(Boolean) ?? []
 
-const PlanInfo: FC<PlanInfoProps> = ({ plan }) => {
+const PlanInfo: FC<PlanInfoProps> = ({ plan, hideChip }) => {
   const theme = useTheme<Theme>()
   const bulletPoints = getBulletPointsArray(plan.description)
   const popular = isPopularPlan(plan)
   return (
     <Card elevation={6}>
       <StyledCardContent className={classNames({ popular })}>
-        {popular && <StyledChip size="small" variant="outlined" label="Most Popular" />}
+        {!hideChip && popular && <StyledChip size="small" variant="outlined" label="Most Popular" />}
         <Typography textAlign="center" variant="h5" fontWeight={600}>
           {plan.name} Annual
         </Typography>

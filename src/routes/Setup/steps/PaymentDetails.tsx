@@ -12,6 +12,7 @@ import {
   TooltipProps,
   Typography
 } from '@mui/material'
+import { maxBy } from 'lodash-es'
 import * as React from 'react'
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -43,7 +44,7 @@ const HtmlTooltip = styled(({ className, ...props }: PropsWithChildren<TooltipPr
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: 'transparent',
     padding: 0,
-    maxWidth: 400
+    maxWidth: 420
   }
 })
 const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
@@ -56,12 +57,12 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   const { data: user } = useOrganizationUserQuery()
   const [_loading, setLoading] = useRecoilState(checkoutLoadingState)
   const { isLoading, mutateAsync } = useSetupSubscriptionMutation()
+  const { data: subscriptionPlans = [] } = useSubscriptionPlansQuery()
+  const { addPaymentMethod } = useStripePayment()
   const methods = useForm<SetupSubscriptionRequest>({
     defaultValues: SetupSubscriptionDefaultValues,
     resolver: yupResolver(SetupSubscriptionValidationSchema)
   })
-  const { data: subscriptionPlans } = useSubscriptionPlansQuery()
-  const { addPaymentMethod } = useStripePayment()
 
   const loading = _loading || isLoading
 
@@ -84,11 +85,32 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   }, [user, methods])
 
   useEffect(() => {
+    const selectedPlan = methods.getValues('stripePriceId')
+    if (subscriptionPlans.length && !selectedPlan) {
+      methods.setValue(
+        'stripePriceId',
+        (maxBy(subscriptionPlans, 'yearlyAmount') ?? subscriptionPlans[0]).stripeYearlyPriceId
+      )
+    }
+  }, [subscriptionPlans, methods])
+
+  useEffect(() => {
     if (data?.country) {
       methods.setValue('country', data.country)
       methods.setValue('region', data.state ?? '')
     }
   }, [data, methods])
+
+  const hasMultiplePlans = subscriptionPlans.length > 1
+
+  const selectedPlan = methods.watch('stripePriceId')
+
+  useEffect(() => {
+    const plan = subscriptionPlans.find((plan) => plan.stripeYearlyPriceId === selectedPlan)
+    if (plan?.minimumQuantity) {
+      methods.setValue('minSeats', plan.minimumQuantity)
+    }
+  }, [selectedPlan, subscriptionPlans, methods])
 
   return (
     <Form<SetupSubscriptionRequest>
@@ -99,19 +121,29 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
     >
       <Grid spacing={2} container>
         <Grid item xs={12}>
-          <FormRadioGroup name="stripePriceId" label="Select a plan">
-            {subscriptionPlans?.map((subscriptionPlan) => (
+          <FormRadioGroup name="stripePriceId" label={subscriptionPlans.length > 1 && 'Select a plan'}>
+            {subscriptionPlans.map((subscriptionPlan) => (
               <FormControlLabel
-                sx={{
-                  my: 1,
-                  px: 1,
-                  py: 1,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  width: '100%',
-                  mx: 0,
-                  borderRadius: 1
-                }}
+                sx={[
+                  {
+                    my: 1,
+                    py: 1,
+                    px: 1,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    width: '100%',
+                    mx: 0,
+                    borderRadius: 1
+                  },
+                  hasMultiplePlans
+                    ? {}
+                    : {
+                        pl: 1.5,
+                        '.MuiRadio-root': {
+                          display: 'none'
+                        }
+                      }
+                ]}
                 data-cy="payment-subscription-plan-radio"
                 disabled={!active}
                 key={subscriptionPlan.stripeYearlyPriceId}
@@ -131,8 +163,10 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
                       </Typography>
                     </div>
                     <Flex>
-                      {isPopularPlan(subscriptionPlan) && <Chip label="Most Popular" size="small" sx={{ mr: 2 }} />}
-                      <HtmlTooltip title={<PlanInfo plan={subscriptionPlan} />}>
+                      {hasMultiplePlans && isPopularPlan(subscriptionPlan) && (
+                        <Chip label="Most Popular" size="small" sx={{ mr: 2 }} />
+                      )}
+                      <HtmlTooltip title={<PlanInfo hideChip={!hasMultiplePlans} plan={subscriptionPlan} />}>
                         <InfoOutlined color="action" />
                       </HtmlTooltip>
                     </Flex>

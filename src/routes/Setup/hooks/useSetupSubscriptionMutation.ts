@@ -18,7 +18,9 @@ import useUpdateSubscriptionMutation, {
 
 export type SetupSubscriptionRequest = OrganizationUpdateAddressRequest &
   OrganizationUpdateSubscription &
-  UpdatePaymentMethodRequest
+  UpdatePaymentMethodRequest & {
+    minSeats?: number
+  }
 
 export const SetupSubscriptionValidationSchema = mergeSchemas(
   UpdateSubscriptionValidationSchema,

@@ -15,7 +15,7 @@ export const UpdateSubscriptionValidationSchema = yup
     totalSeats: yup
       .number()
       .nullable()
-      .min(5, 'Should be minimum 5')
+      .when('minSeats', (minSeats, schema) => schema.min(minSeats, `Should be minimum ${minSeats}`))
       .max(100, 'Should be maximum 100')
       .required('Required')
   })

@@ -90,7 +90,8 @@ export const UserTourTriggerEnum = {
   ChallengeDayOneComplete: 'ON_CHALLENGE_DAY_ONE_COMPLETE',
   ChallengeLoad: 'ON_CHALLENGE_LOAD',
   ChallengeFirstTaskComplete: 'ON_CHALLENGE_FIRST_TASK_COMPLETE',
-  DashboardLoad: 'ON_DASHBOARD_LOAD'
+  DashboardLoad: 'ON_DASHBOARD_LOAD',
+  EnterpriseDashboardLoad: 'ON_ENTERPRISE_DASHBOARD_LOAD'
 } as const
 
 export type UserTourTriggerEnum = typeof UserTourTriggerEnum[keyof typeof UserTourTriggerEnum]
@@ -98,7 +99,8 @@ export const UserTourTriggerTypeEnum = {
   Challenge: 'CHALLENGE',
   Plan: 'PLAN',
   Offer: 'OFFER',
-  Campaign: 'CAMPAIGN'
+  Campaign: 'CAMPAIGN',
+  EnterpriseAdmin: 'ENTERPRISE_ADMIN'
 } as const
 
 export type UserTourTriggerTypeEnum = typeof UserTourTriggerTypeEnum[keyof typeof UserTourTriggerTypeEnum]

@@ -11,9 +11,13 @@ const useSubscriptionPlansQuery = (
     'queryKey' | 'queryFn'
   > = {}
 ) =>
-  useQuery(SUBSCRIPTION_PLANS_QUERY_KEY, () => axiosStrapi.get<ISubscriptionPlans[]>('/subscription-plans'), {
-    enabled: true,
-    ...options
-  })
+  useQuery(
+    SUBSCRIPTION_PLANS_QUERY_KEY,
+    () => axiosStrapi.get<ISubscriptionPlans[]>('/subscription-plans', { params: { enterprise: true } }),
+    {
+      enabled: true,
+      ...options
+    }
+  )
 
 export default useSubscriptionPlansQuery
