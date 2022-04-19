@@ -72,11 +72,9 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
 
   return (
     <>
-      <Flex mb={2} alignItems="center" justifyContent="space-between">
-        <Typography fontWeight={700} variant="h5">
-          Quick Setup
-        </Typography>
-      </Flex>
+      <Typography mb={2} fontWeight={700} variant="h5">
+        Quick Setup
+      </Typography>
       <Card elevation={0}>
         <CardContent
           sx={{

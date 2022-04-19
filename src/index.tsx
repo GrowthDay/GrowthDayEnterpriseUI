@@ -1,7 +1,10 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import ThemeProvider from '@mui/material/styles/ThemeProvider'
-import { LicenseInfo } from '@mui/x-data-grid-pro'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { LocalizationProvider } from '@mui/x-date-pickers-pro'
+import { LicenseInfo } from '@mui/x-license-pro'
 import { SnackbarProvider } from 'notistack'
+import { StrictMode } from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { RecoilRoot } from 'recoil'
@@ -9,9 +12,8 @@ import App from './App'
 import GlobalCss from './components/GlobalCss'
 import config from './config'
 import SyncedQueueProvider from './providers/SyncedQueueProvider'
-import theme from './utils/theme'
 import reportWebVitals from './reportWebVitals'
-import { StrictMode } from 'react'
+import theme from './utils/theme'
 
 LicenseInfo.setLicenseKey(config.muiGridKey)
 
@@ -31,7 +33,9 @@ const Main = (
             preventDuplicate
           >
             <SyncedQueueProvider>
-              <App />
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <App />
+              </LocalizationProvider>
             </SyncedQueueProvider>
           </SnackbarProvider>
         </ThemeProvider>
