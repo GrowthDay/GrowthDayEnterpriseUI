@@ -107,6 +107,15 @@ const useTour = () => {
             element: tooltipItem.element,
             on: 'auto'
           },
+
+          beforeShowPromise: async () => {
+            try {
+              const element = document.querySelector<HTMLElement>(tooltipItem.element)
+              if (element) {
+                element.click()
+              }
+            } catch (e) {}
+          },
           buttons: [
             {
               text: 'Skip tour',
