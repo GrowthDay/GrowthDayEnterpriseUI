@@ -14,11 +14,12 @@ import {
 } from '@mui/material'
 import { maxBy } from 'lodash-es'
 import * as React from 'react'
-import { FC, PropsWithChildren, useEffect } from 'react'
+import { FC, PropsWithChildren, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
 import { useDefaultCountryState } from '../../../hooks/useCountryState'
+import welcomeState from '../../../recoil/atoms/welcomeState'
 import useSetupSubscriptionMutation, {
   SetupSubscriptionDefaultValues,
   SetupSubscriptionRequest,
@@ -34,7 +35,6 @@ import withElements from '../../../hoc/withElements'
 import useStripePayment from '../../../hooks/useStripePayment'
 import checkoutLoadingState from '../../../recoil/atoms/checkoutLoadingState'
 import { formatCurrency } from '../../../utils/formatters'
-import isPopularPlan from '../../../utils/isPopularPlan'
 import PlanInfo from '../PlanInfo'
 import { StepComponentProps } from './index'
 
@@ -53,6 +53,7 @@ const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
 }))
 
 const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
+  const setWelcomeState = useSetRecoilState(welcomeState)
   const { data } = useDefaultCountryState()
   const { data: user } = useOrganizationUserQuery()
   const [_loading, setLoading] = useRecoilState(checkoutLoadingState)
@@ -66,12 +67,19 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
 
   const loading = _loading || isLoading
 
+  const selectedPlanId = methods.watch('stripePriceId')
+  const selectedPlan = useMemo(
+    () => subscriptionPlans.find((plan) => plan.stripeYearlyPriceId === selectedPlanId),
+    [selectedPlanId, subscriptionPlans]
+  )
+
   const handleSubmit = async (values: SetupSubscriptionRequest) => {
     if (active && !loading) {
       setLoading(true)
       try {
         const paymentMethodId = await addPaymentMethod(values)
         await mutateAsync({ ...values, paymentMethodId })
+        setWelcomeState(true)
         next()
       } catch (e) {}
       setLoading(false)
@@ -85,14 +93,13 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   }, [user, methods])
 
   useEffect(() => {
-    const selectedPlan = methods.getValues('stripePriceId')
     if (subscriptionPlans.length && !selectedPlan) {
       methods.setValue(
         'stripePriceId',
         (maxBy(subscriptionPlans, 'yearlyAmount') ?? subscriptionPlans[0]).stripeYearlyPriceId
       )
     }
-  }, [subscriptionPlans, methods])
+  }, [subscriptionPlans, selectedPlan, methods])
 
   useEffect(() => {
     if (data?.country) {
@@ -103,14 +110,11 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
 
   const hasMultiplePlans = subscriptionPlans.length > 1
 
-  const selectedPlan = methods.watch('stripePriceId')
-
   useEffect(() => {
-    const plan = subscriptionPlans.find((plan) => plan.stripeYearlyPriceId === selectedPlan)
-    if (plan?.minimumQuantity) {
-      methods.setValue('minSeats', plan.minimumQuantity)
+    if (selectedPlan?.minimumQuantity) {
+      methods.setValue('minSeats', selectedPlan.minimumQuantity)
     }
-  }, [selectedPlan, subscriptionPlans, methods])
+  }, [methods, selectedPlan?.minimumQuantity])
 
   return (
     <Form<SetupSubscriptionRequest>
@@ -156,17 +160,15 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
                   <>
                     <div>
                       <Typography variant="body1" fontWeight={500}>
-                        {subscriptionPlan.name} Plan
+                        <strong>{formatCurrency(subscriptionPlan.yearlyAmount ?? 0, subscriptionPlan.currency)}</strong>
+                        /year <Chip sx={{ ml: 0.5 }} size="small" label={subscriptionPlan.name} />
                       </Typography>
-                      <Typography variant="body2">
-                        {formatCurrency(subscriptionPlan.yearlyAmount ?? 0, subscriptionPlan.currency)}/year
+                      <Typography color="text.secondary" variant="body2">
+                        plus applicable taxes
                       </Typography>
                     </div>
                     <Flex>
-                      {hasMultiplePlans && isPopularPlan(subscriptionPlan) && (
-                        <Chip label="Most Popular" size="small" sx={{ mr: 2 }} />
-                      )}
-                      <HtmlTooltip title={<PlanInfo hideChip={!hasMultiplePlans} plan={subscriptionPlan} />}>
+                      <HtmlTooltip title={<PlanInfo plan={subscriptionPlan} />}>
                         <InfoOutlined color="action" />
                       </HtmlTooltip>
                     </Flex>
@@ -179,7 +181,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
         <Grid item xs={12}>
           <FormInput
             disabled={!active}
-            placeholder="Between 5 to 100"
+            placeholder={`Between ${selectedPlan?.minimumQuantity ?? 1} to 100`}
             name="totalSeats"
             label="Number of seats"
             type="number"
@@ -189,7 +191,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
         <Grid item xs={12}>
           <Typography variant="body2" mb={2}>
             If you are buying more than 100 seats,{' '}
-            <Link href="mailto:support@growthday.com" target="_blank">
+            <Link href="https://www.growthday.com/Demo" target="_blank">
               schedule a demo
             </Link>
           </Typography>

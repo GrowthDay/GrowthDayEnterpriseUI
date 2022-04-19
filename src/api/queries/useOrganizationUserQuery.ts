@@ -5,7 +5,7 @@ import useModifiedRecoilState from '../../hooks/useModifiedRecoilState'
 import organizationIdState from '../../recoil/atoms/organizationIdState'
 import { OrganizationUser, UserRequest, UserMetadata } from '../../types/api'
 
-export const ORGANIZATION_USER_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USER_QUERY_KEY']
+export const ORGANIZATION_USER_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USER']
 
 export type IUser = OrganizationUser &
   UserRequest &

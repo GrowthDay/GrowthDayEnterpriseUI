@@ -20,7 +20,7 @@ import {
 import * as React from 'react'
 import { ChangeEvent, FC, useState } from 'react'
 import useUpdateSubscriptionMutation from '../../api/mutations/useUpdateSubscriptionMutation'
-import useGetProratedAmountQuery from '../../api/queries/useGetProratedAmountQuery'
+import useProratedAmountQuery from '../../api/queries/useProratedAmountQuery'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import useSubscriptionPlansQuery from '../../api/queries/useSubscriptionPlansQuery'
 import Flex from '../../components/Flex'
@@ -74,7 +74,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
     totalSeats,
     stripePriceId: organization?.stripePriceId
   }
-  const { data: proratedAmount, isFetching: isProratedAmountFetching } = useGetProratedAmountQuery(
+  const { data: proratedAmount, isFetching: isProratedAmountFetching } = useProratedAmountQuery(
     organizationUpdateSubscription,
     { enabled: (organizationUpdateSubscription.totalSeats ?? 0) > (organization?.seats ?? 0) }
   )
@@ -176,7 +176,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             ) : (
               <>
                 If you are buying more than 100 seats,{' '}
-                <Link href="mailto:support@growthday.com" target="_blank">
+                <Link href="https://www.growthday.com/Demo" target="_blank">
                   schedule a demo
                 </Link>
               </>

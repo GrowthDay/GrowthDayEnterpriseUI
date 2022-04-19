@@ -5,7 +5,7 @@ import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import organizationIdState from '../../recoil/atoms/organizationIdState'
 import { Organization } from '../../types/api'
 
-export const ORGANIZATION_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_QUERY_KEY']
+export const ORGANIZATION_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION']
 
 const useOrganizationQuery = (
   options: Omit<

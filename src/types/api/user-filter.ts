@@ -81,7 +81,8 @@ export const UserFilterLevelEnum = {
   Trial: 'TRIAL',
   None: 'NONE',
   Offer: 'OFFER',
-  Challenge: 'CHALLENGE'
+  Challenge: 'CHALLENGE',
+  Enterprise: 'ENTERPRISE'
 } as const
 
 export type UserFilterLevelEnum = typeof UserFilterLevelEnum[keyof typeof UserFilterLevelEnum]

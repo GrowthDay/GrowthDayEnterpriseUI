@@ -1,5 +1,6 @@
 import { IFile } from './file'
 import { ILicenses } from './licenses'
+import { IOffers } from './offers'
 import { IOnboarding } from './onboarding'
 import { ISocialEvents } from './social-events'
 import { ITooltips } from './tooltips'
@@ -43,6 +44,7 @@ export interface ISubscriptionPlans {
   onboarding?: IOnboarding
   enterprise?: boolean
   minimumQuantity?: number
+  freeOffers: IOffers[]
   created_at?: string | null
 }
 

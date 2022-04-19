@@ -3,23 +3,23 @@ import { UseQueryOptions } from 'react-query/types/react/types'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { OrganizationUpdateSubscription, StripeTaxResponse } from '../../types/api'
 
-export const GET_PRORATED_AMOUNT_BASE_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'GET_PRORATED_AMOUNT']
-export const getProratedAmountBaseQueryKey = (variables: OrganizationUpdateSubscription) => [
-  ...GET_PRORATED_AMOUNT_BASE_QUERY_KEY,
+export const PRORATED_AMOUNT_BASE_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'PRORATED_AMOUNT']
+export const getProratedAmountQueryKey = (variables: OrganizationUpdateSubscription) => [
+  ...PRORATED_AMOUNT_BASE_QUERY_KEY,
   variables
 ]
 
-const useGetProratedAmountQuery = (
+const useProratedAmountQuery = (
   variables: OrganizationUpdateSubscription,
   options: Omit<
-    UseQueryOptions<StripeTaxResponse, unknown, StripeTaxResponse, ReturnType<typeof getProratedAmountBaseQueryKey>>,
+    UseQueryOptions<StripeTaxResponse, unknown, StripeTaxResponse, ReturnType<typeof getProratedAmountQueryKey>>,
     'queryKey' | 'queryFn'
   > = {}
 ) =>
   useQuery(
-    getProratedAmountBaseQueryKey(variables),
+    getProratedAmountQueryKey(variables),
     () => axiosGrowthDay.post<StripeTaxResponse>('/organizations/prorated-amount', variables),
     options
   )
 
-export default useGetProratedAmountQuery
+export default useProratedAmountQuery

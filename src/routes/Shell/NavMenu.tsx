@@ -1,6 +1,7 @@
 import { alpha, Button as MuiButton, ButtonProps, Divider, styled, SvgIconProps, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import clsx from 'clsx'
+import { kebabCase } from 'lodash-es'
 import { ComponentType, FC, useCallback, useMemo } from 'react'
 import { Link as BaseLink } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
@@ -8,8 +9,13 @@ import Flex from '../../components/Flex'
 import useRouteMatch from '../../hooks/useRouteMatch'
 import feedbackModalState from '../../recoil/atoms/feedbackModalState'
 import FeedbackIcon from './assets/FeedbackIcon'
+import QuickSetupIcon from './assets/QuickSetupIcon'
+import QuickSetupIconActive from './assets/QuickSetupIconActive'
+import ReportIcon from './assets/ReportIcon'
+import ReportIconActive from './assets/ReportIconActive'
 import SettingIcon from './assets/SettingIcon'
 import UserIcon from './assets/UserIcon'
+import UserIconActive from './assets/UserIconActive'
 
 export type MenuItem = ButtonProps<'button'> & {
   icon: ComponentType<SvgIconProps>
@@ -23,12 +29,23 @@ const topNavMenuItems: MenuItem[] = [
   {
     title: 'People',
     icon: UserIcon,
-    to: '/people'
+    activeIcon: UserIconActive,
+    to: '/people',
+    id: 'people'
   },
   {
-    title: 'Account',
-    icon: SettingIcon,
-    to: '/account'
+    title: 'Reporting',
+    icon: ReportIcon,
+    activeIcon: ReportIconActive,
+    to: '/reports',
+    id: 'report'
+  },
+  {
+    title: 'Quick Setup',
+    icon: QuickSetupIcon,
+    activeIcon: QuickSetupIconActive,
+    to: '/quick-setup',
+    id: 'quick-setup'
   }
 ]
 
@@ -76,16 +93,17 @@ const RenderNavItem: FC<MenuItem & { active?: boolean }> = ({
                 className: clsx(active && 'active')
               }
             : {})}
+          id={`menu-item-${buttonProps.id || kebabCase(title?.toLowerCase())}`}
           data-cy={`sidebar-${title?.toLowerCase()}-button`}
         >
           <Icon color="inherit" />{' '}
           {title && (
-            <Typography color="text.primary" mt={0.25} variant="body2">
+            <Typography whiteSpace="nowrap" color="text.primary" mt={0.25} variant="body2">
               {title}
             </Typography>
           )}
         </Button>
-      </Box>{' '}
+      </Box>
       {divider && <Divider variant="middle" sx={{ my: 0.5 }} />}
     </>
   )
@@ -98,7 +116,13 @@ const NavMenu: FC = () => {
     () => [
       {
         icon: FeedbackIcon,
-        onClick: () => setFeedbackState(true)
+        onClick: () => setFeedbackState(true),
+        id: 'feedback'
+      },
+      {
+        icon: SettingIcon,
+        to: '/account',
+        id: 'account'
       }
     ],
     [setFeedbackState]

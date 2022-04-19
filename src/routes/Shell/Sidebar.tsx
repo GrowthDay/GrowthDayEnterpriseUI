@@ -1,10 +1,12 @@
 import { Drawer as MuiDrawer, styled, Theme, useMediaQuery } from '@mui/material'
 import Box from '@mui/material/Box'
 import { DrawerProps } from '@mui/material/Drawer/Drawer'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
+import useUserTourQuery from '../../api/queries/useUserTourQuery'
 import Flex from '../../components/Flex'
+import useTour from '../../features/Tour/hooks/useTour'
 import useMobileView from '../../hooks/useMobileView'
 import useToggleValue from '../../hooks/useToggleValue'
 import useUpdateEffect from '../../hooks/useUpdateEffect'
@@ -25,6 +27,18 @@ const Sidebar: FC = ({ children }) => {
   const [open, setOpen] = useRecoilState(sidebarState)
   const setSidebarState = useSetRecoilState(sidebarState)
   const { pathname } = useLocation()
+  const { data: userTour, isLoading } = useUserTourQuery()
+  const tour = useTour()
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      (userTour ? !userTour.started && !userTour.completed : true) &&
+      (variant === 'permanent' || (variant === 'temporary' && open))
+    ) {
+      tour.start()
+    }
+  }, [isLoading, userTour, variant, tour, open])
 
   useUpdateEffect(() => {
     setSidebarState(false)

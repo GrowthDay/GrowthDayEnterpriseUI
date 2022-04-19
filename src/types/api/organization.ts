@@ -221,7 +221,8 @@ export const OrganizationPlanEnum = {
   Trial: 'TRIAL',
   None: 'NONE',
   Offer: 'OFFER',
-  Challenge: 'CHALLENGE'
+  Challenge: 'CHALLENGE',
+  Enterprise: 'ENTERPRISE'
 } as const
 
 export type OrganizationPlanEnum = typeof OrganizationPlanEnum[keyof typeof OrganizationPlanEnum]

@@ -1,37 +1,15 @@
-import { Box, Paper, styled } from '@mui/material'
 import { FC } from 'react'
-import ReactPlayer from 'react-player'
+import ReactPlayer, { ReactPlayerProps } from 'react-player'
+import AspectRatio, { AspectRatioProps } from './AspectRatio'
 
-export type VideoPlayerProps = {
-  url: string
+export type VideoPlayerProps = ReactPlayerProps & {
+  ContainerProps?: Partial<AspectRatioProps>
 }
 
-const StyledReactPlayer = styled(ReactPlayer)({
-  position: `absolute`,
-  top: 0,
-  left: 0
-})
-
-const VideoPlayer: FC<VideoPlayerProps> = ({ url }) => (
-  <Paper
-    sx={{
-      mt: -6,
-      width: '100%',
-      maxWidth: 480,
-      mb: 2,
-      borderRadius: 2,
-      overflow: 'hidden'
-    }}
-  >
-    <Box
-      sx={{
-        position: `relative`,
-        paddingTop: `56.25%`
-      }}
-    >
-      <StyledReactPlayer url={url} width="100%" height="100%" />
-    </Box>
-  </Paper>
+const VideoPlayer: FC<VideoPlayerProps> = ({ ContainerProps, ...props }) => (
+  <AspectRatio ratio="16 / 9" width="100%" overflow="hidden" {...ContainerProps}>
+    <ReactPlayer width="100%" height="100%" {...props} />
+  </AspectRatio>
 )
 
 export default VideoPlayer

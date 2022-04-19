@@ -3,11 +3,7 @@ import { UseQueryOptions } from 'react-query/types/react/types'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { PaymentTransaction } from '../../types/api'
 
-export const ORGANIZATION_PAYMENT_TRANSACTIONS_QUERY_KEY = [
-  'GROWTHDAY',
-  'QUERY',
-  'ORGANIZATION_PAYMENT_TRANSACTIONS_QUERY_KEY'
-]
+export const ORGANIZATION_PAYMENT_TRANSACTIONS_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_PAYMENT_TRANSACTIONS']
 
 const useOrganizationPaymentTransactionsQuery = (
   options: Omit<

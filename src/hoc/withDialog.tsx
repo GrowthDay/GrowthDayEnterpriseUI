@@ -1,7 +1,7 @@
-import { CloseOutlined } from '@mui/icons-material'
-import { Dialog, DialogProps, DialogTitle, IconButton } from '@mui/material'
+import { Dialog, DialogProps, DialogTitle } from '@mui/material'
 import { nanoid } from 'nanoid'
 import React, { ReactNode, useRef } from 'react'
+import CloseButton from '../components/CloseButton'
 import useMobileView from '../hooks/useMobileView'
 
 const withDialog =
@@ -16,24 +16,10 @@ const withDialog =
         fullScreen={mobileView}
         closeAfterTransition
         {...allDialogProps}
-        aria-labelledby={title ? labelledByRef.current : undefined}
+        {...(title ? { 'aria-labelledby': labelledByRef.current } : {})}
       >
-        {allDialogProps.onClose && (
-          <IconButton
-            onClick={() => allDialogProps.onClose?.({}, 'backdropClick')}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-              zIndex: 1
-            }}
-          >
-            <CloseOutlined />
-          </IconButton>
-        )}
-        {title && <DialogTitle id={labelledByRef.current}>{title}</DialogTitle>}
-        <Component {...(props as P)} />
+        {allDialogProps.onClose && <CloseButton onClick={() => allDialogProps.onClose?.({}, 'backdropClick')} />}
+        {title && <DialogTitle id={labelledByRef.current}>{title}</DialogTitle>} <Component {...(props as P)} />
       </Dialog>
     )
   }

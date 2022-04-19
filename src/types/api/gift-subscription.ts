@@ -198,7 +198,8 @@ export const GiftSubscriptionSubscriptionLevelEnum = {
   Trial: 'TRIAL',
   None: 'NONE',
   Offer: 'OFFER',
-  Challenge: 'CHALLENGE'
+  Challenge: 'CHALLENGE',
+  Enterprise: 'ENTERPRISE'
 } as const
 
 export type GiftSubscriptionSubscriptionLevelEnum =

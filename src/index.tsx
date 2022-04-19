@@ -8,6 +8,7 @@ import { RecoilRoot } from 'recoil'
 import App from './App'
 import GlobalCss from './components/GlobalCss'
 import config from './config'
+import SyncedQueueProvider from './providers/SyncedQueueProvider'
 import theme from './utils/theme'
 import reportWebVitals from './reportWebVitals'
 import { StrictMode } from 'react'
@@ -29,7 +30,9 @@ const Main = (
             maxSnack={1}
             preventDuplicate
           >
-            <App />
+            <SyncedQueueProvider>
+              <App />
+            </SyncedQueueProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </BrowserRouter>
