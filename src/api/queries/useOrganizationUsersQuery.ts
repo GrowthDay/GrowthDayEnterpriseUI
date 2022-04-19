@@ -5,6 +5,11 @@ import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { PagedResultOrganizationUser } from '../../types/api'
 import { PaginationParams } from '../../types/ui/pagination'
 
+export enum ExportType {
+  XLSX = 'XLSX',
+  CSV = 'CSV'
+}
+
 export type OrganizationUsersRequest = {
   departmentId?: string
   invitationPending?: boolean
@@ -14,6 +19,7 @@ export type OrganizationUsersRequest = {
   sortBy?: 'createdOn' | 'name' | 'email' | 'roleName'
   limit: number
   offset: number
+  exportType?: ExportType
 }
 
 export type OrganizationUsersFilters = Omit<OrganizationUsersRequest, 'limit' | 'offset'>

@@ -77,6 +77,9 @@ const theme = createTheme({
         startIcon: {
           marginRight: 4
         },
+        endIcon: {
+          marginLeft: 4
+        },
         outlinedPrimary: {
           borderColor: alpha('#0077F7', 0.2)
         }

@@ -1,6 +1,6 @@
 import * as XLSX from 'xlsx'
 
-export const CsvFileType = '.csv'
+export const CsvFileType = 'text/csv'
 export const XlsFileType = 'application/vnd.ms-excel'
 export const XlsxFileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 

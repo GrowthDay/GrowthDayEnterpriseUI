@@ -49,7 +49,7 @@ const RestartTour: FC = () => {
                 onClick={() => setOpenState(true)}
                 sx={{ borderRadius: 1 }}
                 startIcon={<DotImage src={dot} alt="" />}
-                endIcon={<ChevronRightOutlined sx={{ marginLeft: -0.75 }} />}
+                endIcon={<ChevronRightOutlined />}
                 variant="text"
               >
                 Start tour

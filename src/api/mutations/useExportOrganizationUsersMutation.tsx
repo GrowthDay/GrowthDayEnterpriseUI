@@ -6,14 +6,14 @@ import { useMutation } from 'react-query'
 import { UseMutationOptions } from 'react-query/types/react/types'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import Loading from '../../components/Loading'
-import { XlsxFileType } from '../../utils/sheetsUtil'
-import { OrganizationUsersRequest } from '../queries/useOrganizationUsersQuery'
+import { CsvFileType, XlsxFileType } from '../../utils/sheetsUtil'
+import { ExportType, OrganizationUsersRequest } from '../queries/useOrganizationUsersQuery'
 
 export const EXPORT_ORGANIZATION_USERS_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'EXPORT_ORGANIZATION_USERS']
 
 const useExportOrganizationUsersMutation = (
   options: Omit<
-    UseMutationOptions<Blob, unknown, void, typeof EXPORT_ORGANIZATION_USERS_MUTATION_KEY>,
+    UseMutationOptions<Blob, unknown, ExportType, typeof EXPORT_ORGANIZATION_USERS_MUTATION_KEY>,
     'queryKey' | 'queryFn'
   > = {}
 ) => {
@@ -21,12 +21,12 @@ const useExportOrganizationUsersMutation = (
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   return useMutation(
     EXPORT_ORGANIZATION_USERS_MUTATION_KEY,
-    async () =>
+    async (exportType: ExportType) =>
       axiosGrowthDay.get<Blob>('/organizationUsers/download', {
-        params: { offset: 0, limit: 0, invitationPending: false } as OrganizationUsersRequest,
+        params: { offset: 0, limit: 0, exportType } as OrganizationUsersRequest,
         responseType: 'blob',
         headers: {
-          Accept: XlsxFileType
+          Accept: exportType === ExportType.CSV ? XlsxFileType : CsvFileType
         }
       }),
     {
@@ -38,10 +38,10 @@ const useExportOrganizationUsersMutation = (
         })
         return options.onMutate?.(...rest)
       },
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data, variables, ...rest) => {
         closeSnackbar(snackbarKey.current)
-        saveAs(data, `growthday-enterprise-users-${moment().format('DD-MM-YY-HH-mm-ss')}.xlsx`)
-        return options.onSuccess?.(data, ...rest)
+        saveAs(data, `growthday-enterprise-users-${moment().format('DD-MM-YY-HH-mm-ss')}.${variables.toLowerCase()}`)
+        return options.onSuccess?.(data, variables, ...rest)
       }
     }
   )
