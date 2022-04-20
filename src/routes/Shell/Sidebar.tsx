@@ -28,7 +28,7 @@ const Sidebar: FC = ({ children }) => {
   const setSidebarState = useSetRecoilState(sidebarState)
   const { pathname } = useLocation()
   const { data: userTour, isLoading } = useUserTourQuery()
-  const tour = useTour()
+  const { start: startTour } = useTour()
 
   useEffect(() => {
     if (
@@ -36,9 +36,9 @@ const Sidebar: FC = ({ children }) => {
       (userTour ? !userTour.started && !userTour.completed : true) &&
       (variant === 'permanent' || (variant === 'temporary' && open))
     ) {
-      tour.start()
+      startTour()
     }
-  }, [isLoading, userTour, variant, tour, open])
+  }, [isLoading, userTour, variant, startTour, open])
 
   useUpdateEffect(() => {
     setSidebarState(false)

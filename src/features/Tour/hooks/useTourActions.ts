@@ -16,8 +16,7 @@ const useTourActions = () => {
     () => ({
       options: {
         trigger: EnumTooltipsTrigger.ON_ENTERPRISE_DASHBOARD_LOAD,
-        triggerType: UserTourTriggerTypeEnum.EnterpriseAdmin,
-        triggerId: activeSubscription?.id?.toString() ?? ''
+        triggerType: UserTourTriggerTypeEnum.EnterpriseAdmin
       } as UserTourRequest,
       tooltip: activeSubscription?.tooltips.find(
         (tooltip) => tooltip.trigger === EnumTooltipsTrigger.ON_ENTERPRISE_DASHBOARD_LOAD && !tooltip.disabled
@@ -50,8 +49,8 @@ const useTourActions = () => {
         if (opt) {
           const tourData: Partial<UserTour> = {
             trigger: opt.trigger,
-            triggerId: opt.triggerId,
             triggerType: opt.triggerType,
+            triggerId: userTour?.triggerId ?? '0',
             progress,
             started: true,
             completed

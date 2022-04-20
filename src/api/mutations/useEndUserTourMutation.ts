@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { UseMutationOptions } from 'react-query/types/react/types'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { UserTour, UserTourRequest } from '../../types/api'
-import { USER_TOUR_BASE_QUERY_KEY } from '../queries/useUserTourQuery'
+import { USER_TOUR_QUERY_KEY } from '../queries/useUserTourQuery'
 
 export const END_USER_TOUR_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'END_TOUR']
 
@@ -19,7 +19,7 @@ const useEndUserTourMutation = (
     {
       ...options,
       onSuccess: (data, ...rest) => {
-        queryClient.invalidateQueries(USER_TOUR_BASE_QUERY_KEY)
+        queryClient.invalidateQueries(USER_TOUR_QUERY_KEY)
         return options.onSuccess?.(data, ...rest)
       }
     }
