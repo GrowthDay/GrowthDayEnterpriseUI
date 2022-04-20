@@ -1,4 +1,4 @@
-import { Link, Typography } from '@mui/material'
+import { Link, styled, Typography } from '@mui/material'
 import { GridColumns } from '@mui/x-data-grid/models/colDef/gridColDef'
 import { GridRenderCellParams } from '@mui/x-data-grid/models/params/gridCellParams'
 import moment from 'moment'
@@ -9,6 +9,8 @@ import TableGrid from '../../components/TableGrid'
 import { PaymentTransaction } from '../../types/api'
 import { formatCurrency } from '../../utils/formatters'
 import Receipt from './Receipt'
+
+const Monospace = styled('span')({ fontFamily: 'monospace', marginRight: 6 })
 
 const AccountTransactions: FC = () => {
   const { data: transactions, isLoading } = useOrganizationPaymentTransactionsQuery()
@@ -37,7 +39,13 @@ const AccountTransactions: FC = () => {
         headerName: 'Payment method',
         width: 240,
         renderCell: (record: GridRenderCellParams<string, PaymentTransaction>) =>
-          record.value ? `•••• •••• •••• ${record.value}` : 'Credit Card'
+          record.value ? (
+            <>
+              <Monospace>•••• •••• ••••</Monospace> {record.value}
+            </>
+          ) : (
+            'Credit Card'
+          )
       },
       {
         field: 'amount',
