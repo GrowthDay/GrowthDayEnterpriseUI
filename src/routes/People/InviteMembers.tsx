@@ -158,13 +158,13 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         <Button
           disabled={disabled || seatsLeft <= fields.length}
           size="small"
-          sx={{ mb: 0.5 }}
+          sx={{ mb: 0.5, pr: 2 }}
           onClick={handleAppend}
           variant="outlined"
           startIcon={<AddOutlined />}
           data-cy="invite-modal-add-more-button"
         >
-          Add more
+          {fields.length > 0 ? 'Add more' : 'Add'}
         </Button>
       </span>
     </Tooltip>
@@ -239,7 +239,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   data-cy="invite-modal-email-input"
                 />
               </Grid>
-              <Grid alignItems="flex-end" container item xs={(fields.length > 1 ? 3 : 4) + (mobileView ? 1 : 0)}>
+              <Grid alignItems="flex-end" container item xs={3 + (mobileView ? 1 : 0)}>
                 <FormInput
                   disabled={disabled}
                   placeholder="Role"
@@ -274,13 +274,11 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
                   ))}
                 </FormInput>
               </Grid>
-              {fields.length > 1 && (
-                <Grid alignItems="flex-end" container item xs={1}>
-                  <IconButton size="small" sx={{ mb: 0.75 }} onClick={() => remove(index)}>
-                    <CloseOutlined fontSize="small" />
-                  </IconButton>
-                </Grid>
-              )}
+              <Grid alignItems="flex-end" container item xs={1}>
+                <IconButton size="small" sx={{ mb: 0.75 }} onClick={() => remove(index)}>
+                  <CloseOutlined fontSize="small" />
+                </IconButton>
+              </Grid>
               {!mobileView && index === fields.length - 1 && (
                 <Grid alignItems="flex-end" container item xs={3}>
                   {addMoreButton}
@@ -288,7 +286,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               )}
             </Grid>
           ))}
-          {mobileView && addMoreButton}
+          {(mobileView || fields.length <= 0) && addMoreButton}
         </Form>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-between' }}>
