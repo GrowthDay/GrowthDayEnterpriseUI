@@ -59,10 +59,11 @@ const useTour = () => {
                   progress.innerHTML = `${index + 1} of ${tour.steps.length}`
                   const footer = currentStepElement.querySelector('.shepherd-footer')
                   if (footer) {
-                    footer.insertBefore(
-                      progress,
-                      currentStepElement.querySelector('.shepherd-button.shepherd-button-back')
-                    )
+                    let button = currentStepElement.querySelector('.shepherd-button.shepherd-button-back')
+                    if (!button) {
+                      button = currentStepElement.querySelector('.shepherd-button.shepherd-button-primary')
+                    }
+                    footer.insertBefore(progress, button)
                   }
                 }
               }
@@ -73,6 +74,7 @@ const useTour = () => {
         exitOnEsc: false
       })
       sortBy(tooltip.items, 'order').forEach((tooltipItem, index, items) => {
+        const isFirstItem = index === 0
         const isLastItem = index >= items.length - 1
         const text = document.createElement('div')
 
@@ -123,14 +125,19 @@ const useTour = () => {
               },
               secondary: true
             },
-            {
-              text: 'Back',
-              action: () => {
-                tour.back()
-              },
-              secondary: true,
-              classes: 'shepherd-button-back'
-            },
+            ...(isFirstItem
+              ? []
+              : [
+                  {
+                    text: 'Back',
+                    action: () => {
+                      tour.back()
+                    },
+                    secondary: true,
+                    classes: 'shepherd-button-back'
+                  }
+                ]),
+
             {
               text: tooltipItem.nextButtonLabel || (isLastItem ? 'Got It' : 'Next'),
               action: () => {
