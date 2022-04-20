@@ -21,7 +21,7 @@ export enum EnvironmentsEnum {
 }
 
 export const environments: Record<EnvironmentsEnum, IConfig> = {
-  [EnvironmentsEnum.DEV]: uatConfig,
+  [EnvironmentsEnum.DEV]: devConfig,
   [EnvironmentsEnum.UAT]: uatConfig,
   [EnvironmentsEnum.PROD]: prodConfig
 }
