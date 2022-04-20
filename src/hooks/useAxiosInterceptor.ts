@@ -1,3 +1,4 @@
+import { SnackbarKey, useSnackbar } from 'notistack'
 import { useEffect, useRef, useState } from 'react'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import axiosGrowthDay from '../axios/axiosGrowthDay'
@@ -8,6 +9,8 @@ import parseError from '../utils/parseError'
 import useModifiedRecoilState from './useModifiedRecoilState'
 
 const useAxiosInterceptors = () => {
+  const snackbarKey = useRef<SnackbarKey>()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const organizationId = useRecoilValue(organizationIdState)
   const [accessToken, , resetAccessToken] = useModifiedRecoilState(accessTokenState)
   const resetOrganizationId = useResetRecoilState(organizationIdState)
@@ -39,11 +42,16 @@ const useAxiosInterceptors = () => {
     const responseInterceptor = axiosGrowthDay.interceptors.response.use(
       (response) => response.data,
       (error) => {
+        if (snackbarKey.current) {
+          closeSnackbar(snackbarKey.current)
+        }
+        const message = parseError(error)
         if (error?.response?.status === 401) {
           resetAccessToken()
           resetOrganizationId()
+        } else if (message) {
+          snackbarKey.current = enqueueSnackbar(message, { variant: 'error' })
         }
-        const message = parseError(error)
         return Promise.reject({ ...error, message })
       }
     )
@@ -54,7 +62,7 @@ const useAxiosInterceptors = () => {
       axiosGrowthDay.interceptors.response.eject(responseInterceptor)
       axiosStrapi.interceptors.response.eject(responseInterceptor2)
     }
-  }, [resetAccessToken, resetOrganizationId])
+  }, [closeSnackbar, enqueueSnackbar, resetAccessToken, resetOrganizationId])
 
   return axiosReady
 }
