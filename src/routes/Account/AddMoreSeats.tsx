@@ -29,8 +29,6 @@ import useMobileView from '../../hooks/useMobileView'
 import { OrganizationUpdateSubscription } from '../../types/api'
 import { formatCurrency } from '../../utils/formatters'
 
-// TODO: Prorated amount
-
 export type AddMoreSeatsProps = Omit<DialogProps, 'children'>
 
 const StyledTableCell = styled(TableCell)({
@@ -106,7 +104,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           Adding {calculatedCount} seat{calculatedCount === 1 ? '' : 's'} to the plan
         </DialogTitle>
         <DialogContent>
-          <Typography color="text.secondary" mb={2} data-cy="add-more-seats-confirmation-subtitle-text">
+          <Typography color="text.secondary" data-cy="add-more-seats-confirmation-subtitle-text">
             You will be billed{' '}
             <Typography component="span" color="text.primary">
               {proratedCost}
@@ -114,7 +112,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             and from next billing cycle the total amount will be {totalCost}. Do you want to continue?
           </Typography>
           <Typography mb={2} color="text.disabled" variant="body2" data-cy="add-more-seats-confirmation-taxes-text">
-            State and local sales tax will be calculated on your final invoice.
+            plus applicable taxes
           </Typography>
           <Flex alignItems="center">
             <LoadingButton
@@ -222,7 +220,10 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
           </TableBody>
           <TableBody>
             <StyledPrimaryTableCell colSpan={2}>
-              Prorated bill (for the remainder of the current year)
+              <Typography>Prorated bill (for the remainder of the current year)</Typography>
+              <Typography color="text.disabled" variant="body2" data-cy="add-more-seats-confirmation-taxes-text">
+                plus applicable taxes
+              </Typography>
             </StyledPrimaryTableCell>
             <StyledTableCell>
               {calculatedCount ? isProratedAmountFetching ? <CircularProgress size={14} /> : proratedCost : '-'}
