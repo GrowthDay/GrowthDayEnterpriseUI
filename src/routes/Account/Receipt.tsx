@@ -75,6 +75,7 @@ const Receipt: FC<ReceiptProps> = ({ transaction: _transaction }) => {
 
   const paidItem = transaction?.items?.find((item) => (item.amountInCents ?? 0) >= 0)
   const refundItem = transaction?.items?.find((item) => (item.amountInCents ?? 0) < 0)
+  const itemAmount = formatCurrency(((paidItem?.amountInCents ?? 0) + (refundItem?.amountInCents ?? 0)) / 100)
   const amountPaid = formatCurrency(
     ((paidItem?.amountInCents ?? 0) + (refundItem?.amountInCents ?? 0) + (transaction?.taxAmountInCents ?? 0)) / 100
   )
@@ -187,7 +188,7 @@ const Receipt: FC<ReceiptProps> = ({ transaction: _transaction }) => {
                   <TableCell>
                     <strong>GrowthDay {paidItem.description}</strong>
                   </TableCell>
-                  <TableCell>{amountPaid}</TableCell>
+                  <TableCell>{itemAmount}</TableCell>
                 </TableRow>
               )}
               <TableRow>
