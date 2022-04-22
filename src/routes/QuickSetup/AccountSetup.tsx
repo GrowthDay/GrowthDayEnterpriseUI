@@ -91,7 +91,7 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
               <StepLabel StepIconComponent={StyledStepIcon} />
               <StyledStepContent>
                 <VideoPlayer
-                  url="https://home.wistia.com/medias/dw8dzhy0en"
+                  url="https://home.wistia.com/medias/deobokbsak"
                   data-cy="account-setup-video"
                   ContainerProps={{ mb: 4, borderRadius: 1, boxShadow: 1 }}
                 />

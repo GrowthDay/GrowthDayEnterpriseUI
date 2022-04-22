@@ -20,7 +20,7 @@ const Welcome: FC<DialogProps> = ({ onClose }) => {
   return (
     <>
       <Confetti />
-      <VideoPlayer url="https://home.wistia.com/medias/dw8dzhy0en" />
+      <VideoPlayer url="https://home.wistia.com/medias/deobokbsak" />
       <DialogTitle id={labelId}>{organization.name} now has GrowthDay!</DialogTitle>
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <Typography mb={3} variant="body2">
