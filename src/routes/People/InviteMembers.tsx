@@ -78,7 +78,7 @@ const parseData = (data: any[] = []): OrganizationUser[] =>
       const role = roles.find(
         (r) => r.id === parseInt(rowData.role as string) || toLower(r.name).includes(toLower(rowData.role?.toString()))
       )
-      return { email: rowData.email, roleId: role?.id ?? 3 }
+      return { email: toLower(rowData.email), roleId: role?.id ?? 3 }
     })
     .filter((row) => row.email)
 
@@ -110,7 +110,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const handleSubmit = async (values: IInvitationRequest) => {
     if (canInvite) {
       const data = values.invitations.slice(0, seatsLeft).map(({ email, roleId }) => ({
-        Email: email,
+        Email: toLower(email),
         'Full Name': '',
         Role: roleId,
         Department: ''
