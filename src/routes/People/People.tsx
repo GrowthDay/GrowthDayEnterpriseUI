@@ -5,9 +5,11 @@ import moment from 'moment'
 import { FC, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
+import CopyText from '../../components/CopyText'
 import Flex from '../../components/Flex'
 import Layout from '../../components/Layout'
 import Loading from '../../components/Loading'
+import useInvitationLink from '../../hooks/useInvitationLink'
 import useMobileView from '../../hooks/useMobileView'
 import AddMoreSeats from '../Account/AddMoreSeats'
 import invitePollingState from './atoms/invitePollingState'
@@ -25,6 +27,7 @@ const People: FC = () => {
   const pollingTime = useRecoilValue(invitePollingState)
   const [inviteOpen, setInviteOpen] = useState(false)
   const [addSeatsOpen, setAddSeatsOpen] = useState(false)
+  const invitationLink = useInvitationLink()
 
   const shouldPoll = Boolean(pollingTime && pollingTime > moment().valueOf())
 
@@ -60,7 +63,7 @@ const People: FC = () => {
     <>
       <InviteMembers open={inviteOpen} onClose={() => setInviteOpen(false)} />
       <AddMoreSeats open={addSeatsOpen} onClose={() => setAddSeatsOpen(false)} />
-      <Layout breadcrumbs="People">
+      <Layout breadcrumbs="People" header={<CopyText label="Invite link:" text={invitationLink} />}>
         <Card elevation={0} sx={{ mb: 4 }}>
           <CardContent
             sx={{
