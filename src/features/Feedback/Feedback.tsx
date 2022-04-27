@@ -8,6 +8,7 @@ import { FC, useCallback, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import Flex from '../../components/Flex'
 import Form from '../../components/forms/Form'
@@ -38,6 +39,7 @@ const formId = 'feedback-form'
 
 const Feedback: FC<FeedbackProps> = ({ onClose }) => {
   const { data: user } = useOrganizationUserQuery()
+  const { data: organization } = useOrganizationQuery()
   const { enqueueSnackbar } = useSnackbar()
   const [loading, setLoading] = useState(false)
 
@@ -69,7 +71,7 @@ const Feedback: FC<FeedbackProps> = ({ onClose }) => {
       email: user?.email ?? '',
       title: values.title,
       description: values.description,
-      categories: ['Enterprise', 'Feedback'].join(', '),
+      categories: ['Enterprise', 'Feedback', organization?.name].filter(Boolean).join(', '),
       data: mapKeys(values, (value, key) => startCase(key))
     })
   }
