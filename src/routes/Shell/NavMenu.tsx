@@ -27,6 +27,13 @@ export type MenuItem = ButtonProps<'button'> & {
 
 const topNavMenuItems: MenuItem[] = [
   {
+    title: 'Quick Setup',
+    icon: QuickSetupIcon,
+    activeIcon: QuickSetupIconActive,
+    to: '/quick-setup',
+    id: 'quick-setup'
+  },
+  {
     title: 'People',
     icon: UserIcon,
     activeIcon: UserIconActive,
@@ -39,13 +46,6 @@ const topNavMenuItems: MenuItem[] = [
     activeIcon: ReportIconActive,
     to: '/reports',
     id: 'report'
-  },
-  {
-    title: 'Quick Setup',
-    icon: QuickSetupIcon,
-    activeIcon: QuickSetupIconActive,
-    to: '/quick-setup',
-    id: 'quick-setup'
   }
 ]
 
