@@ -11,8 +11,8 @@ import feedbackModalState from '../../recoil/atoms/feedbackModalState'
 import FeedbackIcon from './assets/FeedbackIcon'
 import QuickSetupIcon from './assets/QuickSetupIcon'
 import QuickSetupIconActive from './assets/QuickSetupIconActive'
-import ReportIcon from './assets/ReportIcon'
-import ReportIconActive from './assets/ReportIconActive'
+// import ReportIcon from './assets/ReportIcon'
+// import ReportIconActive from './assets/ReportIconActive'
 import SettingIcon from './assets/SettingIcon'
 import UserIcon from './assets/UserIcon'
 import UserIconActive from './assets/UserIconActive'
@@ -39,14 +39,14 @@ const topNavMenuItems: MenuItem[] = [
     activeIcon: UserIconActive,
     to: '/people',
     id: 'people'
-  },
-  {
-    title: 'Reporting',
-    icon: ReportIcon,
-    activeIcon: ReportIconActive,
-    to: '/reports',
-    id: 'report'
   }
+  // {
+  //   title: 'Reporting',
+  //   icon: ReportIcon,
+  //   activeIcon: ReportIconActive,
+  //   to: '/reports',
+  //   id: 'report'
+  // }
 ]
 
 const Button = styled(MuiButton)(({ theme }) => ({

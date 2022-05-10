@@ -40,7 +40,7 @@ export const UpdatePaymentMethodValidationSchema = yup
     zipCode: yup.string().required('Required'),
     phoneNumber: yup
       .string()
-      .required()
+      .required('Required')
       .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true))
   })
   .required()

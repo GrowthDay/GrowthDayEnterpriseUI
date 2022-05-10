@@ -50,6 +50,12 @@ export interface Organization {
   deleteTimestamp?: number
   /**
    *
+   * @type {Array<string>}
+   * @memberof Organization
+   */
+  domains?: Array<string>
+  /**
+   *
    * @type {string}
    * @memberof Organization
    */

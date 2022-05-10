@@ -50,7 +50,8 @@ export const CmsTooltipTriggerEnum = {
   ChallengeLoad: 'ON_CHALLENGE_LOAD',
   ChallengeFirstTaskComplete: 'ON_CHALLENGE_FIRST_TASK_COMPLETE',
   ChallengeDayOneComplete: 'ON_CHALLENGE_DAY_ONE_COMPLETE',
-  DashboardLoad: 'ON_DASHBOARD_LOAD'
+  DashboardLoad: 'ON_DASHBOARD_LOAD',
+  EnterpriseDashboardLoad: 'ON_ENTERPRISE_DASHBOARD_LOAD'
 } as const
 
 export type CmsTooltipTriggerEnum = typeof CmsTooltipTriggerEnum[keyof typeof CmsTooltipTriggerEnum]

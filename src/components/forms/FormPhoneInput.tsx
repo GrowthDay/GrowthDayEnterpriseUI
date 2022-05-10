@@ -13,10 +13,15 @@ export type FormPhoneInputProps<
   UseControllerProps<TFieldValues, TName> & {
     country?: string
     defaultCountry?: string
+    canChangeCountry?: boolean
   }
 
 const StyledPhoneInput = styled(PhoneInput)({
-  width: '100%'
+  width: '100%',
+  '.PhoneInputCountry': {
+    marginLeft: 12,
+    marginRight: -4
+  }
 })
 
 const CountrySelectComponent: FC<any> = ({ onChange, value, country, children }) => {
@@ -30,7 +35,7 @@ const CountrySelectComponent: FC<any> = ({ onChange, value, country, children })
 
 const PhoneNumberInput: ForwardRefExoticComponent<
   PropsWithoutRef<InputBaseComponentProps> & RefAttributes<HTMLInputElement>
-> = forwardRef(({ value, onChange, onFocus, onBlur, defaultCountry, country, ...props }, ref) => (
+> = forwardRef(({ value, onChange, onFocus, onBlur, defaultCountry, country, canChangeCountry, ...props }, ref) => (
   <StyledPhoneInput
     value={value}
     onChange={onChange}
@@ -45,22 +50,26 @@ const PhoneNumberInput: ForwardRefExoticComponent<
     onFocus={onFocus}
     onBlur={onBlur}
     disabled={props.disabled}
-    countrySelectComponent={(countrySelectProps) => (
-      <CountrySelectComponent {...countrySelectProps} country={country} />
-    )}
+    {...(canChangeCountry
+      ? {}
+      : {
+          countrySelectComponent: (countrySelectProps) => (
+            <CountrySelectComponent {...countrySelectProps} country={country} />
+          )
+        })}
   />
 ))
 
 function FormPhoneInput<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->({ defaultCountry, country, ...props }: FormPhoneInputProps<TFieldValues, TName>) {
+>({ defaultCountry, country, canChangeCountry, ...props }: FormPhoneInputProps<TFieldValues, TName>) {
   return (
     <FormInput
       {...props}
       InputProps={{
         inputComponent: PhoneNumberInput,
-        inputProps: { defaultCountry, country }
+        inputProps: { defaultCountry, country, canChangeCountry }
       }}
     />
   )

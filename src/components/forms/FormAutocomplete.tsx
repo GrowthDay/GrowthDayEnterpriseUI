@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteProps, TextField } from '@mui/material'
+import { Autocomplete, AutocompleteProps, TextField, TextFieldProps } from '@mui/material'
 import { ReactNode } from 'react'
 import { Controller, UseControllerProps, useFormContext } from 'react-hook-form'
 import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
@@ -6,9 +6,10 @@ import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
 export type FormAutocompleteProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
-> = Omit<AutocompleteProps<any, false, true, false>, 'renderInput'> &
+> = Omit<AutocompleteProps<any, false | true, false | true, false | true>, 'renderInput'> &
   UseControllerProps<TFieldValues, TName> & {
     label?: ReactNode
+    InputProps?: TextFieldProps['InputProps']
   }
 
 function FormAutocomplete<
@@ -20,6 +21,7 @@ function FormAutocomplete<
   shouldUnregister,
   defaultValue,
   control: _control,
+  InputProps,
   ...props
 }: FormAutocompleteProps<TFieldValues, TName>) {
   const { control } = useFormContext<TFieldValues>()
@@ -45,6 +47,11 @@ function FormAutocomplete<
               onChange(options[1])
               props.onChange?.(...options)
             }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault()
+              }
+            }}
             onBlur={onBlur}
             renderInput={(params) => (
               <TextField
@@ -58,6 +65,7 @@ function FormAutocomplete<
                   autoComplete: 'new-password'
                 }}
                 InputLabelProps={{ ...params.InputLabelProps, shrink: true }}
+                InputProps={{ ...params.InputProps, ...InputProps }}
               />
             )}
           />

@@ -47,6 +47,12 @@ export interface OrganizationResponse {
    * @type {string}
    * @memberof OrganizationResponse
    */
+  organizationId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationResponse
+   */
   organizationSubscribeLink?: string
   /**
    *

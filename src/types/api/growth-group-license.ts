@@ -74,6 +74,12 @@ export interface GrowthGroupLicense {
   licenseType?: GrowthGroupLicenseLicenseTypeEnum
   /**
    *
+   * @type {boolean}
+   * @memberof GrowthGroupLicense
+   */
+  notRenewChecked?: boolean
+  /**
+   *
    * @type {number}
    * @memberof GrowthGroupLicense
    */
@@ -93,7 +99,8 @@ export interface GrowthGroupLicense {
 }
 
 export const GrowthGroupLicenseLicenseTypeEnum = {
-  SubscriptionPlan: 'SUBSCRIPTION_PLAN',
+  ProSubscriptionPlan: 'PRO_SUBSCRIPTION_PLAN',
+  ProTrialSubscriptionPlan: 'PRO_TRIAL_SUBSCRIPTION_PLAN',
   GgPackage: 'GG_PACKAGE'
 } as const
 

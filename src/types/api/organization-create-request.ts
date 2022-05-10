@@ -26,6 +26,12 @@ export interface OrganizationCreateRequest {
   dataCompliancePolicyAccepted?: boolean
   /**
    *
+   * @type {Array<string>}
+   * @memberof OrganizationCreateRequest
+   */
+  domains?: Array<string>
+  /**
+   *
    * @type {string}
    * @memberof OrganizationCreateRequest
    */
@@ -48,6 +54,12 @@ export interface OrganizationCreateRequest {
    * @memberof OrganizationCreateRequest
    */
   password?: string
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationCreateRequest
+   */
+  phoneNumber?: string
   /**
    *
    * @type {boolean}

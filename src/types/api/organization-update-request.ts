@@ -26,10 +26,22 @@ export interface OrganizationUpdateRequest {
   dataCompliancePolicyAccepted?: boolean
   /**
    *
+   * @type {Array<string>}
+   * @memberof OrganizationUpdateRequest
+   */
+  domains?: Array<string>
+  /**
+   *
    * @type {string}
    * @memberof OrganizationUpdateRequest
    */
   name?: string
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationUpdateRequest
+   */
+  phoneNumber?: string
   /**
    *
    * @type {boolean}

@@ -77,6 +77,12 @@ export interface InvoiceItem {
    * @type {number}
    * @memberof InvoiceItem
    */
+  quantity?: number
+  /**
+   *
+   * @type {number}
+   * @memberof InvoiceItem
+   */
   taxInCents?: number
   /**
    *

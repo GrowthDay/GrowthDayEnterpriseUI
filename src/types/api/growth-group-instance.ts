@@ -120,12 +120,6 @@ export interface GrowthGroupInstance {
   participants?: Array<ParticipantData>
   /**
    *
-   * @type {number}
-   * @memberof GrowthGroupInstance
-   */
-  participantsAllowed?: number
-  /**
-   *
    * @type {string}
    * @memberof GrowthGroupInstance
    */

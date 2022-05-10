@@ -16,7 +16,9 @@ import { maxBy } from 'lodash-es'
 import * as React from 'react'
 import { FC, PropsWithChildren, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+import { parsePhoneNumber } from 'react-phone-number-input'
 import { useRecoilState, useSetRecoilState } from 'recoil'
+import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
 import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
 import { useDefaultCountryState } from '../../../hooks/useCountryState'
 import welcomeState from '../../../recoil/atoms/welcomeState'
@@ -55,6 +57,7 @@ const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
 const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   const setWelcomeState = useSetRecoilState(welcomeState)
   const { data } = useDefaultCountryState()
+  const { data: organization } = useOrganizationQuery()
   const { data: user } = useOrganizationUserQuery()
   const [_loading, setLoading] = useRecoilState(checkoutLoadingState)
   const { isLoading, mutateAsync } = useSetupSubscriptionMutation()
@@ -93,6 +96,34 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   }, [user, methods])
 
   useEffect(() => {
+    if (organization && organization.phoneNumber) {
+      const parsedPhoneNumber = parsePhoneNumber(organization.phoneNumber)
+      if (parsedPhoneNumber) {
+        methods.setValue('phoneNumber', parsedPhoneNumber.number ?? '')
+        methods.setValue('country', parsedPhoneNumber.country ?? '')
+      }
+    }
+  }, [organization, methods])
+
+  useEffect(() => {
+    if (data?.country && organization && !organization.phoneNumber) {
+      methods.setValue('country', data.country)
+    }
+  }, [data, methods, organization])
+
+  useEffect(() => {
+    if (
+      data &&
+      (!organization?.phoneNumber ||
+        (organization?.phoneNumber && data.country === parsePhoneNumber(organization.phoneNumber)?.country))
+    ) {
+      methods.setValue('region', data.state)
+    } else {
+      methods.setValue('region', '')
+    }
+  }, [data, methods, organization])
+
+  useEffect(() => {
     if (subscriptionPlans.length && !selectedPlan) {
       methods.setValue(
         'stripePriceId',
@@ -100,13 +131,6 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
       )
     }
   }, [subscriptionPlans, selectedPlan, methods])
-
-  useEffect(() => {
-    if (data?.country) {
-      methods.setValue('country', data.country)
-      methods.setValue('region', data.state ?? '')
-    }
-  }, [data, methods])
 
   const hasMultiplePlans = subscriptionPlans.length > 1
 

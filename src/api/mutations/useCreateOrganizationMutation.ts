@@ -1,3 +1,4 @@
+import { isValidPhoneNumber } from 'react-phone-number-input'
 import { useMutation, useQueryClient } from 'react-query'
 import { UseMutationOptions } from 'react-query/types/react/types'
 import { useSetRecoilState } from 'recoil'
@@ -8,6 +9,9 @@ import { CreateOrganizationResponse, OrganizationCreateRequest } from '../../typ
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
 
 export const CREATE_ORGANIZATION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'CREATE_ORGANIZATION']
+
+export const urlRegex =
+  /@(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
 
 export const CreateOrganizationValidationSchema = yup
   .object()
@@ -22,18 +26,33 @@ export const CreateOrganizationValidationSchema = yup
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
         'Choose a password with at least 8 characters. Choose a mixture of upper and lower case letters, numbers, and symbols.'
       )
+      .required('Required'),
+    phoneNumber: yup
+      .string()
       .required('Required')
+      .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true)),
+    domains: yup
+      .array()
+      .of(yup.string().required('Required'))
+      .test('valid', 'Please enter valid domains', (values) =>
+        Boolean(values?.every((value) => (value ? urlRegex.test(value) : false)))
+      )
   })
   .required()
 
-export const CreateOrganizationDefaultValues = {
+export const CreateOrganizationDefaultValues: Omit<OrganizationCreateRequest, 'fullName'> & {
+  firstName?: string
+  lastName?: string
+} = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
   name: '',
+  phoneNumber: '',
   dataCompliancePolicyAccepted: true,
-  teamAssessmentEnabled: true
+  teamAssessmentEnabled: true,
+  domains: []
 }
 
 const useCreateOrganizationMutation = (

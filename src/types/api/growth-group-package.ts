@@ -37,6 +37,12 @@ export interface GrowthGroupPackage {
    * @type {number}
    * @memberof GrowthGroupPackage
    */
+  cancelledOn?: number
+  /**
+   *
+   * @type {number}
+   * @memberof GrowthGroupPackage
+   */
   consumed?: number
   /**
    *
@@ -125,7 +131,8 @@ export interface GrowthGroupPackage {
 }
 
 export const GrowthGroupPackageLicenseTypeEnum = {
-  SubscriptionPlan: 'SUBSCRIPTION_PLAN',
+  ProSubscriptionPlan: 'PRO_SUBSCRIPTION_PLAN',
+  ProTrialSubscriptionPlan: 'PRO_TRIAL_SUBSCRIPTION_PLAN',
   GgPackage: 'GG_PACKAGE'
 } as const
 

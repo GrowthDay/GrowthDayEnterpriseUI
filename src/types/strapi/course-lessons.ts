@@ -3,6 +3,7 @@ import { ICourseChapters } from './course-chapters'
 import { ICourses } from './courses'
 import { IFile } from './file'
 import { IImprovementRecommendations } from './improvement-recommendations'
+import { IMedia } from './media'
 import { IRecommendedResources } from './recommended-resources'
 import { IWorksheets } from './worksheets'
 
@@ -15,6 +16,7 @@ export interface ICourseLessons {
   subtitle?: string
   order?: number
   videoID?: string
+  media?: IMedia
   worksheetLink?: string
   mp3Link?: string
   course?: ICourses
