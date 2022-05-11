@@ -1,7 +1,8 @@
-import { DeleteOutlined, InfoOutlined, InsertDriveFileOutlined, UploadFileOutlined } from '@mui/icons-material'
-import { Box, Collapse, IconButton, LinearProgress, Link, styled, Typography } from '@mui/material'
+import { InfoOutlined } from '@mui/icons-material'
+import { Box, Collapse, Icon, IconButton, LinearProgress, Link, styled, Typography } from '@mui/material'
 import urlJoin from 'proper-url-join'
 import { ChangeEvent, FC, useState } from 'react'
+import { FilePlus, FileText, Trash } from 'react-feather'
 import Flex from '../../../components/Flex'
 import config from '../../../config'
 import { SheetFileTypes } from '../../../utils/sheetsUtil'
@@ -74,10 +75,10 @@ const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => 
       <Wrapper disabled={disabled} sx={{ py: 1.5, px: 2 }}>
         <Flex width="100%" justifyContent="space-between" alignItems="center">
           <Typography color="primary">
-            <InsertDriveFileOutlined sx={{ mr: 0.5, mb: '-6px' }} color="inherit" /> {file.name}
+            <Icon component={FileText} sx={{ mr: 0.5, mb: '-6px' }} color="inherit" /> {file.name}
           </Typography>
           <IconButton onClick={onRemove} size="small">
-            <DeleteOutlined fontSize="small" />
+            <Icon component={Trash} fontSize="small" />
           </IconButton>
         </Flex>
       </Wrapper>
@@ -119,7 +120,7 @@ const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => 
             Need help?
           </Link>
         )}
-        <UploadFileOutlined sx={{ mb: 1 }} fontSize="large" color="primary" />
+        <Icon component={FilePlus} sx={{ mb: 1 }} fontSize="large" color="primary" />
         {loading ? (
           <Typography variant="body2" color="text.secondary">
             Uploading
