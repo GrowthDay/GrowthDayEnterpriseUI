@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import useLoginMutation from '../../api/mutations/useLoginMutation'
-import useIsMounted from '../../hooks/useIsMounted'
-import useModifiedRecoilState from '../../hooks/useModifiedRecoilState'
-import useQueryParams from '../../hooks/useQueryParams'
-import redirectState from '../../recoil/atoms/redirectState'
-import getRedirectUrl from '../../utils/getRedirectUrl'
+import useLoginMutation from '../../../api/mutations/useLoginMutation'
+import useIsMounted from '../../../hooks/useIsMounted'
+import useModifiedRecoilState from '../../../hooks/useModifiedRecoilState'
+import useQueryParams from '../../../hooks/useQueryParams'
+import redirectState from '../../../recoil/atoms/redirectState'
+import getRedirectUrl from '../../../utils/getRedirectUrl'
 
 const LoginCallback: FC = () => {
   const navigate = useNavigate()

@@ -43,16 +43,19 @@ function FormAutocomplete<
             getOptionLabel={(option: any) => option?.name ?? ''}
             {...props}
             value={value || ''}
-            onChange={(...options) => {
-              onChange(options[1])
-              props.onChange?.(...options)
+            onChange={(...rest) => {
+              onChange(rest[1])
+              props.onChange?.(...rest)
+            }}
+            onBlur={(...rest) => {
+              onBlur()
+              props.onBlur?.(...rest)
             }}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 event.preventDefault()
               }
             }}
-            onBlur={onBlur}
             renderInput={(params) => (
               <TextField
                 {...params}

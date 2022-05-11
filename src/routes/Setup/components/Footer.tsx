@@ -2,9 +2,9 @@ import { LoadingButton } from '@mui/lab'
 import { AppBar, Step, StepIcon, StepLabel, Stepper, styled, Toolbar } from '@mui/material'
 import { FC, useCallback, useEffect, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
-import useWindowSize from '../../hooks/useWindowSize'
-import checkoutLoadingState from '../../recoil/atoms/checkoutLoadingState'
-import steps from './steps'
+import useWindowSize from '../../../hooks/useWindowSize'
+import checkoutLoadingState from '../../../recoil/atoms/checkoutLoadingState'
+import steps from '../steps'
 
 export type FooterProps = {
   activeStep: number

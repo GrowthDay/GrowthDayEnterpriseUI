@@ -3,12 +3,12 @@ import { Button, Card, CardContent, Divider, Grid, Link, Typography } from '@mui
 import { startCase, toLower } from 'lodash-es'
 import { Dispatch, FC, MouseEvent, SetStateAction } from 'react'
 import Moment from 'react-moment'
-import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
-import CreditCardLogo from '../../components/CreditCardLogo'
-import Flex from '../../components/Flex'
-import useMobileView from '../../hooks/useMobileView'
-import { OrganizationPlanFrequencyEnum } from '../../types/api'
-import { formatCurrency } from '../../utils/formatters'
+import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
+import CreditCardLogo from '../../../components/CreditCardLogo'
+import Flex from '../../../components/Flex'
+import useMobileView from '../../../hooks/useMobileView'
+import { OrganizationPlanFrequencyEnum } from '../../../types/api'
+import { formatCurrency } from '../../../utils/formatters'
 
 export const frequencyMap = {
   [OrganizationPlanFrequencyEnum.Year]: 'Yearly',

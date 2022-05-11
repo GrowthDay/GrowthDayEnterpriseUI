@@ -5,12 +5,12 @@ import { bindTrigger } from 'material-ui-popup-state'
 import { usePopupState } from 'material-ui-popup-state/hooks'
 import { FC } from 'react'
 import { useSetRecoilState } from 'recoil'
-import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
-import GrowthDayIcon from '../../assets/icons/GrowthDayIcon'
-import ProfileMenu from '../../components/ProfileMenu'
-import config from '../../config'
-import useMobileView from '../../hooks/useMobileView'
-import sidebarState from '../../recoil/atoms/sidebarState'
+import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
+import GrowthDayIcon from '../../../assets/icons/GrowthDayIcon'
+import ProfileMenu from '../../../components/ProfileMenu'
+import config from '../../../config'
+import useMobileView from '../../../hooks/useMobileView'
+import sidebarState from '../../../recoil/atoms/sidebarState'
 
 export const AppBar = styled(MuiAppBar)(({ theme }) => ({ zIndex: theme.zIndex.drawer + 1 }))
 

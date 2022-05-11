@@ -4,8 +4,8 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import GrowthDayBackground from '../../components/GrowthDayBackground'
-import Header from '../Shell/Header'
-import Footer from './Footer'
+import Header from '../Shell/components/Header'
+import Footer from './components/Footer'
 import steps from './steps'
 
 const Setup: FC = () => {

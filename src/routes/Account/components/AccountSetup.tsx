@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  Link,
   Step,
   StepContent,
   StepIcon,
@@ -14,14 +13,11 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { useSnackbar } from 'notistack'
 import { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react'
-import useUpdateOrganizationMutation from '../../api/mutations/useUpdateOrganizationMutation'
-import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
-import Flex from '../../components/Flex'
-import VideoPlayer from '../../components/VideoPlayer'
-import useCopyToClipboard from '../../hooks/useCopyToClipboard'
-import useInvitationLink from '../../hooks/useInvitationLink'
+import useUpdateOrganizationMutation from '../../../api/mutations/useUpdateOrganizationMutation'
+import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
+import Flex from '../../../components/Flex'
+import VideoPlayer from '../../../components/VideoPlayer'
 
 // Todo: Update video link
 
@@ -56,9 +52,6 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
   const { data: organization } = useOrganizationQuery()
   const { mutateAsync, isLoading } = useUpdateOrganizationMutation()
   const [organizationName, setOrganizationName] = useState(organization?.name ?? '')
-  const invitationLink = useInvitationLink()
-  const [, copy] = useCopyToClipboard()
-  const { enqueueSnackbar } = useSnackbar()
 
   const resetOrganizationNameState = useCallback(
     () => setOrganizationName(organization?.name ?? ''),
@@ -77,16 +70,13 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
     })
   }
 
-  const handleCopy = () => {
-    copy(invitationLink)
-    enqueueSnackbar('Copied!')
-  }
-
   return (
     <>
-      <Typography mb={2} fontWeight={700} variant="h5">
-        Quick Setup
-      </Typography>
+      <Flex mb={2} alignItems="center" justifyContent="space-between">
+        <Typography fontWeight={700} variant="h5">
+          Setup
+        </Typography>
+      </Flex>
       <Card elevation={0}>
         <CardContent
           sx={{
@@ -102,11 +92,7 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
             <Step active>
               <StepLabel StepIconComponent={StyledStepIcon} />
               <StyledStepContent>
-                <VideoPlayer
-                  url="https://home.wistia.com/medias/deobokbsak"
-                  data-cy="account-setup-video"
-                  ContainerProps={{ mb: 4, borderRadius: 1, boxShadow: 1 }}
-                />
+                <VideoPlayer url="https://www.youtube.com/watch?v=Scfw5x35AAw" data-cy="account-setup-video" />
                 <Typography mb={2} fontWeight={600}>
                   Welcome to GrowthDay Enterprise!
                 </Typography>
@@ -170,21 +156,6 @@ const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
                   data-cy="account-setup-invite-button"
                 >
                   Invite members
-                </Button>
-              </StyledStepContent>
-            </Step>
-            <Step active>
-              <StepLabel StepIconComponent={StyledStepIcon}>
-                <Typography fontWeight={600}>Explain to the team how they can claim their account</Typography>
-              </StepLabel>
-              <StyledStepContent>
-                <Typography mb={2}>
-                  To sign up, the team members needs to know the link they will use to sign up:{' '}
-                  <Link>{invitationLink}</Link> and the email address that you have given us (for example, whether it is
-                  their work or personal email address)
-                </Typography>
-                <Button onClick={handleCopy} variant="outlined">
-                  Copy invite link
                 </Button>
               </StyledStepContent>
             </Step>

@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
 import Layout from '../../components/Layout'
-import InviteMembers from '../People/InviteMembers'
-import AccountBilling from './AccountBilling'
-import AccountTransactions from './AccountTransactions'
-import AddMoreSeats from './AddMoreSeats'
-import UpdateCreditCard from './UpdateCreditCard'
+import InviteMembers from '../People/components/InviteMembers'
+import AccountBilling from './components/AccountBilling'
+import AccountTransactions from './components/AccountTransactions'
+import AddMoreSeats from './components/AddMoreSeats'
+import UpdateCreditCard from './components/UpdateCreditCard'
 
 const Account: FC = () => {
   const [inviteOpen, setInviteOpen] = useState(false)

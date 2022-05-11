@@ -19,7 +19,8 @@ const withDialog =
         {...(title ? { 'aria-labelledby': labelledByRef.current } : {})}
       >
         {allDialogProps.onClose && <CloseButton onClick={() => allDialogProps.onClose?.({}, 'backdropClick')} />}
-        {title && <DialogTitle id={labelledByRef.current}>{title}</DialogTitle>} <Component {...(props as P)} />
+        {title && <DialogTitle id={labelledByRef.current}>{title}</DialogTitle>}
+        <Component {...(props as P)} />
       </Dialog>
     )
   }

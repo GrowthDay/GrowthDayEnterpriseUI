@@ -1,9 +1,9 @@
 import { Card, CardContent, List, ListItem, ListItemText, styled, Typography } from '@mui/material'
 import { FC } from 'react'
-import Flex from '../../components/Flex'
-import MarkdownHtml from '../../components/MarkdownHtml'
-import { ISubscriptionPlans } from '../../types/strapi'
-import { formatCurrency } from '../../utils/formatters'
+import Flex from '../../../components/Flex'
+import MarkdownHtml from '../../../components/MarkdownHtml'
+import { ISubscriptionPlans } from '../../../types/strapi'
+import { formatCurrency } from '../../../utils/formatters'
 
 export type PlanInfoProps = {
   plan: ISubscriptionPlans

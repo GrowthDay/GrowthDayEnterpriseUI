@@ -6,7 +6,7 @@ import { SubmitErrorHandler, SubmitHandler } from 'react-hook-form/dist/types/fo
 
 const StyledForm = styled('form')({})
 
-export type FormProps<T> = ComponentProps<typeof StyledForm> & {
+export type FormProps<T> = Omit<ComponentProps<typeof StyledForm>, 'onError'> & {
   onSuccess: SubmitHandler<T>
   onError?: SubmitErrorHandler<T>
   methods: UseFormReturn<T, any>

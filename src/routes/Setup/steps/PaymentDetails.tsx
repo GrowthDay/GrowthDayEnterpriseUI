@@ -37,7 +37,7 @@ import withElements from '../../../hoc/withElements'
 import useStripePayment from '../../../hooks/useStripePayment'
 import checkoutLoadingState from '../../../recoil/atoms/checkoutLoadingState'
 import { formatCurrency } from '../../../utils/formatters'
-import PlanInfo from '../PlanInfo'
+import PlanInfo from '../components/PlanInfo'
 import { StepComponentProps } from './index'
 
 const HtmlTooltip = styled(({ className, ...props }: PropsWithChildren<TooltipProps>) => (

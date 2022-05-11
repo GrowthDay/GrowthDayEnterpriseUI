@@ -6,7 +6,7 @@ import BootstrapApp from './features/BootstrapApp/BootstrapApp'
 
 const Setup = lazy(() => import('./routes/Setup/Setup'))
 const Login = lazy(() => import('./routes/Login/Login'))
-const LoginCallback = lazy(() => import('./routes/Login/LoginCallback'))
+const LoginCallback = lazy(() => import('./routes/Login/components/LoginCallback'))
 
 const Shell = lazy(() => import('./routes/Shell/Shell'))
 const People = lazy(() => import('./routes/People/People'))

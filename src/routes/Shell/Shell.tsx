@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import Loading from '../../components/Loading'
-import Header from './Header'
-import Sidebar from './Sidebar'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
 
 const Shell: FC = () => {
   const { isLoading: organizationLoading, isLoadingError: organizationLoadingError } = useOrganizationQuery()

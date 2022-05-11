@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import Layout from '../../components/Layout'
-import InviteMembers from '../People/InviteMembers'
-import AccountSetup from './AccountSetup'
-import RestartTour from './RestartTour'
+import InviteMembers from '../People/components/InviteMembers'
+import AccountSetup from './components/AccountSetup'
+import RestartTour from './components/RestartTour'
 
 const QuickSetup: FC = () => {
   const [inviteOpen, setInviteOpen] = useState(false)

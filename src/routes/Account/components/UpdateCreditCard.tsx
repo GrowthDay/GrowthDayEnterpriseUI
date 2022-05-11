@@ -7,13 +7,13 @@ import useUpdatePaymentMethodMutation, {
   UpdatePaymentMethodRequest,
   UpdatePaymentMethodDefaultValues,
   UpdatePaymentMethodValidationSchema
-} from '../../api/mutations/useUpdatePaymentMethodMutation'
-import Form from '../../components/forms/Form'
-import StripeCardForm from '../../components/StripeCardForm'
-import withDialog from '../../hoc/withDialog'
-import withElements from '../../hoc/withElements'
-import useStripePayment from '../../hooks/useStripePayment'
-import compose from '../../utils/compose'
+} from '../../../api/mutations/useUpdatePaymentMethodMutation'
+import Form from '../../../components/forms/Form'
+import StripeCardForm from '../../../components/StripeCardForm'
+import withDialog from '../../../hoc/withDialog'
+import withElements from '../../../hoc/withElements'
+import useStripePayment from '../../../hooks/useStripePayment'
+import compose from '../../../utils/compose'
 
 export type UpdateCreditCardProps = Omit<DialogProps, 'children'>
 
