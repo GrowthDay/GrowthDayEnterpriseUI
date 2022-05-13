@@ -19,7 +19,7 @@ const useStripePayment = () => {
         billing_details: {
           name: value.fullName,
           email: user?.email || '',
-          // phone: value.phoneNumber,
+          phone: value.phoneNumber,
           address: {
             country: value.country,
             state: value.region,

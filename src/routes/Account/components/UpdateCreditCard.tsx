@@ -30,9 +30,11 @@ const UpdateCreditCard: FC<UpdateCreditCardProps> = ({ onClose }) => {
   })
   const handleSubmit = async (values: UpdatePaymentMethodRequest) => {
     setLoading(true)
-    const paymentMethodId = await addPaymentMethod(values)
-    await mutateAsync(paymentMethodId)
-    onClose?.({}, 'backdropClick')
+    try {
+      const paymentMethodId = await addPaymentMethod(values)
+      await mutateAsync(paymentMethodId)
+      onClose?.({}, 'backdropClick')
+    } catch (e) {}
     setLoading(false)
   }
   return (
