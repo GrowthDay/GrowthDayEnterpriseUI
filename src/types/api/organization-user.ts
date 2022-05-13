@@ -26,6 +26,18 @@ export interface OrganizationUser {
   createTimestamp?: number
   /**
    *
+   * @type {boolean}
+   * @memberof OrganizationUser
+   */
+  deactivated?: boolean
+  /**
+   *
+   * @type {number}
+   * @memberof OrganizationUser
+   */
+  deactivatedOn?: number
+  /**
+   *
    * @type {number}
    * @memberof OrganizationUser
    */
@@ -96,12 +108,6 @@ export interface OrganizationUser {
    * @memberof OrganizationUser
    */
   roleName?: string
-  /**
-   *
-   * @type {string}
-   * @memberof OrganizationUser
-   */
-  signupUuid?: string
   /**
    *
    * @type {number}

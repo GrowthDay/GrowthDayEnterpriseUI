@@ -184,7 +184,9 @@ export type GrowthGroupInstanceChannelEnum =
 export const GrowthGroupInstanceReasonEnum = {
   CancelledByHost: 'CANCELLED_BY_HOST',
   NotStartedOnTime: 'NOT_STARTED_ON_TIME',
-  NotEnoughRsvp: 'NOT_ENOUGH_RSVP'
+  NotEnoughRsvp: 'NOT_ENOUGH_RSVP',
+  SubscriptionCanceled: 'SUBSCRIPTION_CANCELED',
+  DowngradeSubscription: 'DOWNGRADE_SUBSCRIPTION'
 } as const
 
 export type GrowthGroupInstanceReasonEnum =

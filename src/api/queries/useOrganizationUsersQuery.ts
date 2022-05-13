@@ -13,6 +13,7 @@ export enum ExportType {
 export type OrganizationUsersRequest = {
   departmentId?: string
   invitationPending?: boolean
+  deactivated?: boolean
   order?: 'asc' | 'desc'
   query?: string
   roleId?: number

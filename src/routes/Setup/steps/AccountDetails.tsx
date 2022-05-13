@@ -19,6 +19,7 @@ import useCreateOrganizationMutation, {
 import FormPhoneInput from '../../../components/forms/FormPhoneInput'
 import { useDefaultCountryState } from '../../../hooks/useCountryState'
 import { OrganizationCreateRequest } from '../../../types/api'
+import coerceArray from '../../../utils/coerceArray'
 import { StepComponentProps } from './index'
 
 type IOrganizationCreateRequestType = typeof CreateOrganizationDefaultValues
@@ -110,6 +111,12 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
     []
   )
 
+  const onBeforeChange = (values: string | string[]): string[] =>
+    (coerceArray(values) as string[])
+      .flatMap((value) => value.split(',').map((domain) => (domain ?? '').trim()))
+      .filter(Boolean)
+      .filter((domain) => urlRegex.test(domain))
+
   return (
     <Form<IOrganizationCreateRequestType> methods={methods} onSuccess={handleSubmit} data-cy="account-details-form">
       <Grid spacing={2} container>
@@ -136,6 +143,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             data-cy="account-details-domains-input"
             options={[]}
             getOptionLabel={(option) => option}
+            onBeforeChange={onBeforeChange}
             InputProps={{
               endAdornment: domainsEndAdornment,
               sx: {

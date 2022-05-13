@@ -1,5 +1,4 @@
 import { Autocomplete, AutocompleteProps, TextField, TextFieldProps } from '@mui/material'
-import { uniq } from 'lodash-es'
 import { ReactNode } from 'react'
 import { Controller, UseControllerProps, useFormContext } from 'react-hook-form'
 import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
@@ -11,6 +10,7 @@ export type FormAutocompleteProps<
   UseControllerProps<TFieldValues, TName> & {
     label?: ReactNode
     InputProps?: TextFieldProps['InputProps']
+    onBeforeChange?: (value: any) => any
   }
 
 function FormAutocomplete<
@@ -23,6 +23,7 @@ function FormAutocomplete<
   defaultValue,
   control: _control,
   InputProps,
+  onBeforeChange,
   ...props
 }: FormAutocompleteProps<TFieldValues, TName>) {
   const { control } = useFormContext<TFieldValues>()
@@ -44,14 +45,21 @@ function FormAutocomplete<
             getOptionLabel={(option: any) => option?.name ?? ''}
             {...props}
             value={value || ''}
-            onChange={(...rest) => {
-              onChange(rest[1])
-              props.onChange?.(...rest)
+            onChange={(event, value, ...rest) => {
+              let newValue = value
+              if (onBeforeChange) {
+                newValue = onBeforeChange(newValue)
+              }
+              onChange(newValue)
+              props.onChange?.(event, value, ...rest)
             }}
             onBlur={(...rest) => {
               if (props.multiple && props.freeSolo && props.clearOnBlur) {
                 const inputValue = (rest[0].target as HTMLInputElement).value
-                const newValue = uniq([...value, inputValue].filter(Boolean))
+                let newValue = [...value, inputValue] as unknown as TFieldValues
+                if (onBeforeChange) {
+                  newValue = onBeforeChange(newValue)
+                }
                 onChange(newValue)
               }
               onBlur()

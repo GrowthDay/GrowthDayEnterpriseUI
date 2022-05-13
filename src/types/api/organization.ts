@@ -134,6 +134,12 @@ export interface Organization {
   planName?: string
   /**
    *
+   * @type {boolean}
+   * @memberof Organization
+   */
+  processingInvitation?: boolean
+  /**
+   *
    * @type {string}
    * @memberof Organization
    */
