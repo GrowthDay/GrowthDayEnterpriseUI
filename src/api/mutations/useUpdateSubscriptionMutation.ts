@@ -38,12 +38,11 @@ const useUpdateSubscriptionMutation = (
     UPDATE_SUBSCRIPTION_MUTATION_KEY,
     (input: OrganizationUpdateSubscription) => axiosGrowthDay.put<Organization>('/organizations/subscription', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         queryClient.setQueryData(ORGANIZATION_QUERY_KEY, data)
         queryClient.invalidateQueries(ORGANIZATION_PAYMENT_TRANSACTIONS_QUERY_KEY)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

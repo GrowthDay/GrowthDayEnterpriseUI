@@ -13,12 +13,11 @@ const useLogoutMutation = (
   const resetAccessToken = useResetRecoilState(accessTokenState)
   const resetOrganizationId = useResetRecoilState(organizationIdState)
   return useMutation(LOGOUT_QUERY_KEY, () => axiosGrowthDay.post<void>('/logout'), {
-    ...options,
-    onSuccess: (...rest) => {
+    onSuccess: () => {
       resetOrganizationId()
       resetAccessToken()
-      return options.onSuccess?.(...rest)
-    }
+    },
+    ...options
   })
 }
 

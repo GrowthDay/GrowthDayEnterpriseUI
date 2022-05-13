@@ -1,4 +1,4 @@
-import { pick } from 'lodash-es'
+import { noop, pick } from 'lodash-es'
 import { useCallback, useMemo } from 'react'
 import { OrganizationUpdateAddressRequest, OrganizationUpdateSubscription } from '../../../types/api'
 import mergeSchemas from '../../../utils/mergeSchemas'
@@ -46,7 +46,7 @@ const useSetupSubscriptionMutation = () => {
     data: paymentMethod,
     error: updatePaymentMethodError,
     isLoading: updatePaymentMethodLoading
-  } = useUpdatePaymentMethodMutation()
+  } = useUpdatePaymentMethodMutation({ onSuccess: noop })
   const {
     mutateAsync: updateSubscriptionMutateAsync,
     data: subscription,

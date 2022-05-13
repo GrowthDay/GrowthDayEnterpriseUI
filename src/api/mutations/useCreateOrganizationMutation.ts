@@ -72,16 +72,15 @@ const useCreateOrganizationMutation = (
     CREATE_ORGANIZATION_MUTATION_KEY,
     (input: OrganizationCreateRequest) => axiosGrowthDay.post<CreateOrganizationResponse>('/organizations', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         if (data.organization) {
           queryClient.setQueryData(ORGANIZATION_QUERY_KEY, data.organization)
         }
         if (data.loginResponse?.authenticationToken) {
           setAccessToken(data.loginResponse.authenticationToken)
         }
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

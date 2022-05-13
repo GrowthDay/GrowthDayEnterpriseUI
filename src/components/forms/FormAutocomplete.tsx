@@ -1,4 +1,5 @@
 import { Autocomplete, AutocompleteProps, TextField, TextFieldProps } from '@mui/material'
+import { uniq } from 'lodash-es'
 import { ReactNode } from 'react'
 import { Controller, UseControllerProps, useFormContext } from 'react-hook-form'
 import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
@@ -48,6 +49,11 @@ function FormAutocomplete<
               props.onChange?.(...rest)
             }}
             onBlur={(...rest) => {
+              if (props.multiple && props.freeSolo && props.clearOnBlur) {
+                const inputValue = (rest[0].target as HTMLInputElement).value
+                const newValue = uniq([...value, inputValue].filter(Boolean))
+                onChange(newValue)
+              }
               onBlur()
               props.onBlur?.(...rest)
             }}

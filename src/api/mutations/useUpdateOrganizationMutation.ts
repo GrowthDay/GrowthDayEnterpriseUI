@@ -31,11 +31,10 @@ const useUpdateOrganizationMutation = (
     UPDATE_ORGANIZATION_MUTATION_KEY,
     (input: OrganizationUpdateRequest) => axiosGrowthDay.put<Organization>('/organizations', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         queryClient.setQueryData(ORGANIZATION_QUERY_KEY, data)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

@@ -95,15 +95,18 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
 
   const renderTags = useCallback(
     (values: string[], getTagProps: AutocompleteRenderGetTagProps): ReactNode =>
-      values.map((value, index) => (
-        <Chip
-          {...getTagProps({ index })}
-          size="small"
-          sx={{ borderRadius: 4 }}
-          color={urlRegex.test(value) ? 'secondary' : 'error'}
-          label={value}
-        />
-      )),
+      values.map((value, index) => {
+        const isValid = urlRegex.test(value)
+        return (
+          <Chip
+            {...getTagProps({ index })}
+            size="small"
+            sx={{ borderRadius: 4 }}
+            color={isValid ? 'secondary' : 'error'}
+            label={value}
+          />
+        )
+      }),
     []
   )
 
@@ -139,6 +142,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
                 paddingRight: 5
               }
             }}
+            clearOnBlur
             multiple
             freeSolo
             renderTags={renderTags}
@@ -193,7 +197,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             data-cy="account-details-password-input"
           />
         </Grid>
-        <Grid mt={4} item xs={12}>
+        <Grid mt={2} item xs={12}>
           <LoadingButton
             disabled={!active}
             sx={{ minWidth: 156 }}

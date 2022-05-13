@@ -18,8 +18,7 @@ const useUpdateUserRoleMutation = (
     UPDATE_USER_ROLE_MUTATION_KEY,
     (input: RoleUpdateRequest) => axiosGrowthDay.put<void>('/organizationUsers/role', input),
     {
-      ...options,
-      onSuccess: (data, variables, context) => {
+      onSuccess: (data, variables) => {
         const queriesData = queryClient.getQueriesData<PagedResultOrganizationUser>(BASE_ORGANIZATION_USERS_QUERY_KEY)
         queriesData.some(([queryKey, data]) => {
           if (data.results) {
@@ -36,8 +35,8 @@ const useUpdateUserRoleMutation = (
           }
           return false
         })
-        return options.onSuccess?.(data, variables, context)
-      }
+      },
+      ...options
     }
   )
 }

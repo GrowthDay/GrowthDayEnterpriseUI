@@ -17,11 +17,10 @@ const useUpdateUserTourProgressMutation = (
     UPDATE_USER_TOUR_PROGRESS_MUTATION_KEY,
     (input: UserTourRequest) => axiosGrowthDay.put<UserTour>('/userTour/progress', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         queryClient.invalidateQueries(USER_TOUR_QUERY_KEY)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

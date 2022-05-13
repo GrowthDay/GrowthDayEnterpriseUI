@@ -17,11 +17,10 @@ const useCreateUserTourMutation = (
     CREATE_USER_TOUR_MUTATION_KEY,
     (input: UserTourRequest) => axiosGrowthDay.post<UserTour>('/userTour', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: () => {
         queryClient.invalidateQueries(USER_TOUR_QUERY_KEY)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

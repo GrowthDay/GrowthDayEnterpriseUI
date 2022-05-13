@@ -30,19 +30,18 @@ const useExportOrganizationUsersMutation = (
         }
       }),
     {
-      ...options,
-      onMutate: (...rest) => {
+      onMutate: () => {
         snackbarKey.current = enqueueSnackbar('Downloading...', {
           autoHideDuration: null,
           action: () => <Loading size={24} position="static" />
         })
-        return options.onMutate?.(...rest)
+        return undefined
       },
-      onSuccess: (data, variables, ...rest) => {
+      onSuccess: (data, variables) => {
         closeSnackbar(snackbarKey.current)
         saveAs(data, `growthday-enterprise-users-${moment().format('DD-MM-YY-HH-mm-ss')}.${variables.toLowerCase()}`)
-        return options.onSuccess?.(data, variables, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

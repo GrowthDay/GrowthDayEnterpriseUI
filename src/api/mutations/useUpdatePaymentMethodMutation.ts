@@ -56,11 +56,10 @@ const useUpdatePaymentMethodMutation = (
     UPDATE_PAYMENT_METHOD_MUTATION_KEY,
     (input: string) => axiosGrowthDay.put<Organization>('/organizations/paymentMethod', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         queryClient.setQueryData(ORGANIZATION_QUERY_KEY, data)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

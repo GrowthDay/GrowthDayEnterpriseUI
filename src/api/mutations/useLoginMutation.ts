@@ -18,13 +18,12 @@ const useLoginMutation = (
     LOGIN_QUERY_KEY,
     (input: CodeForTokenRequest) => axiosGrowthDay.post<LoginResponse>('/login', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         if (data?.authenticationToken) {
           setAccessToken(data.authenticationToken)
         }
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

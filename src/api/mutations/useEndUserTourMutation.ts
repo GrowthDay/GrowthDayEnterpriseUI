@@ -17,11 +17,10 @@ const useEndUserTourMutation = (
     END_USER_TOUR_MUTATION_KEY,
     (input: UserTourRequest) => axiosGrowthDay.put<UserTour>('/userTour/endTour', input),
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: () => {
         queryClient.invalidateQueries(USER_TOUR_QUERY_KEY)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }

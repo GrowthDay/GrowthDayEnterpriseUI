@@ -20,11 +20,10 @@ const useInviteUsersInOrganizationMutation = (
       return axiosGrowthDay.post<void>('/organizationUsers', formData)
     },
     {
-      ...options,
-      onSuccess: (data, ...rest) => {
+      onSuccess: (data) => {
         queryClient.invalidateQueries(BASE_ORGANIZATION_USERS_QUERY_KEY)
-        return options.onSuccess?.(data, ...rest)
-      }
+      },
+      ...options
     }
   )
 }
