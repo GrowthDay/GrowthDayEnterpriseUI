@@ -14,7 +14,7 @@ import {
   Typography
 } from '@mui/material'
 import { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react'
-import useUpdateOrganizationMutation from '../../../api/mutations/useUpdateOrganizationMutation'
+import useUpdateOrganizationNameMutation from '../../../api/mutations/useUpdateOrganizationNameMutation'
 import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
 import Flex from '../../../components/Flex'
 import VideoPlayer from '../../../components/VideoPlayer'
@@ -50,7 +50,7 @@ export type AccountSetupProps = {
 
 const AccountSetup: FC<AccountSetupProps> = ({ setInviteOpen }) => {
   const { data: organization } = useOrganizationQuery()
-  const { mutateAsync, isLoading } = useUpdateOrganizationMutation()
+  const { mutateAsync, isLoading } = useUpdateOrganizationNameMutation()
   const [organizationName, setOrganizationName] = useState(organization?.name ?? '')
 
   const resetOrganizationNameState = useCallback(

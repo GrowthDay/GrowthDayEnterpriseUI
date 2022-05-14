@@ -21,8 +21,19 @@ const TableGrid: ForwardRefExoticComponent<
     <StyledDataGrid
       sx={[
         {
+          '.MuiDataGrid-columnHeader[data-field="action"] .MuiDataGrid-columnSeparator': { display: 'none' },
           '.MuiDataGrid-virtualScroller': { ...(loading ? { opacity: 0.5 } : {}) },
-          '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' }
+          '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': { outline: 'none!important' },
+          '.MuiDataGrid-row': {
+            '.table-row-action': {
+              opacity: 0
+            },
+            '&:hover': {
+              '.table-row-action': {
+                opacity: 1
+              }
+            }
+          }
         },
         ...coerceArray(sx)
       ]}

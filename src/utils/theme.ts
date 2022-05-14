@@ -48,17 +48,17 @@ const theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
-          fontWeight: 500,
+          fontWeight: 600,
           textTransform: 'none',
-          padding: defaultTheme.spacing(2, 3),
-          minHeight: defaultTheme.spacing(5)
+          padding: defaultTheme.spacing(2.5)
         }
       }
     },
     MuiTabs: {
       styleOverrides: {
         indicator: {
-          borderRadius: defaultTheme.shape.borderRadius * 2
+          borderRadius: defaultTheme.shape.borderRadius * 2,
+          zIndex: 1
         },
         root: {
           minHeight: defaultTheme.spacing(5)
@@ -216,6 +216,20 @@ const theme = createTheme({
         size: 'small',
         margin: 'none',
         InputLabelProps: { shrink: true }
+      }
+    },
+    MuiStack: {
+      defaultProps: {
+        direction: 'row',
+        spacing: 1
+      }
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginLeft: 4,
+          marginRight: 4
+        }
       }
     }
   }

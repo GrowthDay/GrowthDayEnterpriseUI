@@ -6,14 +6,16 @@ import * as yup from 'yup'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import accessTokenState from '../../recoil/atoms/accessTokenState'
 import { CreateOrganizationResponse, OrganizationCreateRequest } from '../../types/api'
+import mergeSchemas from '../../utils/mergeSchemas'
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
+import { UpdateOrganizationValidationSchema } from './useUpdateOrganizationMutation'
+
+// TODO: Add timezone on signup to user request
+// TODO: Phone number in user or organization?
 
 export const CREATE_ORGANIZATION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'CREATE_ORGANIZATION']
 
-export const urlRegex =
-  /@(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
-
-export const CreateOrganizationValidationSchema = yup
+const schema = yup
   .object()
   .shape({
     name: yup.string().required('Required'),
@@ -30,15 +32,11 @@ export const CreateOrganizationValidationSchema = yup
     phoneNumber: yup
       .string()
       .required('Required')
-      .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true)),
-    domains: yup
-      .array()
-      .of(yup.string().required('Required'))
-      .test('valid', 'Please enter valid domains', (values) =>
-        Boolean(values?.every((value) => (value ? urlRegex.test(value) : false)))
-      )
+      .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true))
   })
   .required()
+
+export const CreateOrganizationValidationSchema = mergeSchemas(UpdateOrganizationValidationSchema, schema)
 
 export const CreateOrganizationDefaultValues: Omit<OrganizationCreateRequest, 'fullName'> & {
   firstName?: string

@@ -9,6 +9,7 @@ export type FormAutocompleteProps<
 > = Omit<AutocompleteProps<any, false | true, false | true, false | true>, 'renderInput'> &
   UseControllerProps<TFieldValues, TName> & {
     label?: ReactNode
+    helperText?: ReactNode
     InputProps?: TextFieldProps['InputProps']
     onBeforeChange?: (value: any) => any
   }
@@ -24,6 +25,7 @@ function FormAutocomplete<
   control: _control,
   InputProps,
   onBeforeChange,
+  helperText,
   ...props
 }: FormAutocompleteProps<TFieldValues, TName>) {
   const { control } = useFormContext<TFieldValues>()
@@ -42,7 +44,6 @@ function FormAutocomplete<
             autoHighlight
             autoComplete
             disableClearable
-            getOptionLabel={(option: any) => option?.name ?? ''}
             {...props}
             value={value || ''}
             onChange={(event, value, ...rest) => {
@@ -76,7 +77,7 @@ function FormAutocomplete<
                 placeholder={props.placeholder}
                 label={props.label}
                 error={invalid}
-                helperText={error?.message}
+                helperText={error?.message || helperText}
                 inputProps={{
                   ...params.inputProps,
                   autoComplete: 'new-password'

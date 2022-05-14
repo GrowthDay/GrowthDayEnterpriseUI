@@ -410,7 +410,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       <DialogActions sx={{ justifyContent: 'space-between' }}>
         <LoadingButton
           sx={{ mr: 2, flexShrink: 0 }}
-          disabled={disabled || isProratedAmountFetching}
+          disabled={disabled || isProratedAmountFetching || seatsToInvite < 1}
           form="invitation-form"
           loading={isInviteLoading || isLoadingUpdateSubscription}
           variant="contained"

@@ -2,8 +2,10 @@ import { FC, useState } from 'react'
 import Layout from '../../components/Layout'
 import InviteMembers from '../People/components/InviteMembers'
 import AccountBilling from './components/AccountBilling'
+import AccountDetails from './components/AccountDetails'
 import AccountTransactions from './components/AccountTransactions'
 import AddMoreSeats from './components/AddMoreSeats'
+import SignInSecurity from './components/SignInSecurity'
 import UpdateCreditCard from './components/UpdateCreditCard'
 
 const Account: FC = () => {
@@ -19,6 +21,8 @@ const Account: FC = () => {
       <Layout breadcrumbs="Account">
         <AccountBilling setAddSeatsOpen={setAddSeatsOpen} setUpdateCardOpen={setUpdateCardOpen} />
         <AccountTransactions />
+        <AccountDetails />
+        <SignInSecurity />
       </Layout>
     </>
   )

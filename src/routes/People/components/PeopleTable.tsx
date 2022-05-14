@@ -1,5 +1,5 @@
-import { CheckOutlined, SearchOutlined } from '@mui/icons-material'
-import { InputAdornment, InputBase, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { CheckOutlined, CloseOutlined, SearchOutlined, SvgIconComponent } from '@mui/icons-material'
+import { IconButton, InputAdornment, InputBase, MenuItem, Select, TextField, Tooltip, Typography } from '@mui/material'
 import { SelectInputProps } from '@mui/material/Select/SelectInput'
 import { GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
 import { DataGridProProps } from '@mui/x-data-grid-pro/models'
@@ -21,10 +21,17 @@ export type PeopleTableProps = Partial<DataGridProProps> & {
   setPageParams: Dispatch<Partial<PaginationParams>>
   filters: OrganizationUsersFilters
   setFilters: Dispatch<Partial<OrganizationUsersFilters>>
-  showName?: boolean
+  showNameColumn?: boolean
   searchable?: boolean
+  disableRoleChange?: boolean
   title?: ReactNode
   action?: ReactNode
+  rowAction?: {
+    onClick: (params: GridRenderCellParams) => void
+    label: ReactNode
+    when?: (params: GridRenderCellParams) => void
+    icon?: SvgIconComponent
+  }
 }
 
 const RenderRole = (params: GridRenderCellParams<number, OrganizationUser>) => {
@@ -69,11 +76,12 @@ const PeopleTable: FC<PeopleTableProps> = ({
   setPageParams,
   filters,
   setFilters,
-  showName,
+  showNameColumn,
   searchable,
-  title,
   action,
   data = [],
+  rowAction,
+  disableRoleChange,
   ...props
 }) => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -93,19 +101,47 @@ const PeopleTable: FC<PeopleTableProps> = ({
     }
   }, [debouncedSearch, searchTerm])
 
-  const columns: GridColumns = useMemo(
-    () => [
-      ...(showName ? [{ field: 'name', headerName: 'Name', width: 240 }] : []),
-      { field: 'email', headerName: 'Email', width: 400 },
-      {
-        field: 'roleName',
-        headerName: 'Role',
-        width: 160,
-        renderCell: (props) => <RenderRole {...props} />,
-        valueGetter: (params) => params.row.roleId
-      }
-    ],
-    [showName]
+  const columns = useMemo(
+    () =>
+      [
+        ...(showNameColumn ? [{ field: 'name', headerName: 'Name', width: 240 }] : []),
+        { field: 'email', headerName: 'Email', width: 400 },
+        {
+          field: 'roleName',
+          headerName: 'Role',
+          width: 160,
+          renderCell: (props) => (disableRoleChange ? renderRoleNameById(props.row.roleId) : <RenderRole {...props} />),
+          valueGetter: (params) => params.row.roleId
+        },
+        ...(rowAction
+          ? [
+              {
+                field: 'action',
+                headerName: '',
+                sortable: false,
+                minWidth: 50,
+                flex: 1,
+                align: 'right',
+                resizable: false,
+                renderCell: (params: GridRenderCellParams) => {
+                  const canView = rowAction.when ? rowAction.when(params) : true
+                  if (canView) {
+                    const Icon = rowAction.icon || CloseOutlined
+                    return (
+                      <Tooltip disableInteractive title={rowAction.label ?? ''}>
+                        <IconButton className="table-row-action" size="small" onClick={() => rowAction.onClick(params)}>
+                          <Icon />
+                        </IconButton>
+                      </Tooltip>
+                    )
+                  }
+                  return null
+                }
+              }
+            ]
+          : [])
+      ] as GridColumns,
+    [disableRoleChange, showNameColumn, rowAction]
   )
 
   const handleSort = (model: GridSortModel) => {
@@ -118,46 +154,34 @@ const PeopleTable: FC<PeopleTableProps> = ({
 
   return (
     <>
-      <Flex
-        flexDirection={{
-          xs: 'column',
-          md: 'row'
-        }}
-        mb={2}
-        justifyContent="space-between"
-        alignItems={{ md: 'center' }}
-      >
-        <Typography sx={{ mb: { xs: 1, md: 0 } }} variant="body2" color="text.secondary">
-          {title}
-        </Typography>
-        <Flex justifyContent="flex-end" alignItems="center">
-          {action}
-          {searchable && (
-            <TextField
-              size="medium"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              sx={{
-                ml: 2,
-                backgroundColor: (theme) => theme.palette.background.paper,
-                borderRadius: 4,
-                px: 1
-              }}
-              type="search"
-              placeholder="Search"
-              InputProps={{
-                disableUnderline: true,
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchOutlined fontSize="small" />
-                  </InputAdornment>
-                )
-              }}
-              variant="standard"
-              data-cy="people-table-search-input"
-            />
-          )}
-        </Flex>
+      <Flex right={0} top={8} position="absolute" justifyContent="flex-end" alignItems="center">
+        {action}
+        {searchable && (
+          <TextField
+            size="medium"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            sx={{
+              ml: 2,
+              backgroundColor: (theme) => theme.palette.background.paper,
+              borderRadius: 4,
+              px: 1,
+              py: 0.25
+            }}
+            type="search"
+            placeholder="Search"
+            InputProps={{
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchOutlined fontSize="small" />
+                </InputAdornment>
+              )
+            }}
+            variant="standard"
+            data-cy="people-table-search-input"
+          />
+        )}
       </Flex>
       <TableGrid
         sortModel={sortModel}

@@ -3,22 +3,26 @@ import { UseMutationOptions } from 'react-query/types/react/types'
 import * as yup from 'yup'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { Organization, OrganizationUpdateRequest } from '../../types/api'
+import emailDomainRegex from '../../utils/emailDomainRegex'
+import mergeSchemas from '../../utils/mergeSchemas'
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
+import { UpdateOrganizationNameValidationSchema } from './useUpdateOrganizationNameMutation'
 
 export const UPDATE_ORGANIZATION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'UPDATE_ORGANIZATION']
 
-export const UpdateOrganizationValidationSchema = yup
+const schema = yup
   .object()
   .shape({
-    name: yup.string().required('Required')
+    domains: yup
+      .array()
+      .of(yup.string().required('Required'))
+      .test('valid', 'Please enter valid domains', (values) =>
+        Boolean(values?.every((value) => (value ? emailDomainRegex.test(value) : false)))
+      )
   })
   .required()
 
-export const UpdateOrganizationDefaultValues = {
-  name: '',
-  dataCompliancePolicyAccepted: true,
-  teamAssessmentEnabled: true
-}
+export const UpdateOrganizationValidationSchema = mergeSchemas(UpdateOrganizationNameValidationSchema, schema)
 
 const useUpdateOrganizationMutation = (
   options: Omit<

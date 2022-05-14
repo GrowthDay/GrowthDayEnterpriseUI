@@ -1,10 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { InfoOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
-import { Chip, Grid, IconButton, InputAdornment, Tooltip } from '@mui/material'
-import { AutocompleteRenderGetTagProps } from '@mui/material/Autocomplete/Autocomplete'
+import { Grid, IconButton, InputAdornment, Tooltip } from '@mui/material'
 import * as React from 'react'
-import { FC, ReactNode, useCallback, useReducer } from 'react'
+import { FC, useReducer } from 'react'
 import { useForm } from 'react-hook-form'
 import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
 import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
@@ -13,13 +12,13 @@ import FormAutocomplete from '../../../components/forms/FormAutocomplete'
 import FormInput from '../../../components/forms/FormInput'
 import useCreateOrganizationMutation, {
   CreateOrganizationDefaultValues,
-  CreateOrganizationValidationSchema,
-  urlRegex
+  CreateOrganizationValidationSchema
 } from '../../../api/mutations/useCreateOrganizationMutation'
 import FormPhoneInput from '../../../components/forms/FormPhoneInput'
 import { useDefaultCountryState } from '../../../hooks/useCountryState'
 import { OrganizationCreateRequest } from '../../../types/api'
-import coerceArray from '../../../utils/coerceArray'
+import renderDomainTags from '../../Account/utils/renderDomainTags'
+import validateDomains from '../../Account/utils/validateDomains'
 import { StepComponentProps } from './index'
 
 type IOrganizationCreateRequestType = typeof CreateOrganizationDefaultValues
@@ -94,29 +93,6 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
     </InputAdornment>
   )
 
-  const renderTags = useCallback(
-    (values: string[], getTagProps: AutocompleteRenderGetTagProps): ReactNode =>
-      values.map((value, index) => {
-        const isValid = urlRegex.test(value)
-        return (
-          <Chip
-            {...getTagProps({ index })}
-            size="small"
-            sx={{ borderRadius: 4 }}
-            color={isValid ? 'secondary' : 'error'}
-            label={value}
-          />
-        )
-      }),
-    []
-  )
-
-  const onBeforeChange = (values: string | string[]): string[] =>
-    (coerceArray(values) as string[])
-      .flatMap((value) => value.split(',').map((domain) => (domain ?? '').trim()))
-      .filter(Boolean)
-      .filter((domain) => urlRegex.test(domain))
-
   return (
     <Form<IOrganizationCreateRequestType> methods={methods} onSuccess={handleSubmit} data-cy="account-details-form">
       <Grid spacing={2} container>
@@ -142,8 +118,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             label="Domain Name(s)"
             data-cy="account-details-domains-input"
             options={[]}
-            getOptionLabel={(option) => option}
-            onBeforeChange={onBeforeChange}
+            onBeforeChange={validateDomains}
             InputProps={{
               endAdornment: domainsEndAdornment,
               sx: {
@@ -153,7 +128,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             clearOnBlur
             multiple
             freeSolo
-            renderTags={renderTags}
+            renderTags={renderDomainTags}
           />
         </Grid>
         <Grid item xs={12}>

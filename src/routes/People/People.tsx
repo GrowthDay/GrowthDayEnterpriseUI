@@ -14,6 +14,7 @@ import useMobileView from '../../hooks/useMobileView'
 import AddMoreSeats from '../Account/components/AddMoreSeats'
 import invitePollingState from './atoms/invitePollingState'
 import peopleTabState from './atoms/peopleTabState'
+import DeactivatedTab from './components/DeactivatedTab'
 import usePeopleQuery from './hooks/usePeopleQuery'
 import InviteMembers from './components/InviteMembers'
 import MembersTab from './components/MembersTab'
@@ -40,7 +41,7 @@ const People: FC = () => {
     setFilters: setPeopleFilters,
     pageParams: peoplePageParams,
     setPageParams: setPeoplePageParams
-  } = usePeopleQuery(undefined, { invitationPending: false })
+  } = usePeopleQuery(undefined, { invitationPending: false, deactivated: false })
 
   const {
     defaultData: defaultInvitationsPending,
@@ -51,12 +52,30 @@ const People: FC = () => {
     setFilters: setInvitationsPendingFilters,
     pageParams: invitationsPendingPageParams,
     setPageParams: setInvitationsPendingPageParams
-  } = usePeopleQuery(undefined, { invitationPending: true }, { refetchInterval: shouldPoll && 5 * 1000 })
+  } = usePeopleQuery(
+    undefined,
+    { invitationPending: true, deactivated: false },
+    { refetchInterval: shouldPoll && 5 * 1000 }
+  )
 
-  const isLoading = peopleLoading || invitationsPendingLoading
+  const {
+    defaultData: defaultDeactivated,
+    data: deactivated,
+    isLoading: deactivatedLoading,
+    isFetching: deactivatedFetching,
+    filters: deactivatedFilters,
+    setFilters: setDeactivatedFilters,
+    pageParams: deactivatedPageParams,
+    setPageParams: setDeactivatedPageParams
+  } = usePeopleQuery(undefined, { deactivated: true })
+
+  const isLoading = peopleLoading || invitationsPendingLoading || deactivatedLoading
 
   const totalLeft = organization?.seats ?? 0
-  const seatsUsed = (defaultPeople?.totalRecords ?? 0) + (defaultInvitationsPending?.totalRecords ?? 0)
+  const seatsUsed =
+    (defaultPeople?.totalRecords ?? 0) +
+    (defaultInvitationsPending?.totalRecords ?? 0) +
+    (defaultDeactivated?.totalRecords ?? 0)
   const seatsLeft = totalLeft - seatsUsed
 
   return (
@@ -122,7 +141,7 @@ const People: FC = () => {
         {isLoading ? (
           <Loading />
         ) : seatsUsed > 0 ? (
-          <>
+          <Box position="relative">
             <TabContext value={tab}>
               <TabList scrollButtons={false} variant="scrollable" onChange={(_, value) => setTab(value)}>
                 <Tab
@@ -135,8 +154,13 @@ const People: FC = () => {
                   label={<>Pending Invitations ({defaultInvitationsPending?.totalRecords ?? 0})</>}
                   data-cy="people-tabs-pending-button"
                 />
+                <Tab
+                  value="3"
+                  label={<>Deactivated ({defaultDeactivated?.totalRecords ?? 0})</>}
+                  data-cy="people-tabs-deactivated-button"
+                />
               </TabList>
-              <Divider sx={{ mb: 4, mt: '-1.5px' }} />
+              <Divider sx={{ marginTop: '-1.5px' }} />
               <TabPanel sx={{ p: 0 }} value="1">
                 <MembersTab
                   loading={peopleFetching}
@@ -159,8 +183,19 @@ const People: FC = () => {
                   rowCount={invitationsPending?.totalRecords}
                 />
               </TabPanel>
+              <TabPanel sx={{ p: 0 }} value="3">
+                <DeactivatedTab
+                  loading={deactivatedFetching}
+                  pageParams={deactivatedPageParams}
+                  setPageParams={setDeactivatedPageParams}
+                  filters={deactivatedFilters}
+                  setFilters={setDeactivatedFilters}
+                  data={deactivated?.results}
+                  rowCount={deactivated?.totalRecords}
+                />
+              </TabPanel>
             </TabContext>
-          </>
+          </Box>
         ) : (
           <PeopleEmptyState />
         )}

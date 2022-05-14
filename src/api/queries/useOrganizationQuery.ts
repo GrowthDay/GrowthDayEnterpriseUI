@@ -16,6 +16,7 @@ const useOrganizationQuery = (
   const organizationId = useRecoilValue(organizationIdState)
   return useQuery(ORGANIZATION_QUERY_KEY, () => axiosGrowthDay.get<Organization>('/organizations'), {
     enabled: Boolean(organizationId),
+    select: (data) => ({ ...data, domains: data.domains || [] }),
     ...options
   })
 }
