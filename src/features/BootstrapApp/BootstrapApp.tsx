@@ -4,10 +4,13 @@ import { useRecoilValue } from 'recoil'
 import useLogoutMutation from '../../api/mutations/useLogoutMutation'
 import useKeycloakCookieQuery from '../../api/queries/useKeycloakCookieQuery'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
-import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
+import useOrganizationUserQuery, { IUser } from '../../api/queries/useOrganizationUserQuery'
 import Loading from '../../components/Loading'
 import accessTokenState from '../../recoil/atoms/accessTokenState'
 import { isAdminRole } from '../../utils/roles'
+
+const isValidUser = (user: IUser) =>
+  user.organizationId && isAdminRole(user.roleId) && !user.deactivated && !user.deleted
 
 const BootstrapApp: FC = () => {
   const accessToken = useRecoilValue(accessTokenState)
@@ -21,8 +24,7 @@ const BootstrapApp: FC = () => {
 
   useEffect(() => {
     ;(async () => {
-      const shouldLogout =
-        user && (!user.organizationId || !isAdminRole(user.roleId) || user.deactivated || user.deleted)
+      const shouldLogout = user && !isValidUser(user)
       if (shouldLogout) {
         await logout()
         setLoading(false)
@@ -31,7 +33,7 @@ const BootstrapApp: FC = () => {
   }, [user, logout])
 
   useEffect(() => {
-    if (!userLoading && !organizationLoading && (user ? user.organizationId : true)) {
+    if (!userLoading && !organizationLoading && (user ? isValidUser(user) : true)) {
       setLoading(false)
     }
   }, [logoutLoading, userLoading, organizationLoading, user])
