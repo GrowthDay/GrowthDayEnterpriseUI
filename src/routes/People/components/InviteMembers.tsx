@@ -97,6 +97,11 @@ const validationSchema = (verifyEmailsData?: VerifyEmailsResponse) =>
               'Already a member',
               (value?: string) =>
                 !(verifyEmailsData?.[toLower(value).trim()] === EmailStatusType.USER_EXISTS_IN_ORGANIZATION)
+            )
+            .test(
+              'invalid',
+              'Enter a valid email',
+              (value?: string) => !(verifyEmailsData?.[toLower(value).trim()] === EmailStatusType.INVALID_EMAIL)
             ),
           roleId: yup.number().nullable().required('Required')
         })
@@ -222,6 +227,13 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
 
   const handleSubmit = async () => {
     const validEmails = getEmails().filter((email) => verifyEmailsDataRef.current?.[email] === EmailStatusType.VALID)
+    console.log({
+      isVerifyLoading,
+      isProratedAmountFetching,
+      isLoadingSeats,
+      seatsToInvite,
+      valid: validEmails.length
+    })
     if (!isVerifyLoading && !isProratedAmountFetching && !isLoadingSeats && seatsToInvite === validEmails.length) {
       const invitations = methods.getValues('invitations')
       const data = invitations
@@ -233,13 +245,11 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           Department: ''
         }))
       const file = jsonToXlsxFile(data)
-      const promises: Promise<any>[] = []
       // TODO: Remove updating subscription while inviting when backend is ready
       if (seatsToPurchase > 0) {
-        promises.push(updateSubscription(organizationUpdateSubscription))
+        await updateSubscription(organizationUpdateSubscription)
       }
-      promises.push(inviteUsers(file))
-      await Promise.all(promises)
+      await inviteUsers(file)
       methods.reset({ invitations: [defaultValues] })
       setInvitePollingState(moment().add(30, 's').valueOf())
       setInvited(data.length)
