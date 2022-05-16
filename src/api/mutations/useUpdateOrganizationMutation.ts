@@ -1,4 +1,3 @@
-import { isValidPhoneNumber } from 'react-phone-number-input'
 import { useMutation, useQueryClient } from 'react-query'
 import { UseMutationOptions } from 'react-query/types/react/types'
 import * as yup from 'yup'
@@ -14,10 +13,6 @@ export const UPDATE_ORGANIZATION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'UPDAT
 const schema = yup
   .object()
   .shape({
-    phoneNumber: yup
-      .string()
-      .required('Required')
-      .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true)),
     domains: yup
       .array()
       .of(yup.string().required('Required'))

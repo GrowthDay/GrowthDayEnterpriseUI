@@ -14,14 +14,13 @@ import Flex from '../../../components/Flex'
 import Form from '../../../components/forms/Form'
 import FormAutocomplete from '../../../components/forms/FormAutocomplete'
 import FormInput from '../../../components/forms/FormInput'
-import FormPhoneInput from '../../../components/forms/FormPhoneInput'
 import renderDomainTags from '../utils/renderDomainTags'
 import validateDomains from '../utils/validateDomains'
 
 const AccountDetails: FC = () => {
   const { enqueueSnackbar } = useSnackbar()
   const { data: organization } = useOrganizationQuery()
-  const defaultValues = useMemo(() => pick(organization, 'name', 'domains', 'phoneNumber'), [organization])
+  const defaultValues = useMemo(() => pick(organization, 'name', 'domains'), [organization])
   const { mutateAsync, isLoading } = useUpdateOrganizationMutation()
   const methods = useForm({
     defaultValues,
@@ -69,7 +68,6 @@ const AccountDetails: FC = () => {
               work email. Only add domains that your company owns. Use comma to separate multiple domain. For example,
               if your work email is john@domain.com then type in ‘@domain.com’.
             </FormHelperText>
-            <FormPhoneInput sx={{ mb: 2 }} canChangeCountry name="phoneNumber" label="Phone Number" />
             <Stack>
               <LoadingButton
                 disabled={!methods.formState.isDirty}
