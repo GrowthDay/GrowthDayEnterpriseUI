@@ -28,11 +28,7 @@ const schema = yup
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
         'Choose a password with at least 8 characters. Choose a mixture of upper and lower case letters, numbers, and symbols.'
       )
-      .required('Required'),
-    phoneNumber: yup
-      .string()
       .required('Required')
-      .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true))
   })
   .required()
 

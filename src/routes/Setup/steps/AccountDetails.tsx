@@ -132,6 +132,16 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
           />
         </Grid>
         <Grid item xs={12}>
+          <FormPhoneInput
+            canChangeCountry
+            disabled={!active}
+            defaultCountry={defaultCountryState?.country}
+            name="phoneNumber"
+            label="Phone Number"
+            data-cy="account-details-phone-input"
+          />
+        </Grid>
+        <Grid item xs={12}>
           <FormInput
             disabled={!active}
             placeholder="example@email.com"
@@ -157,16 +167,6 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             name="lastName"
             label="Last Name"
             data-cy="account-details-last-name-input"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormPhoneInput
-            canChangeCountry
-            disabled={!active}
-            defaultCountry={defaultCountryState?.country}
-            name="phoneNumber"
-            label="Phone Number"
-            data-cy="account-details-phone-input"
           />
         </Grid>
         <Grid item xs={12}>
