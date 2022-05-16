@@ -30,16 +30,22 @@ jobs:
         run: |
           echo "REACT_APP_ENV=dev" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
+          echo "TS_COMPILE_ON_ERROR=true" >> .env
+          echo "GENERATE_SOURCEMAP=false" >> .env
       - name: Try Setup UAT Environment File
         if: startsWith(github.ref, 'refs/heads/uat') == true
         run: |
           echo "REACT_APP_ENV=uat" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
+          echo "TS_COMPILE_ON_ERROR=true" >> .env
+          echo "GENERATE_SOURCEMAP=false" >> .env
       - name: Try Setup Production Environment File
         if: startsWith(github.ref, 'refs/tags/v') == true
         run: |
           echo "REACT_APP_ENV=production" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
+          echo "TS_COMPILE_ON_ERROR=true" >> .env
+          echo "GENERATE_SOURCEMAP=false" >> .env
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path

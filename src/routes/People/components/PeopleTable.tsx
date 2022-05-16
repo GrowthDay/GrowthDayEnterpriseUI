@@ -1,5 +1,5 @@
 import { CheckOutlined, CloseOutlined, SearchOutlined, SvgIconComponent } from '@mui/icons-material'
-import { IconButton, InputAdornment, InputBase, MenuItem, Select, TextField, Tooltip, Typography } from '@mui/material'
+import { IconButton, InputAdornment, InputBase, MenuItem, Select, TextField, Tooltip } from '@mui/material'
 import { SelectInputProps } from '@mui/material/Select/SelectInput'
 import { GridRenderCellParams, GridSortModel } from '@mui/x-data-grid-pro'
 import { DataGridProProps } from '@mui/x-data-grid-pro/models'
