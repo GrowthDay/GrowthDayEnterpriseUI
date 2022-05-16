@@ -21,7 +21,8 @@ const BootstrapApp: FC = () => {
 
   useEffect(() => {
     ;(async () => {
-      const shouldLogout = user && (!user.organizationId || !isAdminRole(user.roleId))
+      const shouldLogout =
+        user && (!user.organizationId || !isAdminRole(user.roleId) || user.deactivated || user.deleted)
       if (shouldLogout) {
         await logout()
         setLoading(false)
