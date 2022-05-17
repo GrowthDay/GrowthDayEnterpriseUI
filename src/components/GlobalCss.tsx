@@ -76,6 +76,12 @@ const GlobalCss: FC = () => (
         },
         '#userback_button_container': {
           display: 'none!important'
+        },
+        '.SnackbarContent-root': {
+          paddingRight: '20px!important',
+          paddingLeft: '20px!important',
+          minWidth: 'auto!important',
+          flexGrow: 'initial!important'
         }
       },
       cssVariables
