@@ -289,7 +289,8 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     return (
       <>
         <DialogTitle id={labelledById}>
-          <CheckCircle sx={{ mb: -0.75, fontSize: 30 }} color="success" /> {invited} Members Invited
+          <CheckCircle sx={{ mb: -0.75, fontSize: 30 }} color="success" /> {invited} Member{invited === 1 ? '' : 's'}{' '}
+          Invited
         </DialogTitle>
         <DialogContent>
           <DialogContentText pb={1}>
