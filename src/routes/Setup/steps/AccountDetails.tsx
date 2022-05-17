@@ -2,9 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { InfoOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { Grid, IconButton, InputAdornment, Tooltip } from '@mui/material'
+import moment from 'moment-timezone'
 import * as React from 'react'
 import { FC, useReducer } from 'react'
 import { useForm } from 'react-hook-form'
+import { parsePhoneNumber } from 'react-phone-number-input'
 import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
 import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
 import Form from '../../../components/forms/Form'
@@ -55,9 +57,20 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
   const { mutateAsync, isLoading } = useCreateOrganizationMutation()
   const handleSubmit = async ({ firstName, lastName, ...values }: IOrganizationCreateRequestType) => {
     if (active && !isLoading) {
+      const parsedPhoneNumber = values.phoneNumber && parsePhoneNumber(values.phoneNumber)
       const signupRequest: OrganizationCreateRequest = {
         ...values,
-        fullName: `${firstName ?? ''} ${lastName ?? ''}`.trim()
+        fullName: `${firstName ?? ''} ${lastName ?? ''}`.trim(),
+        // TODO: updated backend
+        // @ts-ignore
+        ianaTimezone: moment.tz.guess(),
+        ...(parsedPhoneNumber
+          ? {
+              countryCode: parsedPhoneNumber.countryCallingCode,
+              iso2: parsedPhoneNumber.country,
+              phoneNumber: parsedPhoneNumber.number
+            }
+          : {})
       }
       await mutateAsync(signupRequest)
     }

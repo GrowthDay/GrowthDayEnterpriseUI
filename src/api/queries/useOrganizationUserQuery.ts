@@ -31,13 +31,14 @@ const useOrganizationUserQuery = (
         if (me.profileImageKey) {
           profileImage = await axiosGrowthDay.get<any>('/users/profilePic').then((res) => res?.profilePicUrl)
         }
-        const [firstName, ...rest] = organizationUser?.name?.split(' ') ?? []
+        const [firstName, ...rest] = me.fullName?.split(' ') ?? []
         return {
+          ...organizationUser,
           ...me,
+          name: me.fullName,
           profileImage,
           firstName: firstName?.trim() ?? '',
-          lastName: rest?.join(' ')?.trim() ?? '',
-          ...organizationUser
+          lastName: rest?.join(' ')?.trim() ?? ''
         }
       }),
     {

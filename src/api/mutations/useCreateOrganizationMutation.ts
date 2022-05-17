@@ -7,11 +7,9 @@ import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import accessTokenState from '../../recoil/atoms/accessTokenState'
 import { CreateOrganizationResponse, OrganizationCreateRequest } from '../../types/api'
 import mergeSchemas from '../../utils/mergeSchemas'
+import passwordRegex, { passwordInvalidMessage } from '../../utils/passwordRegex'
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
 import { UpdateOrganizationValidationSchema } from './useUpdateOrganizationMutation'
-
-// TODO: Add timezone on signup to user request
-// TODO: Phone number in user or organization?
 
 export const CREATE_ORGANIZATION_MUTATION_KEY = ['GROWTHDAY', 'MUTATION', 'CREATE_ORGANIZATION']
 
@@ -22,13 +20,7 @@ const schema = yup
     firstName: yup.string().required('Required'),
     lastName: yup.string().required('Required'),
     email: yup.string().email('Should be a valid email address').required('Required'),
-    password: yup
-      .string()
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        'Choose a password with at least 8 characters. Choose a mixture of upper and lower case letters, numbers, and symbols.'
-      )
-      .required('Required'),
+    password: yup.string().matches(passwordRegex, passwordInvalidMessage).required('Required'),
     phoneNumber: yup
       .string()
       .required('Required')

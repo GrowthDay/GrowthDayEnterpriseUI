@@ -5,30 +5,31 @@ import { Button, Card, CardContent, IconButton, InputAdornment, Stack, TextField
 import { pick } from 'lodash-es'
 import { useSnackbar } from 'notistack'
 import * as React from 'react'
-import { FC, useCallback, useEffect, useMemo } from 'react'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import useUpdateOrganizationUserMutation, {
-  UpdateOrganizationUserValidationSchema
-} from '../../../api/mutations/useUpdateOrganizationUserMutation'
-import useOrganizationUserQuery from '../../../api/queries/useOrganizationUserQuery'
+import { parsePhoneNumber } from 'react-phone-number-input'
+import useUpdateUserMutation, { UpdateUserValidationSchema } from '../../../api/mutations/useUpdateUserMutation'
+import useOrganizationUserQuery, { IUser } from '../../../api/queries/useOrganizationUserQuery'
 import Flex from '../../../components/Flex'
 import Form from '../../../components/forms/Form'
 import FormAutocomplete from '../../../components/forms/FormAutocomplete'
 import FormInput from '../../../components/forms/FormInput'
 import FormPhoneInput from '../../../components/forms/FormPhoneInput'
 import timezones from '../../../utils/timezones'
+import ChangePassword from './ChangePassword'
 
 const SignInSecurity: FC = () => {
+  const [passwordOpen, setPasswordOpen] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
   const { data: organizationUser } = useOrganizationUserQuery()
   const defaultValues = useMemo(
     () => pick(organizationUser, 'fullName', 'ianaTimezone', 'phoneNumber'),
     [organizationUser]
   )
-  const { mutateAsync, isLoading } = useUpdateOrganizationUserMutation()
+  const { mutateAsync, isLoading } = useUpdateUserMutation()
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(UpdateOrganizationUserValidationSchema)
+    resolver: yupResolver(UpdateUserValidationSchema)
   })
 
   const handleReset = useCallback(() => {
@@ -40,12 +41,24 @@ const SignInSecurity: FC = () => {
   }, [handleReset])
 
   const handleSubmit = async (values: typeof defaultValues) => {
-    await mutateAsync(values)
+    const parsedPhoneNumber = values.phoneNumber && parsePhoneNumber(values.phoneNumber)
+    const request: Partial<IUser> = {
+      ...values,
+      ...(parsedPhoneNumber
+        ? {
+            countryCode: parsedPhoneNumber.countryCallingCode,
+            iso2: parsedPhoneNumber.country,
+            phoneNumber: parsedPhoneNumber.number
+          }
+        : {})
+    }
+    await mutateAsync(request)
     enqueueSnackbar('Updated!', { variant: 'success' })
   }
 
   return (
     <>
+      <ChangePassword open={passwordOpen} onClose={() => setPasswordOpen(false)} />
       <Flex mb={2}>
         <Typography fontWeight={700} variant="h5" data-cy="account-sign-in-security-title-text">
           Sign in & security
@@ -90,14 +103,14 @@ const SignInSecurity: FC = () => {
           <TextField
             sx={{ mb: 1 }}
             InputProps={{
-              readOnly: true,
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton size="small">
-                    <EditOutlined fontSize="small" />
-                  </IconButton>
-                </InputAdornment>
-              )
+              readOnly: true
+              // endAdornment: (
+              //   <InputAdornment position="end">
+              //     <IconButton size="small">
+              //       <EditOutlined fontSize="small" />
+              //     </IconButton>
+              //   </InputAdornment>
+              // )
             }}
             type="email"
             fullWidth
@@ -110,7 +123,7 @@ const SignInSecurity: FC = () => {
               readOnly: true,
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton size="small">
+                  <IconButton onClick={() => setPasswordOpen(true)} size="small">
                     <EditOutlined fontSize="small" />
                   </IconButton>
                 </InputAdornment>
