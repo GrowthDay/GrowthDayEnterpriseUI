@@ -33,8 +33,8 @@ const useOrganizationUserQuery = (
         }
         const [firstName, ...rest] = me.fullName?.split(' ') ?? []
         return {
-          ...organizationUser,
           ...me,
+          ...organizationUser,
           name: me.fullName,
           profileImage,
           firstName: firstName?.trim() ?? '',
