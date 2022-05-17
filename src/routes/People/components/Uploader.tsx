@@ -138,7 +138,7 @@ const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => 
               >
                 browse
               </Typography>{' '}
-              csv file to upload
+              CSV or Excel file to upload
             </Typography>
             <Input
               type="file"
