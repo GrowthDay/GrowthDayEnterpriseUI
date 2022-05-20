@@ -1,15 +1,17 @@
 import { InfoOutlined } from '@mui/icons-material'
 import { Box, Collapse, Icon, IconButton, LinearProgress, Link, styled, Typography } from '@mui/material'
+import { keys, toLower } from 'lodash-es'
 import urlJoin from 'proper-url-join'
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, ReactNode, useState } from 'react'
 import { FilePlus, FileText, Trash } from 'react-feather'
 import Flex from '../../../components/Flex'
 import config from '../../../config'
-import { SheetFileTypes } from '../../../utils/sheetsUtil'
+import { OrganizationUser } from '../../../types/api'
+import roles from '../../../utils/roles'
+import { fileToJson, SheetFileTypes } from '../../../utils/sheetsUtil'
 
 export type UploaderProps = {
-  file?: File
-  onUpload?: (file: File) => void | Promise<void>
+  onUpload?: (users: OrganizationUser[]) => void | Promise<void>
   onRemove?: () => void
   disabled?: boolean
 }
@@ -54,20 +56,50 @@ const Input = styled('input')({
   cursor: 'pointer'
 })
 
-const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => {
+const parseData = (data: any[] = []): OrganizationUser[] =>
+  data
+    .map((row) => {
+      const rowKeys = keys(row)
+      const emailKey = rowKeys.find((key) => toLower(key).includes('email'))
+      const roleKey = rowKeys.find((key) => toLower(key).includes('role'))
+
+      const email = emailKey && row[emailKey] ? toLower(row[emailKey]?.toString()).trim() : ''
+      const roleIdOrName = roleKey && row[roleKey] ? toLower(row[roleKey]?.toString()).trim() : ''
+      const role = roles.find((r) => r.id === parseInt(roleIdOrName) || toLower(r.name).trim().includes(roleIdOrName))
+
+      return { email, roleId: role?.id ?? 3 }
+    })
+    .filter((row) => row.email)
+
+const Uploader: FC<UploaderProps> = ({ onRemove, onUpload, disabled }) => {
+  const [file, setFile] = useState<File>()
+  const [error, setError] = useState<ReactNode>()
   const [loading, setLoading] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
   const fileUrl = urlJoin(config.publicUrl, 'files', 'invite-members.xls')
   const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    setError(undefined)
     setLoading(true)
     if (!disabled && !loading && !file) {
       const file = event.target.files?.[0]
       event.target.value = ''
       if (file) {
-        await onUpload?.(file)
+        const data = await fileToJson(file)
+        const rows = parseData(data)
+        if (rows.length) {
+          await onUpload?.(rows)
+          setFile(file)
+        } else {
+          setError('Please check the uploaded file')
+        }
       }
     }
     setLoading(false)
+  }
+  const handleFileRemove = () => {
+    setError(undefined)
+    setFile(undefined)
+    onRemove?.()
   }
 
   if (file) {
@@ -77,7 +109,7 @@ const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => 
           <Typography color="primary">
             <Icon component={FileText} sx={{ mr: 0.5, mb: '-6px' }} color="inherit" /> {file.name}
           </Typography>
-          <IconButton onClick={onRemove} size="small">
+          <IconButton onClick={handleFileRemove} size="small">
             <Icon component={Trash} fontSize="small" />
           </IconButton>
         </Flex>
@@ -140,6 +172,11 @@ const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => 
               </Typography>{' '}
               CSV or Excel file to upload
             </Typography>
+            {error && (
+              <Typography variant="body2" color="error.main">
+                {error}
+              </Typography>
+            )}
             <Input
               type="file"
               data-cy="invite-modal-file-input"

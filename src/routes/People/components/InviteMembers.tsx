@@ -118,26 +118,10 @@ type IInvitationRequest = {
   invitations: Array<OrganizationUser>
 }
 
-const parseData = (data: any[] = []): OrganizationUser[] =>
-  data
-    .map((row) => {
-      const rowKeys = keys(row)
-      const emailKey = rowKeys.find((key) => toLower(key).includes('email'))
-      const roleKey = rowKeys.find((key) => toLower(key).includes('role'))
-
-      const email = emailKey && row[emailKey] ? toLower(row[emailKey]?.toString()).trim() : ''
-      const roleIdOrName = roleKey && row[roleKey] ? toLower(row[roleKey]?.toString()).trim() : ''
-      const role = roles.find((r) => r.id === parseInt(roleIdOrName) || toLower(r.name).trim().includes(roleIdOrName))
-
-      return { email, roleId: role?.id ?? 3 }
-    })
-    .filter((row) => row.email)
-
 const labelledById = 'invite-members-dialog-title'
 
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
-  const [file, setFile] = useState<File>()
   const [invited, setInvited] = useState<number | null>(null)
   const setInvitePollingState = useSetRecoilState(invitePollingState)
   const { mutateAsync: updateSubscription, isLoading: isLoadingUpdateSubscription } = useUpdateSubscriptionMutation()
@@ -272,20 +256,16 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     })
   }
 
-  const handleFileUpload = async (inputFile: File) => {
-    if (inputFile) {
-      const data = await fileToJson(inputFile)
-      const rows = parseData(data)
+  const handleFileUpload = async (rows: OrganizationUser[]) => {
+    if (rows) {
       const emails = rows.map((row) => row.email) as string[]
       const response = await verifyEmails(emails)
       const sortedRows = sortBy(rows, (row) => (row.email && response[row.email] === EmailStatusType.VALID ? 1 : 0))
       replace(sortedRows)
     }
-    setFile(inputFile)
   }
 
   const handleFileRemove = () => {
-    setFile(undefined)
     methods.reset()
   }
 
@@ -325,7 +305,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     <>
       <DialogTitle id={labelledById}>Invite members</DialogTitle>
       <DialogContent ref={contentRef}>
-        <Uploader file={file} onUpload={handleFileUpload} disabled={disabled} onRemove={handleFileRemove} />
+        <Uploader onUpload={handleFileUpload} disabled={disabled} onRemove={handleFileRemove} />
         <Divider light sx={{ '&:before': { content: 'none' }, my: 2 }}>
           <Typography sx={{ ml: -1.2 }} color="text.disabled">
             or manually enter the email address
