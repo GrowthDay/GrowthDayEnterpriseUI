@@ -14,6 +14,7 @@ import {
   FormHelperText,
   Grid,
   IconButton,
+  LinearProgress,
   Link,
   MenuItem,
   Tooltip,
@@ -215,13 +216,6 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
 
   const handleSubmit = async () => {
     const validEmails = getEmails().filter((email) => verifyEmailsDataRef.current?.[email] === EmailStatusType.VALID)
-    console.log({
-      isVerifyLoading,
-      isProratedAmountFetching,
-      isLoadingSeats,
-      seatsToInvite,
-      valid: validEmails.length
-    })
     if (!isVerifyLoading && !isProratedAmountFetching && !isLoadingSeats && seatsToInvite === validEmails.length) {
       const invitations = methods.getValues('invitations')
       const data = invitations
@@ -303,6 +297,9 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
 
   return (
     <>
+      {isVerifyLoading && (
+        <LinearProgress sx={{ position: 'absolute', top: 0, left: 0, right: 0, pointerEvents: 'none', zIndex: 1 }} />
+      )}
       <DialogTitle id={labelledById}>Invite members</DialogTitle>
       <DialogContent ref={contentRef}>
         <Uploader onUpload={handleFileUpload} disabled={disabled} onRemove={handleFileRemove} />
