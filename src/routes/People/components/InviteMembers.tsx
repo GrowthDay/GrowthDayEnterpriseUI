@@ -19,7 +19,7 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import { camelCase, get, mapKeys, sortBy, toLower } from 'lodash-es'
+import { get, keys, sortBy, toLower } from 'lodash-es'
 import moment from 'moment'
 import * as React from 'react'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
@@ -121,13 +121,15 @@ type IInvitationRequest = {
 const parseData = (data: any[] = []): OrganizationUser[] =>
   data
     .map((row) => {
-      const rowData = mapKeys(row, (value, key) => camelCase(key))
-      const role = roles.find(
-        (r) =>
-          r.id === parseInt(rowData.role as string) ||
-          toLower(r.name).trim().includes(toLower(rowData.role?.toString()?.trim()))
-      )
-      return { email: toLower(rowData.email).trim(), roleId: role?.id ?? 3 }
+      const rowKeys = keys(row)
+      const emailKey = rowKeys.find((key) => toLower(key).includes('email'))
+      const roleKey = rowKeys.find((key) => toLower(key).includes('role'))
+
+      const email = emailKey && row[emailKey] ? toLower(row[emailKey]?.toString()).trim() : ''
+      const roleIdOrName = roleKey && row[roleKey] ? toLower(row[roleKey]?.toString()).trim() : ''
+      const role = roles.find((r) => r.id === parseInt(roleIdOrName) || toLower(r.name).trim().includes(roleIdOrName))
+
+      return { email, roleId: role?.id ?? 3 }
     })
     .filter((row) => row.email)
 

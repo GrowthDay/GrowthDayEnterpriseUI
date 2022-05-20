@@ -165,7 +165,7 @@ const Uploader: FC<UploaderProps> = ({ file, onRemove, onUpload, disabled }) => 
             Upload an Excel or .csv file with the following parameters:
           </Typography>
           <Typography variant="body2">
-            <strong>Cell A1:</strong> ‘Email Address’ as the column header
+            <strong>Cell A1:</strong> ‘Email’ as the column header
           </Typography>
           <Typography mb={2} variant="body2">
             <strong>Column A:</strong> Company email of every person you want to invite to GrowthDay
