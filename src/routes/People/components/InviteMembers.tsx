@@ -20,7 +20,7 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import { get, keys, sortBy, toLower } from 'lodash-es'
+import { get, sortBy, toLower } from 'lodash-es'
 import moment from 'moment'
 import * as React from 'react'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
@@ -46,7 +46,7 @@ import { OrganizationUpdateSubscription, OrganizationUser } from '../../../types
 import { formatCurrency } from '../../../utils/formatters'
 import getPrefixedKey from '../../../utils/getPrefixedKey'
 import roles, { renderRoleName, renderRoleNameById } from '../../../utils/roles'
-import { fileToJson, jsonToXlsxFile } from '../../../utils/sheetsUtil'
+import { jsonToXlsxFile } from '../../../utils/sheetsUtil'
 import invitePollingState from '../atoms/invitePollingState'
 import Uploader from './Uploader'
 
