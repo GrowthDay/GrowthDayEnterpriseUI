@@ -20,7 +20,7 @@ const useUpdateUserRoleMutation = (
     {
       onSuccess: (data, variables) => {
         const queriesData = queryClient.getQueriesData<PagedResultOrganizationUser>(BASE_ORGANIZATION_USERS_QUERY_KEY)
-        queriesData.some(([queryKey, data]) => {
+        queriesData.forEach(([queryKey, data]) => {
           if (data.results) {
             const index = data.results.findIndex((user) => user.id === variables.organizationUserIds?.[0])
             if (index > -1) {
@@ -30,10 +30,8 @@ const useUpdateUserRoleMutation = (
               const results = [...data.results]
               results[index] = user
               queryClient.setQueryData<PagedResultOrganizationUser>(queryKey, { ...data, results })
-              return true
             }
           }
-          return false
         })
       },
       ...options
