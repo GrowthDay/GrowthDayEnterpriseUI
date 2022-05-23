@@ -5,10 +5,10 @@ import useOrganizationUsersQuery, {
   getOrganizationUsersQueryKey,
   OrganizationUsersFilters
 } from '../../../api/queries/useOrganizationUsersQuery'
+import usePageParams from '../../../hooks/usePageParams'
 import { PagedResultOrganizationUser } from '../../../types/api'
 import { PaginationParams } from '../../../types/ui/pagination'
 
-const defaultPageParams: PaginationParams = { page: 0, size: 10 }
 const defaultFilters: OrganizationUsersFilters = {}
 
 const usePeopleQuery = (
@@ -25,10 +25,8 @@ const usePeopleQuery = (
   >
 ) => {
   const queryClient = useQueryClient()
-  const [pageParams, setPageParams] = useReducer(
-    (prevState: PaginationParams, input: Partial<PaginationParams>) => ({ ...prevState, ...input }),
-    { ...defaultPageParams, ...initialPageParams }
-  )
+
+  const { defaultPageParams, pageParams, setPageParams } = usePageParams(initialPageParams)
 
   const [filters, setFilters] = useReducer(
     (prevState: OrganizationUsersFilters, input: Partial<OrganizationUsersFilters>) => ({ ...prevState, ...input }),

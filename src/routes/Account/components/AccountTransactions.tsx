@@ -6,6 +6,7 @@ import { FC, useMemo, useState } from 'react'
 import useOrganizationPaymentTransactionsQuery from '../../../api/queries/useOrganizationPaymentTransactionsQuery'
 import Flex from '../../../components/Flex'
 import TableGrid from '../../../components/TableGrid'
+import usePageParams from '../../../hooks/usePageParams'
 import { PaymentTransaction } from '../../../types/api'
 import { formatCurrency } from '../../../utils/formatters'
 import Receipt from './Receipt'
@@ -13,7 +14,8 @@ import Receipt from './Receipt'
 const Monospace = styled('span')({ fontFamily: 'monospace', marginRight: 6 })
 
 const AccountTransactions: FC = () => {
-  const { data: transactions, isLoading } = useOrganizationPaymentTransactionsQuery()
+  const { pageParams, setPageParams } = usePageParams()
+  const { data: transactions, isLoading } = useOrganizationPaymentTransactionsQuery(pageParams)
   const [transaction, setTransaction] = useState<PaymentTransaction>()
 
   const columns = useMemo(
@@ -23,7 +25,8 @@ const AccountTransactions: FC = () => {
         headerName: 'Description',
         width: 200,
         renderCell: (record: GridRenderCellParams<string, PaymentTransaction>) =>
-          (record.row.items?.length ?? 0) > 1 ? 'Additional Seats' : 'Annual Bill'
+          (record.row.items?.length ?? 0) > 1 ? 'Additional Seats' : 'Annual Bill',
+        sortable: false
       },
       {
         field: 'paidOn',
@@ -32,7 +35,8 @@ const AccountTransactions: FC = () => {
         renderCell: (record: GridRenderCellParams<string, PaymentTransaction>) => {
           const text = moment(record.value).format('MMM DD, YYYY')
           return <Link onClick={() => setTransaction(record.row)}>{text}</Link>
-        }
+        },
+        sortable: false
       },
       {
         field: 'lastFourDigit',
@@ -45,7 +49,8 @@ const AccountTransactions: FC = () => {
             </>
           ) : (
             'Credit Card'
-          )
+          ),
+        sortable: false
       },
       {
         field: 'amount',
@@ -60,7 +65,8 @@ const AccountTransactions: FC = () => {
                 ) ?? 0) / 100,
                 record.row.currency
               )
-            : ''
+            : '',
+        sortable: false
       }
     ],
     [setTransaction]
@@ -81,6 +87,11 @@ const AccountTransactions: FC = () => {
         columns={columns}
         rowHeight={40}
         rows={transactions ?? []}
+        paginationMode="server"
+        page={pageParams.page}
+        onPageChange={(page) => setPageParams({ page })}
+        pageSize={pageParams.size}
+        onPageSizeChange={(size) => setPageParams({ size })}
       />
       <Typography mb={6} variant="body2" color="text.secondary">
         Want to cancel the plan?{' '}
