@@ -65,7 +65,9 @@ const parseData = (data: any[] = []): OrganizationUser[] =>
 
       const email = emailKey && row[emailKey] ? toLower(row[emailKey]?.toString()).trim() : ''
       const roleIdOrName = roleKey && row[roleKey] ? toLower(row[roleKey]?.toString()).trim() : ''
-      const role = roles.find((r) => r.id === parseInt(roleIdOrName) || toLower(r.name).trim().includes(roleIdOrName))
+      const role = roleIdOrName
+        ? roles.find((r) => r.id === parseInt(roleIdOrName) || toLower(r.name).trim().includes(roleIdOrName))
+        : undefined
 
       return { email, roleId: role?.id ?? 3 }
     })
@@ -125,20 +127,7 @@ const Uploader: FC<UploaderProps> = ({ onRemove, onUpload, disabled }) => {
         interactive
         {...(disabled || loading ? {} : { htmlFor: 'invite-file-upload', component: 'label' })}
       >
-        {loading ? (
-          <LinearProgress
-            sx={{
-              height: 2,
-              position: 'absolute',
-              zIndex: 2,
-              right: 0,
-              top: 0,
-              left: 0,
-              width: '100%',
-              backgroundColor: 'transparent'
-            }}
-          />
-        ) : (
+        {!loading && (
           <Link
             onClick={() => setShowHelp((visible) => !visible)}
             position="absolute"
