@@ -3,8 +3,8 @@ import { UseMutationOptions } from 'react-query/types/react/types'
 import * as yup from 'yup'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { Organization, OrganizationUpdateRequest } from '../../types/api'
-import emailDomainRegex from '../../utils/emailDomainRegex'
 import mergeSchemas from '../../utils/mergeSchemas'
+import { emailDomainsRegex } from '../../utils/regex'
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
 import { UpdateOrganizationNameValidationSchema } from './useUpdateOrganizationNameMutation'
 
@@ -16,8 +16,8 @@ const schema = yup
     domains: yup
       .array()
       .of(yup.string().required('Required'))
-      .test('valid', 'Please enter valid domains', (values) =>
-        Boolean(values?.every((value) => (value ? emailDomainRegex.test(value) : false)))
+      .test('valid', emailDomainsRegex.message, (values) =>
+        Boolean(values?.every((value) => (value ? emailDomainsRegex.regex.test(value) : false)))
       )
   })
   .required()

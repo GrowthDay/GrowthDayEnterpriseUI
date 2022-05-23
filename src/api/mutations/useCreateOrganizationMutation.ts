@@ -7,7 +7,7 @@ import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import accessTokenState from '../../recoil/atoms/accessTokenState'
 import { CreateOrganizationResponse, OrganizationCreateRequest } from '../../types/api'
 import mergeSchemas from '../../utils/mergeSchemas'
-import passwordRegex, { passwordInvalidMessage } from '../../utils/passwordRegex'
+import { nameRegex, passwordRegex } from '../../utils/regex'
 import { ORGANIZATION_QUERY_KEY } from '../queries/useOrganizationQuery'
 import { UpdateOrganizationValidationSchema } from './useUpdateOrganizationMutation'
 
@@ -17,10 +17,10 @@ const schema = yup
   .object()
   .shape({
     name: yup.string().required('Required'),
-    firstName: yup.string().required('Required'),
-    lastName: yup.string().required('Required'),
+    firstName: yup.string().required('Required').matches(nameRegex.regex, 'Please enter a valid first name'),
+    lastName: yup.string().required('Required').matches(nameRegex.regex, 'Please enter a valid last name'),
     email: yup.string().email('Should be a valid email address').required('Required'),
-    password: yup.string().matches(passwordRegex, passwordInvalidMessage).required('Required'),
+    password: yup.string().required('Required').matches(passwordRegex.regex, passwordRegex.message),
     phoneNumber: yup
       .string()
       .required('Required')
