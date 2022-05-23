@@ -17,6 +17,7 @@ import {
   LinearProgress,
   Link,
   MenuItem,
+  Stack,
   Tooltip,
   Typography
 } from '@mui/material'
@@ -159,6 +160,11 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   })
   useFormPersist(getPrefixedKey('INVITE_MEMBERS'), methods)
 
+  const hasAnyEmail = Boolean(
+    methods.getValues('invitations').length > 1 ||
+      methods.getValues('invitations')?.some((invitation) => invitation.email)
+  )
+
   const getEmails = useCallback(() => {
     const errors = methods.formState.errors?.invitations
     const invitations = methods.getValues('invitations').filter((value, index) => !errors?.[index])
@@ -253,9 +259,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     }
   }
 
-  const handleFileRemove = () => {
-    methods.reset()
-  }
+  const onReset = () => methods.reset()
 
   if (invited) {
     return (
@@ -296,7 +300,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       )}
       <DialogTitle id={labelledById}>Invite members</DialogTitle>
       <DialogContent ref={contentRef}>
-        <Uploader onUpload={handleFileUpload} disabled={disabled} onRemove={handleFileRemove} />
+        <Uploader onUpload={handleFileUpload} disabled={disabled} onRemove={onReset} />
         <Divider light sx={{ '&:before': { content: 'none' }, my: 2 }}>
           <Typography sx={{ ml: -1.2 }} color="text.disabled">
             or manually enter the email address
@@ -394,23 +398,27 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         </DialogActions>
       </Collapse>
       <DialogActions sx={{ justifyContent: 'space-between' }}>
-        <LoadingButton
-          sx={{ mr: 2, flexShrink: 0 }}
-          disabled={isLoadingSeats || disabled || isProratedAmountFetching || seatsToInvite < 1}
-          form="invitation-form"
-          loading={isInviteLoading || isLoadingUpdateSubscription}
-          variant="contained"
-          type="submit"
-          data-cy="invite-modal-send-button"
-        >
-          {seatsToInvite > 0 ? (
-            <>
-              Invite {seatsToInvite} member{seatsToInvite === 1 ? '' : 's'}
-            </>
-          ) : (
-            <>Send Invite</>
-          )}
-        </LoadingButton>
+        <Stack spacing={1} direction="row">
+          <LoadingButton
+            disabled={isLoadingSeats || disabled || isProratedAmountFetching || seatsToInvite < 1}
+            form="invitation-form"
+            loading={isInviteLoading || isLoadingUpdateSubscription}
+            variant="contained"
+            type="submit"
+            data-cy="invite-modal-send-button"
+          >
+            {seatsToInvite > 0 ? (
+              <>
+                Invite {seatsToInvite} member{seatsToInvite === 1 ? '' : 's'}
+              </>
+            ) : (
+              <>Send Invite</>
+            )}
+          </LoadingButton>
+          <Button disabled={!hasAnyEmail} color="inherit" size="small" variant="text" onClick={onReset}>
+            Reset
+          </Button>
+        </Stack>
         {!isLoadingSeats && <FormHelperText>Remaining seats: {seatsLeft}</FormHelperText>}
       </DialogActions>
     </>
