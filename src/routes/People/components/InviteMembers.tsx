@@ -143,7 +143,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   }
 
   const seatsLeft = (organization?.seats ?? 0) - (organizationUsers?.totalRecords ?? 0)
-  const disabled = isLoadingSeats || isInviteLoading || isLoadingUpdateSubscription
+  const disabled = isInviteLoading || isLoadingUpdateSubscription
 
   const methods = useForm<IInvitationRequest>({
     defaultValues: {
@@ -168,12 +168,6 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
 
   const seatsToInvite = getEmails().filter(
     (email) => verifyEmailsDataRef.current?.[email] === EmailStatusType.VALID
-    // !verifyEmailsDataRef.current?.[email] ||
-    // ![
-    //   EmailStatusType.USER_EXISTS_IN_SYSTEM,
-    //   EmailStatusType.USER_EXISTS_IN_ORGANIZATION,
-    //   EmailStatusType.INVALID_EMAIL
-    // ].includes(verifyEmailsDataRef.current[email])
   ).length
   const seatsToPurchase = seatsToInvite - seatsLeft
   const totalSeats = seatsToInvite + (organizationUsers?.totalRecords ?? 0)
@@ -402,7 +396,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       <DialogActions sx={{ justifyContent: 'space-between' }}>
         <LoadingButton
           sx={{ mr: 2, flexShrink: 0 }}
-          disabled={disabled || isProratedAmountFetching || seatsToInvite < 1}
+          disabled={isLoadingSeats || disabled || isProratedAmountFetching || seatsToInvite < 1}
           form="invitation-form"
           loading={isInviteLoading || isLoadingUpdateSubscription}
           variant="contained"
