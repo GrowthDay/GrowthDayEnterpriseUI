@@ -61,12 +61,14 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   const { data: user } = useOrganizationUserQuery()
   const [_loading, setLoading] = useRecoilState(checkoutLoadingState)
   const { isLoading, mutateAsync } = useSetupSubscriptionMutation()
-  const { data: subscriptionPlans = [] } = useSubscriptionPlansQuery()
+  const { data: _subscriptionPlans = [] } = useSubscriptionPlansQuery()
   const { addPaymentMethod } = useStripePayment()
   const methods = useForm<SetupSubscriptionRequest>({
     defaultValues: SetupSubscriptionDefaultValues,
     resolver: yupResolver(SetupSubscriptionValidationSchema)
   })
+
+  const subscriptionPlans = useMemo(() => _subscriptionPlans.filter((plan) => !plan.isCustom), [_subscriptionPlans])
 
   const loading = _loading || isLoading
 
@@ -135,7 +137,7 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
   const hasMultiplePlans = subscriptionPlans.length > 1
 
   useEffect(() => {
-    if (selectedPlan?.minimumQuantity) {
+    if (typeof selectedPlan?.minimumQuantity !== 'undefined') {
       methods.setValue('minSeats', selectedPlan.minimumQuantity)
     }
   }, [methods, selectedPlan?.minimumQuantity])

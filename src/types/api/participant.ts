@@ -83,6 +83,12 @@ export interface Participant {
    * @type {string}
    * @memberof Participant
    */
+  peerId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Participant
+   */
   profileImage?: string
   /**
    *

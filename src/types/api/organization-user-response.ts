@@ -15,115 +15,109 @@
 /**
  *
  * @export
- * @interface OrganizationUser
+ * @interface OrganizationUserResponse
  */
-export interface OrganizationUser {
+export interface OrganizationUserResponse {
   /**
    *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   createTimestamp?: number
   /**
    *
    * @type {boolean}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   deactivated?: boolean
   /**
    *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   deactivatedOn?: number
   /**
    *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   deleteTimestamp?: number
   /**
    *
    * @type {boolean}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   deleted?: boolean
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   departmentId?: string
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   email?: string
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   id?: string
   /**
    *
    * @type {boolean}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   invitationAccepted?: boolean
   /**
    *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   invitationAcceptedOn?: number
   /**
    *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   invitationSentOn?: number
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   name?: string
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   organizationId?: string
   /**
    *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   roleId?: number
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   roleName?: string
   /**
    *
-   * @type {string}
-   * @memberof OrganizationUser
-   */
-  signupUuid?: string
-  /**
-   *
    * @type {number}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   updateTimestamp?: number
   /**
    *
    * @type {string}
-   * @memberof OrganizationUser
+   * @memberof OrganizationUserResponse
    */
   uuid?: string
 }

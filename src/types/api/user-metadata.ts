@@ -26,10 +26,22 @@ export interface UserMetadata {
   createTimestamp?: number
   /**
    *
+   * @type {boolean}
+   * @memberof UserMetadata
+   */
+  deactivatedEnterpriseAccount?: boolean
+  /**
+   *
    * @type {number}
    * @memberof UserMetadata
    */
   deleteTimestamp?: number
+  /**
+   *
+   * @type {string}
+   * @memberof UserMetadata
+   */
+  enterpriseSubscriptionGiftedBy?: string
   /**
    *
    * @type {number}
@@ -54,6 +66,18 @@ export interface UserMetadata {
    * @memberof UserMetadata
    */
   readCreationCommunityGuideline?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof UserMetadata
+   */
+  showTransferAccountTerms?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof UserMetadata
+   */
+  transferEnterpriseAccount?: boolean
   /**
    *
    * @type {number}

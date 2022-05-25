@@ -35,5 +35,11 @@ export interface GrowthGroupRemainingLicenseResponse {
    * @type {number}
    * @memberof GrowthGroupRemainingLicenseResponse
    */
+  participantsAllowed?: number
+  /**
+   *
+   * @type {number}
+   * @memberof GrowthGroupRemainingLicenseResponse
+   */
   remainingLicenseCount?: number
 }

@@ -20,6 +20,12 @@
 export interface OrganizationCreateRequest {
   /**
    *
+   * @type {string}
+   * @memberof OrganizationCreateRequest
+   */
+  country?: string
+  /**
+   *
    * @type {boolean}
    * @memberof OrganizationCreateRequest
    */
@@ -42,6 +48,18 @@ export interface OrganizationCreateRequest {
    * @memberof OrganizationCreateRequest
    */
   fullName?: string
+  /**
+   *
+   * @type {object}
+   * @memberof OrganizationCreateRequest
+   */
+  ianaTimezone?: object
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationCreateRequest
+   */
+  iso2?: string
   /**
    *
    * @type {string}

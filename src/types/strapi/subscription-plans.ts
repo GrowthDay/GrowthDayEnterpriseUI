@@ -11,6 +11,7 @@ import { IWebhooks } from './webhooks'
  */
 export interface ISubscriptionPlans {
   id: number
+  readableTitle?: string
   name?: string
   currency?: string
   stripeMonthlyPriceId?: string
@@ -43,6 +44,7 @@ export interface ISubscriptionPlans {
   tooltips: ITooltips[]
   onboarding?: IOnboarding
   enterprise?: boolean
+  isCustom?: boolean
   minimumQuantity?: number
   freeOffers: IOffers[]
   created_at?: string | null
