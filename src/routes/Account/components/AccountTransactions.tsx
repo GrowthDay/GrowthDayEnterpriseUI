@@ -15,7 +15,7 @@ const Monospace = styled('span')({ fontFamily: 'monospace', marginRight: 6 })
 
 const AccountTransactions: FC = () => {
   const { pageParams, setPageParams } = usePageParams()
-  const { data: transactions, isLoading } = useOrganizationPaymentTransactionsQuery(pageParams)
+  const { data, isFetching } = useOrganizationPaymentTransactionsQuery(pageParams)
   const [transaction, setTransaction] = useState<PaymentTransaction>()
 
   const columns = useMemo(
@@ -81,12 +81,13 @@ const AccountTransactions: FC = () => {
         </Typography>
       </Flex>
       <TableGrid
-        localeText={{ noRowsLabel: 'No transactions' }}
+        localeText={{ noRowsLabel: isFetching ? 'Loading...' : 'No transactions' }}
         sx={{ mb: 2 }}
-        loading={isLoading}
+        loading={isFetching}
         columns={columns}
         rowHeight={40}
-        rows={transactions ?? []}
+        rows={data?.results ?? []}
+        rowCount={data?.totalRecords ?? 0}
         paginationMode="server"
         page={pageParams.page}
         onPageChange={(page) => setPageParams({ page })}
