@@ -10,6 +10,6 @@ export const nameRegex = {
 }
 
 export const emailDomainsRegex = {
-  regex: /@(www.)?[a-z\d]+(\.[a-z]{2,}){1,3}(#?\/?[a-z\d#]+)*\/?(\?[a-z\d-_]+=[a-z\d-%]+&?)?$/,
+  regex: /^@(www.)?[a-z\d]+(\.[a-z]{2,}){1,3}(#?\/?[a-z\d#]+)*\/?(\?[a-z\d-_]+=[a-z\d-%]+&?)?$/,
   message: 'Please enter valid domains'
 }
