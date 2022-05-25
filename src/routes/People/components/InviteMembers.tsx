@@ -391,7 +391,11 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
               {isProratedAmountFetching ? (
                 <CircularProgress size={14} />
               ) : (
-                formatCurrency((proratedAmount?.subTotalInCents ?? 0) / 100)
+                <>
+                  {formatCurrency((proratedAmount?.subTotalInCents ?? 0) / 100)}
+                  <br />
+                  <small>(approx)</small>
+                </>
               )}
             </Typography>
           </Flex>

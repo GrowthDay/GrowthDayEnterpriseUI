@@ -109,7 +109,7 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
             <Typography component="span" color="text.primary">
               {proratedCost}
             </Typography>{' '}
-            and from next billing cycle the total amount will be {totalCost}. Do you want to continue?
+            (approx) and from next billing cycle the total amount will be {totalCost}. Do you want to continue?
           </Typography>
           <Typography mb={2} color="text.disabled" variant="body2" data-cy="add-more-seats-confirmation-taxes-text">
             plus applicable taxes
@@ -226,7 +226,19 @@ const AddMoreSeats: FC<AddMoreSeatsProps> = ({ onClose }) => {
               </Typography>
             </StyledPrimaryTableCell>
             <StyledTableCell>
-              {calculatedCount ? isProratedAmountFetching ? <CircularProgress size={14} /> : proratedCost : '-'}
+              {calculatedCount ? (
+                isProratedAmountFetching ? (
+                  <CircularProgress size={14} />
+                ) : (
+                  <>
+                    {proratedCost}
+                    <br />
+                    <small>(approx)</small>
+                  </>
+                )
+              ) : (
+                '-'
+              )}
             </StyledTableCell>
           </TableBody>
         </Table>
