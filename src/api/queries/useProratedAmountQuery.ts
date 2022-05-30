@@ -19,7 +19,11 @@ const useProratedAmountQuery = (
   useQuery(
     getProratedAmountQueryKey(variables),
     () => axiosGrowthDay.post<StripeTaxResponse>('/organizations/prorated-amount', variables),
-    options
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      ...options
+    }
   )
 
 export default useProratedAmountQuery
