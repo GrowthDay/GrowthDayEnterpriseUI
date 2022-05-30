@@ -35,8 +35,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
       ...(organization
         ? {
             name: organization.name,
-            domains: organization.domains,
-            phoneNumber: organization.phoneNumber
+            domains: organization.domains
           }
         : {}),
       ...(user
@@ -44,6 +43,7 @@ const AccountDetails: FC<StepComponentProps> = ({ active }) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
             password: '***********'
           }
         : {})
