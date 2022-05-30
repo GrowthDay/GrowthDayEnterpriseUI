@@ -26,6 +26,7 @@ import moment from 'moment'
 import * as React from 'react'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
+import { FieldPath, FieldValues } from 'react-hook-form/dist/types'
 import { useSetRecoilState } from 'recoil'
 import * as yup from 'yup'
 import useInviteUsersInOrganizationMutation from '../../../api/mutations/useInviteUsersInOrganizationMutation'
@@ -208,7 +209,16 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       if (verifyEmailsDataRef.current) {
         const emails = getEmails()
         if (emails.length) {
-          methods.trigger('invitations')
+          const fieldNames = methods
+            .getValues('invitations')
+            .reduce<string[]>(
+              (names, curr, index) => [
+                ...names,
+                ...(Boolean(toLower(curr.email).trim()) ? [`invitations.${index}.email`] : [])
+              ],
+              []
+            )
+          methods.trigger(fieldNames as any)
         }
       }
     })
