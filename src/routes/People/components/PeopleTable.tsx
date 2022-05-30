@@ -175,7 +175,7 @@ const PeopleTable: FC<PeopleTableProps> = ({
           <TextField
             size="medium"
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value.replace(/[^A-Za-z0-9 +.@-_]/g, ''))}
+            onChange={(event) => setSearchTerm(event.target.value.replace(/[^A-Za-z0-9 +.@\-_]/g, ''))}
             sx={{
               ml: 2,
               backgroundColor: (theme) => theme.palette.background.paper,
