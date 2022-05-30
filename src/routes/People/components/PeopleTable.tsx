@@ -154,7 +154,22 @@ const PeopleTable: FC<PeopleTableProps> = ({
 
   return (
     <>
-      <Flex right={0} top={8} position="absolute" justifyContent="flex-end" alignItems="center">
+      <Flex
+        right={0}
+        top={0}
+        sx={{
+          position: {
+            lg: 'absolute'
+          },
+          '& > *': {
+            marginTop: 1,
+            marginBottom: 1
+          }
+        }}
+        justifyContent="flex-end"
+        alignItems="center"
+        flexWrap="wrap"
+      >
         {action}
         {searchable && (
           <TextField
