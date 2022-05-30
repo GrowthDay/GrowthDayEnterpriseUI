@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import useOrganizationQuery from '../api/queries/useOrganizationQuery'
 import accessTokenState from '../recoil/atoms/accessTokenState'
+import isEmployeePaying from '../utils/isEmployeePaying'
 
 export type AuthRouteProps = {
   redirectTo?: string
@@ -15,7 +16,7 @@ const AuthRoute: FC<AuthRouteProps> = ({ children, redirectTo = '/login' }) => {
   if (!accessToken) {
     return <Navigate to={redirectTo} state={{ from: location }} />
   }
-  if (accessToken && organization && !organization.seats) {
+  if (accessToken && organization && !organization.seats && !isEmployeePaying(organization)) {
     return <Navigate to="/setup" state={{ from: location }} />
   }
   return <>{children}</>

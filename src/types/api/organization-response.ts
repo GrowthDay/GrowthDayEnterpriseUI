@@ -59,6 +59,12 @@ export interface OrganizationResponse {
    * @type {string}
    * @memberof OrganizationResponse
    */
+  paymentFlow?: OrganizationResponsePaymentFlowEnum
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationResponse
+   */
   plan?: OrganizationResponsePlanEnum
   /**
    *
@@ -89,9 +95,22 @@ export interface OrganizationResponse {
    * @type {string}
    * @memberof OrganizationResponse
    */
+  subscriptionLinkVisibility?: OrganizationResponseSubscriptionLinkVisibilityEnum
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationResponse
+   */
   zipCode?: string
 }
 
+export const OrganizationResponsePaymentFlowEnum = {
+  Organization: 'ORGANIZATION',
+  Employee: 'EMPLOYEE'
+} as const
+
+export type OrganizationResponsePaymentFlowEnum =
+  typeof OrganizationResponsePaymentFlowEnum[keyof typeof OrganizationResponsePaymentFlowEnum]
 export const OrganizationResponsePlanEnum = {
   Basic: 'BASIC',
   Growth: 'GROWTH',
@@ -112,3 +131,10 @@ export const OrganizationResponsePlanFrequencyEnum = {
 
 export type OrganizationResponsePlanFrequencyEnum =
   typeof OrganizationResponsePlanFrequencyEnum[keyof typeof OrganizationResponsePlanFrequencyEnum]
+export const OrganizationResponseSubscriptionLinkVisibilityEnum = {
+  Public: 'PUBLIC',
+  Private: 'PRIVATE'
+} as const
+
+export type OrganizationResponseSubscriptionLinkVisibilityEnum =
+  typeof OrganizationResponseSubscriptionLinkVisibilityEnum[keyof typeof OrganizationResponseSubscriptionLinkVisibilityEnum]

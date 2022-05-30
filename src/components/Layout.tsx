@@ -15,6 +15,7 @@ const Layout: FC<LayoutProps> = ({ breadcrumbs, header, children, sx, ...props }
     sx={[{ py: { xs: 4, md: 8 }, position: 'relative', minHeight: (theme) => theme.spacing(100) }, ...coerceArray(sx)]}
   >
     <Flex
+      height={36}
       sx={{ mb: 2 }}
       flexDirection={{ xs: 'column', sm: 'row' }}
       justifyContent="space-between"

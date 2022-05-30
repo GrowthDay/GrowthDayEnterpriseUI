@@ -47,6 +47,7 @@ import useMobileView from '../../../hooks/useMobileView'
 import { OrganizationUpdateSubscription, OrganizationUser } from '../../../types/api'
 import { formatCurrency } from '../../../utils/formatters'
 import getPrefixedKey from '../../../utils/getPrefixedKey'
+import isEmployeePaying from '../../../utils/isEmployeePaying'
 import roles, { renderRoleName, renderRoleNameById } from '../../../utils/roles'
 import { jsonToXlsxFile } from '../../../utils/sheetsUtil'
 import invitePollingState from '../atoms/invitePollingState'
@@ -125,18 +126,21 @@ const labelledById = 'invite-members-dialog-title'
 
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
+  const mobileView = useMobileView()
   const [invited, setInvited] = useState<number | null>(null)
   const setInvitePollingState = useSetRecoilState(invitePollingState)
-  const { mutateAsync: updateSubscription, isLoading: isLoadingUpdateSubscription } = useUpdateSubscriptionMutation()
+  const { data: organization } = useOrganizationQuery()
   const { mutateAsync: inviteUsers, isLoading: isInviteLoading } = useInviteUsersInOrganizationMutation()
   const { data: verifyEmailsData, mutateAsync: verifyEmails, isLoading: isVerifyLoading } = useVerifyEmailsMutation()
+
+  const employeePaying = isEmployeePaying(organization)
+
+  const { mutateAsync: updateSubscription, isLoading: isLoadingUpdateSubscription } = useUpdateSubscriptionMutation()
   const { data: organizationUsers, isLoading: isLoadingSeats } = useOrganizationUsersQuery(
     { page: 0, size: 1 },
     {},
-    { cacheTime: 0 }
+    { cacheTime: 0, enabled: !employeePaying }
   )
-  const { data: organization } = useOrganizationQuery()
-  const mobileView = useMobileView()
 
   const verifyEmailsDataRef = useRef(verifyEmailsData)
 
@@ -185,7 +189,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   }
   const { data: proratedAmount, isFetching: isProratedAmountFetching } = useProratedAmountQuery(
     organizationUpdateSubscription,
-    { enabled: seatsToPurchase > 0 && !isVerifyLoading && !isLoadingSeats }
+    { enabled: !employeePaying && seatsToPurchase > 0 && !isVerifyLoading && !isLoadingSeats }
   )
 
   const handleVerifyEmails = useCallback(() => {
@@ -238,7 +242,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         }))
       const file = jsonToXlsxFile(data)
       // TODO: Remove updating subscription while inviting when backend is ready
-      if (seatsToPurchase > 0) {
+      if (seatsToPurchase > 0 && !employeePaying) {
         await updateSubscription(organizationUpdateSubscription)
       }
       await inviteUsers(file)
@@ -390,7 +394,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           {(mobileView || fields.length <= 0) && addMoreButton}
         </Form>
       </DialogContent>
-      <Collapse in={seatsToPurchase > 0} sx={{ flexShrink: 0 }}>
+      <Collapse in={!employeePaying && seatsToPurchase > 0} sx={{ flexShrink: 0 }}>
         <DialogActions sx={{ display: 'block', bgcolor: 'background.default', borderTop: 'none' }}>
           <Typography color="text.secondary" variant="body2">
             Purchase {seatsToPurchase} seat{seatsToPurchase === 1 ? '' : 's'}
@@ -433,7 +437,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
             Reset
           </Button>
         </Stack>
-        {!isLoadingSeats && <FormHelperText>Remaining seats: {seatsLeft}</FormHelperText>}
+        {!isLoadingSeats && !employeePaying && <FormHelperText>Remaining seats: {seatsLeft}</FormHelperText>}
       </DialogActions>
     </>
   )

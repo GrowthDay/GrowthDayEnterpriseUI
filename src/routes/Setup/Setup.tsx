@@ -4,6 +4,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import GrowthDayBackground from '../../components/GrowthDayBackground'
+import isEmployeePaying from '../../utils/isEmployeePaying'
 import Header from '../Shell/components/Header'
 import Footer from './components/Footer'
 import steps from './steps'
@@ -16,10 +17,10 @@ const Setup: FC = () => {
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
 
   useEffect(() => {
-    if (activeStep >= steps.length) {
+    if (activeStep >= steps.length || isEmployeePaying(organization)) {
       navigate('/')
     }
-  }, [navigate, activeStep])
+  }, [navigate, activeStep, organization])
 
   useEffect(() => {
     const el = refs.current[activeStep]

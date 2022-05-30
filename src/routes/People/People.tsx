@@ -11,6 +11,7 @@ import Layout from '../../components/Layout'
 import Loading from '../../components/Loading'
 import useInvitationLink from '../../hooks/useInvitationLink'
 import useMobileView from '../../hooks/useMobileView'
+import isEmployeePaying from '../../utils/isEmployeePaying'
 import AddMoreSeats from '../Account/components/AddMoreSeats'
 import invitePollingState from './atoms/invitePollingState'
 import peopleTabState from './atoms/peopleTabState'
@@ -71,12 +72,12 @@ const People: FC = () => {
 
   const isLoading = peopleLoading || invitationsPendingLoading || deactivatedLoading
 
-  const totalLeft = organization?.seats ?? 0
   const seatsUsed =
     (defaultPeople?.totalRecords ?? 0) +
     (defaultInvitationsPending?.totalRecords ?? 0) +
     (defaultDeactivated?.totalRecords ?? 0)
-  const seatsLeft = totalLeft - seatsUsed
+  const totalSeats = organization?.seats ?? 0
+  const seatsLeft = totalSeats - seatsUsed
 
   return (
     <>
@@ -101,32 +102,53 @@ const People: FC = () => {
             }}
           >
             <Flex flex={1} alignItems="center" sx={{ mb: { xs: 1, md: 0 } }}>
-              <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600} data-cy="people-seats-left-text">
-                {isLoading ? (
-                  <>
-                    <Skeleton height={14} width={80} />
-                    <Skeleton height={14} width={72} />
-                  </>
-                ) : (
-                  <>
-                    {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left
-                  </>
-                )}
-              </Typography>
-              <Divider flexItem sx={{ mx: 2 }} orientation="vertical" />
-              <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={400} data-cy="people-total-seats-text">
-                {totalLeft} total seat{totalLeft === 1 ? '' : 's'}
-              </Typography>
+              {isEmployeePaying(organization) ? (
+                <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600} data-cy="people-seats-left-text">
+                  {isLoading ? (
+                    <>
+                      <Skeleton height={14} width={80} />
+                      <Skeleton height={14} width={72} />
+                    </>
+                  ) : (
+                    <>
+                      {seatsUsed} seat{seatsUsed === 1 ? '' : 's'} used
+                    </>
+                  )}
+                </Typography>
+              ) : (
+                <>
+                  <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600} data-cy="people-seats-left-text">
+                    {isLoading ? (
+                      <>
+                        <Skeleton height={14} width={80} />
+                        <Skeleton height={14} width={72} />
+                      </>
+                    ) : (
+                      <>
+                        {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left
+                      </>
+                    )}
+                  </Typography>
+                  <Divider flexItem sx={{ mx: 2 }} orientation="vertical" />
+                  <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={400} data-cy="people-total-seats-text">
+                    {totalSeats} total seat{totalSeats === 1 ? '' : 's'}
+                  </Typography>
+                </>
+              )}
             </Flex>
             <Flex flex={1} alignItems="center" justifyContent="flex-end">
-              <Button
-                onClick={() => setAddSeatsOpen(true)}
-                startIcon={<AddOutlined />}
-                data-cy="people-add-more-seats-button"
-              >
-                {mobileView ? 'Add seats' : 'Add more seats'}
-              </Button>
-              <Box mx={1} />
+              {!isEmployeePaying(organization) && (
+                <>
+                  <Button
+                    onClick={() => setAddSeatsOpen(true)}
+                    startIcon={<AddOutlined />}
+                    data-cy="people-add-more-seats-button"
+                  >
+                    {mobileView ? 'Add seats' : 'Add more seats'}
+                  </Button>
+                  <Box mx={1} />
+                </>
+              )}
               <Button
                 onClick={() => setInviteOpen(true)}
                 variant="outlined"

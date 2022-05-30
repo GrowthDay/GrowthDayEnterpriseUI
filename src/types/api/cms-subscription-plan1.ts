@@ -59,6 +59,12 @@ export interface CmsSubscriptionPlan1 {
   description?: string
   /**
    *
+   * @type {boolean}
+   * @memberof CmsSubscriptionPlan1
+   */
+  enterprise?: boolean
+  /**
+   *
    * @type {number}
    * @memberof CmsSubscriptionPlan1
    */

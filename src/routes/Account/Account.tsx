@@ -1,5 +1,7 @@
 import { FC, useState } from 'react'
+import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import Layout from '../../components/Layout'
+import isEmployeePaying from '../../utils/isEmployeePaying'
 import InviteMembers from '../People/components/InviteMembers'
 import AccountBilling from './components/AccountBilling'
 import AccountDetails from './components/AccountDetails'
@@ -9,6 +11,7 @@ import SignInSecurity from './components/SignInSecurity'
 import UpdateCreditCard from './components/UpdateCreditCard'
 
 const Account: FC = () => {
+  const { data: organization } = useOrganizationQuery()
   const [inviteOpen, setInviteOpen] = useState(false)
   const [addSeatsOpen, setAddSeatsOpen] = useState(false)
   const [updateCardOpen, setUpdateCardOpen] = useState(false)
@@ -20,7 +23,7 @@ const Account: FC = () => {
       <UpdateCreditCard maxWidth="xs" open={updateCardOpen} onClose={() => setUpdateCardOpen(false)} />
       <Layout breadcrumbs="Account">
         <AccountBilling setAddSeatsOpen={setAddSeatsOpen} setUpdateCardOpen={setUpdateCardOpen} />
-        <AccountTransactions />
+        {!isEmployeePaying(organization) && <AccountTransactions />}
         <AccountDetails />
         <SignInSecurity />
       </Layout>

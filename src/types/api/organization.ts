@@ -89,6 +89,12 @@ export interface Organization {
    * @type {string}
    * @memberof Organization
    */
+  paymentFlow?: OrganizationPaymentFlowEnum
+  /**
+   *
+   * @type {string}
+   * @memberof Organization
+   */
   paymentMethodExpiry?: string
   /**
    *
@@ -194,6 +200,12 @@ export interface Organization {
   subscriptionEndDate?: number
   /**
    *
+   * @type {string}
+   * @memberof Organization
+   */
+  subscriptionLinkVisibility?: OrganizationSubscriptionLinkVisibilityEnum
+  /**
+   *
    * @type {number}
    * @memberof Organization
    */
@@ -218,6 +230,12 @@ export interface Organization {
   zipCode?: string
 }
 
+export const OrganizationPaymentFlowEnum = {
+  Organization: 'ORGANIZATION',
+  Employee: 'EMPLOYEE'
+} as const
+
+export type OrganizationPaymentFlowEnum = typeof OrganizationPaymentFlowEnum[keyof typeof OrganizationPaymentFlowEnum]
 export const OrganizationPaymentMethodTypeEnum = {
   Card: 'CARD',
   Paypal: 'PAYPAL',
@@ -245,3 +263,10 @@ export const OrganizationPlanFrequencyEnum = {
 
 export type OrganizationPlanFrequencyEnum =
   typeof OrganizationPlanFrequencyEnum[keyof typeof OrganizationPlanFrequencyEnum]
+export const OrganizationSubscriptionLinkVisibilityEnum = {
+  Public: 'PUBLIC',
+  Private: 'PRIVATE'
+} as const
+
+export type OrganizationSubscriptionLinkVisibilityEnum =
+  typeof OrganizationSubscriptionLinkVisibilityEnum[keyof typeof OrganizationSubscriptionLinkVisibilityEnum]
