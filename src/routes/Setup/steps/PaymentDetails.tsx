@@ -213,7 +213,8 @@ const PaymentDetails: FC<StepComponentProps> = ({ next, active }) => {
             type="number"
             data-cy="payment-seats-number-input"
             inputProps={{
-              min: selectedPlan?.minimumQuantity ?? 1
+              min: selectedPlan?.minimumQuantity ?? 1,
+              max: 100
             }}
           />
         </Grid>
