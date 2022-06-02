@@ -42,7 +42,7 @@ jobs:
       - name: Try Setup Production Environment File
         if: startsWith(github.ref, 'refs/tags/v') == true
         run: |
-          echo "REACT_APP_ENV=production" >> .env
+          echo "REACT_APP_ENV=prod" >> .env
           echo "BUILD_NUMBER=${{ github.run_id }}" >> .env
           echo "TS_COMPILE_ON_ERROR=true" >> .env
           echo "GENERATE_SOURCEMAP=false" >> .env
