@@ -238,7 +238,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
     if (!isVerifyLoading && !isProratedAmountFetching && !isLoadingSeats && seatsToInvite === validEmails.length) {
       const invitations = methods.getValues('invitations')
       const data = invitations
-        .filter((invitation) => validEmails.includes(invitation.email ?? ''))
+        .filter((invitation) => validEmails.includes(toLower(invitation.email).trim()))
         .map(({ email, roleId }) => ({
           Email: toLower(email).trim(),
           'Full Name': '',
