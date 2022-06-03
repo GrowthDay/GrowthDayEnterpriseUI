@@ -23,6 +23,7 @@ import {
 } from '@mui/material'
 import { get, sortBy, toLower } from 'lodash-es'
 import moment from 'moment'
+import { useSnackbar } from 'notistack'
 import * as React from 'react'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
@@ -124,6 +125,7 @@ type IInvitationRequest = {
 const labelledById = 'invite-members-dialog-title'
 
 const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
+  const { enqueueSnackbar } = useSnackbar()
   const contentRef = useRef<HTMLDivElement>(null)
   const mobileView = useMobileView()
   const [invited, setInvited] = useState<number | null>(null)
@@ -188,7 +190,15 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   }
   const { data: proratedAmount, isFetching: isProratedAmountFetching } = useProratedAmountQuery(
     organizationUpdateSubscription,
-    { enabled: !employeePaying && seatsToPurchase > 0 && !isVerifyLoading && !isLoadingSeats }
+    {
+      enabled: Boolean(
+        !employeePaying &&
+          seatsToPurchase > 0 &&
+          !isVerifyLoading &&
+          !isLoadingSeats &&
+          organization?.stripePaymentMethodId
+      )
+    }
   )
 
   const handleVerifyEmails = useCallback(() => {
@@ -242,7 +252,12 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       const file = jsonToXlsxFile(data)
       // TODO: Remove updating subscription while inviting when backend is ready
       if (seatsToPurchase > 0 && !employeePaying) {
-        await updateSubscription(organizationUpdateSubscription)
+        if (organization?.stripePaymentMethodId) {
+          await updateSubscription(organizationUpdateSubscription)
+        } else {
+          enqueueSnackbar('You do not have enough seats. Please contact GrowthDay support team', { variant: 'error' })
+          return
+        }
       }
       await inviteUsers(file)
       methods.reset({ invitations: [defaultValues] })
@@ -393,7 +408,10 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
           {(mobileView || fields.length <= 0) && addMoreButton}
         </Form>
       </DialogContent>
-      <Collapse in={!employeePaying && seatsToPurchase > 0} sx={{ flexShrink: 0 }}>
+      <Collapse
+        in={Boolean(!employeePaying && seatsToPurchase > 0 && organization?.stripePaymentMethodId)}
+        sx={{ flexShrink: 0 }}
+      >
         <DialogActions sx={{ display: 'block', bgcolor: 'background.default', borderTop: 'none' }}>
           <Typography color="text.secondary" variant="body2">
             Purchase {seatsToPurchase} seat{seatsToPurchase === 1 ? '' : 's'}

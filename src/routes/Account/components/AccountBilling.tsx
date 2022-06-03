@@ -42,7 +42,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
         <Typography fontWeight={700} variant="h5" data-cy="account-billing-title-text">
           Plans & Billing
         </Typography>
-        {!employeePaying && (
+        {!employeePaying && organization?.stripePaymentMethodId && (
           <Button
             onClick={() => setAddSeatsOpen(true)}
             startIcon={<AddOutlined />}
@@ -72,7 +72,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
                 {subscription?.name} Plan
               </Typography>
             </Grid>
-            {employeePaying ? (
+            {employeePaying || !organization?.stripePaymentMethodId ? (
               <Grid whiteSpace="nowrap" item xs>
                 <Typography gutterBottom variant="body2" color="text.disabled">
                   Annual payment
@@ -110,7 +110,7 @@ const AccountBilling: FC<AccountBillingProps> = ({ setAddSeatsOpen, setUpdateCar
               </>
             )}
           </Grid>
-          {!employeePaying && (
+          {!employeePaying && organization?.stripePaymentMethodId && (
             <>
               <Divider light sx={{ my: 2 }} />
               <Grid spacing={4} container wrap="wrap" justifyContent="space-between" alignItems="flex-end">

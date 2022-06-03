@@ -137,7 +137,7 @@ const People: FC = () => {
               )}
             </Flex>
             <Flex flex={1} alignItems="center" justifyContent="flex-end">
-              {!isEmployeePaying(organization) && (
+              {!isEmployeePaying(organization) && organization?.stripePaymentMethodId && (
                 <>
                   <Button
                     onClick={() => setAddSeatsOpen(true)}
