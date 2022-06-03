@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/GrowthDay/GrowthDayEnterpriseUI/compare/v0.1.5...v0.1.6) (2022-06-03)
+
+
+### Bug Fixes
+
+* invitations processing ([996a539](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/996a539d4d6c82c891c1e62528f820f8e01a3f45))
+* nine fold invite flow ([6b9cda7](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/6b9cda7c215b3a73d951d91890eca9f74cdbc558))
+
 ### [0.1.5](https://github.com/GrowthDay/GrowthDayEnterpriseUI/compare/v0.1.4...v0.1.5) (2022-06-02)
 
 
