@@ -1,9 +1,8 @@
 import { AddOutlined } from '@mui/icons-material'
 import { Skeleton, TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Card, CardContent, Divider, Tab, Typography } from '@mui/material'
-import moment from 'moment'
-import { FC, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { FC, useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil'
 import useOrganizationQuery from '../../api/queries/useOrganizationQuery'
 import CopyText from '../../components/CopyText'
 import Flex from '../../components/Flex'
@@ -13,7 +12,6 @@ import useInvitationLink from '../../hooks/useInvitationLink'
 import useMobileView from '../../hooks/useMobileView'
 import isEmployeePaying from '../../utils/isEmployeePaying'
 import AddMoreSeats from '../Account/components/AddMoreSeats'
-import invitePollingState from './atoms/invitePollingState'
 import peopleTabState from './atoms/peopleTabState'
 import DeactivatedTab from './components/DeactivatedTab'
 import usePeopleQuery from './hooks/usePeopleQuery'
@@ -23,15 +21,12 @@ import PendingInvitationsTab from './components/PendingInvitationsTab'
 import PeopleEmptyState from './components/PeopleEmptyState'
 
 const People: FC = () => {
-  const { data: organization } = useOrganizationQuery()
+  const { data: organization, refetch: refetchOrganization } = useOrganizationQuery()
   const mobileView = useMobileView()
   const [tab, setTab] = useRecoilState(peopleTabState)
-  const pollingTime = useRecoilValue(invitePollingState)
   const [inviteOpen, setInviteOpen] = useState(false)
   const [addSeatsOpen, setAddSeatsOpen] = useState(false)
   const invitationLink = useInvitationLink()
-
-  const shouldPoll = Boolean(pollingTime && pollingTime > moment().valueOf())
 
   const {
     defaultData: defaultPeople,
@@ -52,12 +47,9 @@ const People: FC = () => {
     filters: invitationsPendingFilters,
     setFilters: setInvitationsPendingFilters,
     pageParams: invitationsPendingPageParams,
-    setPageParams: setInvitationsPendingPageParams
-  } = usePeopleQuery(
-    undefined,
-    { invitationPending: true, deactivated: false },
-    { refetchInterval: shouldPoll && 5 * 1000 }
-  )
+    setPageParams: setInvitationsPendingPageParams,
+    refetch: refetchInvitationsPendingOrganization
+  } = usePeopleQuery(undefined, { invitationPending: true, deactivated: false })
 
   const {
     defaultData: defaultDeactivated,
@@ -78,6 +70,18 @@ const People: FC = () => {
     (defaultDeactivated?.totalRecords ?? 0)
   const totalSeats = organization?.seats ?? 0
   const seatsLeft = totalSeats - seatsUsed
+
+  useEffect(() => {
+    if (organization?.processingInvitation) {
+      const timeoutId = setInterval(() => {
+        refetchInvitationsPendingOrganization()
+        refetchOrganization()
+      }, 5 * 1000)
+      return () => {
+        clearInterval(timeoutId)
+      }
+    }
+  }, [organization?.processingInvitation, refetchInvitationsPendingOrganization, refetchOrganization])
 
   return (
     <>
@@ -102,8 +106,17 @@ const People: FC = () => {
             }}
           >
             <Flex flex={1} alignItems="center" sx={{ mb: { xs: 1, md: 0 } }}>
-              {isEmployeePaying(organization) ? (
-                <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600} data-cy="people-seats-left-text">
+              {organization?.processingInvitation ? (
+                <Typography
+                  color="text.disabled"
+                  variant={mobileView ? 'body1' : 'h6'}
+                  fontWeight={500}
+                  data-cy="people-processing-invitations-text"
+                >
+                  Processing invitations...
+                </Typography>
+              ) : isEmployeePaying(organization) ? (
+                <Typography variant={mobileView ? 'body1' : 'h6'} fontWeight={600} data-cy="people-seats-used-text">
                   {isLoading ? (
                     <>
                       <Skeleton height={14} width={80} />

@@ -162,8 +162,8 @@ const PeopleTable: FC<PeopleTableProps> = ({
             lg: 'absolute'
           },
           '& > *': {
-            marginTop: 1,
-            marginBottom: 1
+            marginTop: '8px!important',
+            marginBottom: '8px!important'
           }
         }}
         justifyContent="flex-end"

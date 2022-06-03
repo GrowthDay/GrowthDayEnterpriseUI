@@ -144,7 +144,7 @@ const Uploader: FC<UploaderProps> = ({ onRemove, onUpload, disabled }) => {
         <Icon component={FilePlus} sx={{ mb: 1 }} fontSize="large" color="primary" />
         {loading ? (
           <Typography variant="body2" color="text.secondary">
-            Uploading
+            Uploading...
           </Typography>
         ) : (
           <>

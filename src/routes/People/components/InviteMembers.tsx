@@ -22,12 +22,10 @@ import {
   Typography
 } from '@mui/material'
 import { get, sortBy, toLower } from 'lodash-es'
-import moment from 'moment'
 import { useSnackbar } from 'notistack'
 import * as React from 'react'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { useSetRecoilState } from 'recoil'
 import * as yup from 'yup'
 import useInviteUsersInOrganizationMutation from '../../../api/mutations/useInviteUsersInOrganizationMutation'
 import useUpdateSubscriptionMutation from '../../../api/mutations/useUpdateSubscriptionMutation'
@@ -50,7 +48,6 @@ import getPrefixedKey from '../../../utils/getPrefixedKey'
 import isEmployeePaying from '../../../utils/isEmployeePaying'
 import roles, { renderRoleName, renderRoleNameById } from '../../../utils/roles'
 import { jsonToXlsxFile } from '../../../utils/sheetsUtil'
-import invitePollingState from '../atoms/invitePollingState'
 import Uploader from './Uploader'
 
 export type InviteMembersProps = Omit<DialogProps, 'children'>
@@ -129,7 +126,6 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const mobileView = useMobileView()
   const [invited, setInvited] = useState<number | null>(null)
-  const setInvitePollingState = useSetRecoilState(invitePollingState)
   const { data: organization } = useOrganizationQuery()
   const { mutateAsync: inviteUsers, isLoading: isInviteLoading } = useInviteUsersInOrganizationMutation()
   const { data: verifyEmailsData, mutateAsync: verifyEmails, isLoading: isVerifyLoading } = useVerifyEmailsMutation()
@@ -261,7 +257,6 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       }
       await inviteUsers(file)
       methods.reset({ invitations: [defaultValues] })
-      setInvitePollingState(moment().add(30, 's').valueOf())
       setInvited(data.length)
     }
   }
@@ -434,22 +429,32 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       </Collapse>
       <DialogActions sx={{ justifyContent: 'space-between' }}>
         <Stack spacing={1} direction="row">
-          <LoadingButton
-            disabled={isLoadingSeats || disabled || isProratedAmountFetching || seatsToInvite < 1}
-            form="invitation-form"
-            loading={isInviteLoading || isLoadingUpdateSubscription}
-            variant="contained"
-            type="submit"
-            data-cy="invite-modal-send-button"
-          >
-            {seatsToInvite > 0 ? (
-              <>
-                Invite {seatsToInvite} member{seatsToInvite === 1 ? '' : 's'}
-              </>
-            ) : (
-              <>Send Invite</>
-            )}
-          </LoadingButton>
+          <Tooltip title={organization?.processingInvitation ? 'Invitations are being processed...' : ''}>
+            <span>
+              <LoadingButton
+                disabled={
+                  organization?.processingInvitation ||
+                  isLoadingSeats ||
+                  disabled ||
+                  isProratedAmountFetching ||
+                  seatsToInvite < 1
+                }
+                form="invitation-form"
+                loading={isInviteLoading || isLoadingUpdateSubscription}
+                variant="contained"
+                type="submit"
+                data-cy="invite-modal-send-button"
+              >
+                {seatsToInvite > 0 ? (
+                  <>
+                    Invite {seatsToInvite} member{seatsToInvite === 1 ? '' : 's'}
+                  </>
+                ) : (
+                  <>Send Invite</>
+                )}
+              </LoadingButton>
+            </span>
+          </Tooltip>
           <Button disabled={!hasAnyEmail} color="inherit" size="small" variant="text" onClick={onReset}>
             Reset
           </Button>
