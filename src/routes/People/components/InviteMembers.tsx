@@ -26,6 +26,7 @@ import { useSnackbar } from 'notistack'
 import * as React from 'react'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
+import { useQueryClient } from 'react-query'
 import * as yup from 'yup'
 import useInviteUsersInOrganizationMutation from '../../../api/mutations/useInviteUsersInOrganizationMutation'
 import useUpdateSubscriptionMutation from '../../../api/mutations/useUpdateSubscriptionMutation'
@@ -33,7 +34,7 @@ import useVerifyEmailsMutation, {
   EmailStatusType,
   VerifyEmailsResponse
 } from '../../../api/mutations/useVerifyEmailsMutation'
-import useOrganizationQuery from '../../../api/queries/useOrganizationQuery'
+import useOrganizationQuery, { ORGANIZATION_QUERY_KEY } from '../../../api/queries/useOrganizationQuery'
 import useOrganizationUsersQuery from '../../../api/queries/useOrganizationUsersQuery'
 import useProratedAmountQuery from '../../../api/queries/useProratedAmountQuery'
 import Flex from '../../../components/Flex'
@@ -42,7 +43,7 @@ import FormInput from '../../../components/forms/FormInput'
 import withDialog from '../../../hoc/withDialog'
 import useFormPersist from '../../../hooks/useFormPersist'
 import useMobileView from '../../../hooks/useMobileView'
-import { OrganizationUpdateSubscription, OrganizationUser } from '../../../types/api'
+import { Organization, OrganizationUpdateSubscription, OrganizationUser } from '../../../types/api'
 import { formatCurrency } from '../../../utils/formatters'
 import getPrefixedKey from '../../../utils/getPrefixedKey'
 import isEmployeePaying from '../../../utils/isEmployeePaying'
@@ -127,6 +128,7 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
   const mobileView = useMobileView()
   const [invited, setInvited] = useState<number | null>(null)
   const { data: organization } = useOrganizationQuery()
+  const queryClient = useQueryClient()
   const { mutateAsync: inviteUsers, isLoading: isInviteLoading } = useInviteUsersInOrganizationMutation()
   const { data: verifyEmailsData, mutateAsync: verifyEmails, isLoading: isVerifyLoading } = useVerifyEmailsMutation()
 
@@ -250,14 +252,25 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
       if (seatsToPurchase > 0 && !employeePaying) {
         if (organization?.stripePaymentMethodId) {
           await updateSubscription(organizationUpdateSubscription)
+          queryClient.setQueryData<Organization>(ORGANIZATION_QUERY_KEY, (data) => ({
+            ...data,
+            processingInvitation: true
+          }))
         } else {
           enqueueSnackbar('You do not have enough seats. Please contact GrowthDay support team', { variant: 'error' })
           return
         }
       }
-      await inviteUsers(file)
-      methods.reset({ invitations: [defaultValues] })
-      setInvited(data.length)
+      try {
+        await inviteUsers(file)
+        methods.reset({ invitations: [defaultValues] })
+        setInvited(data.length)
+      } catch (e) {
+        queryClient.setQueryData<Organization>(ORGANIZATION_QUERY_KEY, (data) => ({
+          ...data,
+          processingInvitation: false
+        }))
+      }
     }
   }
 
@@ -408,11 +421,13 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         sx={{ flexShrink: 0 }}
       >
         <DialogActions sx={{ display: 'block', bgcolor: 'background.default', borderTop: 'none' }}>
-          <Typography color="text.secondary" variant="body2">
-            Purchase {seatsToPurchase} seat{seatsToPurchase === 1 ? '' : 's'}
-          </Typography>
           <Flex alignItems="center" justifyContent="space-between">
-            <Typography variant="body2">Prorated bill (for the remainder of the current year)</Typography>
+            <div>
+              <Typography color="text.secondary" variant="body2">
+                Purchase {seatsToPurchase} seat{seatsToPurchase === 1 ? '' : 's'}
+              </Typography>
+              <Typography variant="body2">Prorated bill (for the remainder of the current year)</Typography>
+            </div>
             <Typography variant="body2" fontWeight={600}>
               {isProratedAmountFetching ? (
                 <CircularProgress size={14} />
