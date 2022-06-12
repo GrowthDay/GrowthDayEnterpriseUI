@@ -53,13 +53,13 @@ import Uploader from './Uploader'
 
 export type InviteMembersProps = Omit<DialogProps, 'children'>
 
-yup.addMethod(yup.string, 'unique', function (message: string, path: string, mapper: (a: any) => string | number) {
+yup.addMethod(yup.string, 'unique', function (message: string, path: string, mapper: (a: any) => string) {
   return this.test('unique', message, function (value) {
     const occurrences =
       get(this, path)
         ?.map(mapper)
         ?.filter(Boolean)
-        ?.filter((entity: string | number) => entity === value) ?? []
+        ?.filter((entity: string) => toLower(entity).trim() === toLower(value).trim()) ?? []
     return occurrences.length <= 1
   })
 })
@@ -74,7 +74,7 @@ const validationSchema = (verifyEmailsData?: VerifyEmailsResponse) =>
             .string()
             .required('Required')
             .email('Enter a valid email')
-            .unique('Email must be unique', 'from.1.value.invitations', (a: any) => toLower(a?.email).trim())
+            .unique('Email must be unique', 'from.1.value.invitations', (a: any) => a?.email)
             .test(
               'exists',
               <>

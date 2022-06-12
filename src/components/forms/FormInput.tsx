@@ -26,13 +26,13 @@ function FormInput<
             {...props}
             name={name}
             value={value || ''}
-            onChange={(...rest) => {
-              onChange(...rest)
-              props.onChange?.(...rest)
+            onChange={(event) => {
+              onChange(event)
+              props.onChange?.(event)
             }}
-            onBlur={(...rest) => {
+            onBlur={(event) => {
               onBlur()
-              props.onBlur?.(...rest)
+              props.onBlur?.(event)
             }}
             error={invalid}
             helperText={error ? error.message : props.helperText}
