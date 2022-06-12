@@ -78,10 +78,7 @@ function FormAutocomplete<
                 label={props.label}
                 error={invalid}
                 helperText={error?.message || helperText}
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: 'new-password'
-                }}
+                autoComplete="off"
                 InputLabelProps={{ ...params.InputLabelProps, shrink: true }}
                 InputProps={{ ...params.InputProps, ...InputProps }}
               />
