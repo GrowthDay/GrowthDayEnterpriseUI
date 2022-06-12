@@ -71,7 +71,7 @@ const Feedback: FC<FeedbackProps> = ({ onClose }) => {
       email: user?.email ?? '',
       title: values.title,
       description: values.description,
-      categories: ['Enterprise', 'Feedback', organization?.name].filter(Boolean).join(', '),
+      categories: ['Enterprise', 'Admin Portal', 'Feedback', organization?.name].filter(Boolean).join(', '),
       data: mapKeys(values, (value, key) => startCase(key))
     })
   }
