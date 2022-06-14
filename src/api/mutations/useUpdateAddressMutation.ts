@@ -1,4 +1,3 @@
-import { isValidPhoneNumber } from 'react-phone-number-input'
 import { useMutation } from 'react-query'
 import { UseMutationOptions } from 'react-query/types/react/types'
 import * as yup from 'yup'
@@ -21,19 +20,14 @@ export const UpdateAddressValidationSchema = yup
       },
       then: yup.string().required('Required')
     }),
-    zipCode: yup.string().required('Required'),
-    phoneNumber: yup
-      .string()
-      .required()
-      .test('valid', 'Please enter a valid phone number', (value) => (value ? isValidPhoneNumber(value) : true))
+    zipCode: yup.string().required('Required')
   })
   .required()
 
 export const UpdateAddressDefaultValues: OrganizationUpdateAddressRequest = {
   country: '',
   region: '',
-  zipCode: '',
-  phoneNumber: ''
+  zipCode: ''
 }
 
 const useUpdateAddressMutation = (
