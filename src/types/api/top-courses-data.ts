@@ -12,48 +12,40 @@
  * Do not edit the class manually.
  */
 
-import { User } from './user'
-
 /**
  *
  * @export
- * @interface LoginResponse
+ * @interface TopCoursesData
  */
-export interface LoginResponse {
+export interface TopCoursesData {
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof TopCoursesData
    */
-  authenticationToken?: string
+  courseName?: string
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof TopCoursesData
    */
-  errorMessage?: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof LoginResponse
-   */
-  isSuccess?: boolean
+  organizationId?: string
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof TopCoursesData
    */
-  tribeRedirectUrl?: string
+  organizationName?: string
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof TopCoursesData
    */
-  tribeToken?: string
+  time?: string
   /**
    *
-   * @type {User}
-   * @memberof LoginResponse
+   * @type {number}
+   * @memberof TopCoursesData
    */
-  user?: User
+  watchedNoNo?: number
 }

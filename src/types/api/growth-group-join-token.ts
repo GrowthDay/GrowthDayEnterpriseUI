@@ -12,24 +12,22 @@
  * Do not edit the class manually.
  */
 
-import { ZoneRules } from './zone-rules'
-
 /**
  *
  * @export
- * @interface ZoneId1
+ * @interface GrowthGroupJoinToken
  */
-export interface ZoneId1 {
+export interface GrowthGroupJoinToken {
   /**
    *
    * @type {string}
-   * @memberof ZoneId1
+   * @memberof GrowthGroupJoinToken
    */
-  id?: string
+  joinToken?: string
   /**
    *
-   * @type {ZoneRules}
-   * @memberof ZoneId1
+   * @type {string}
+   * @memberof GrowthGroupJoinToken
    */
-  rules?: ZoneRules
+  previewToken?: string
 }

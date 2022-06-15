@@ -3,16 +3,14 @@ import { UseQueryOptions } from 'react-query/types/react/types'
 import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import useModifiedRecoilState from '../../hooks/useModifiedRecoilState'
 import organizationIdState from '../../recoil/atoms/organizationIdState'
-import { OrganizationUser, UserRequest, UserMetadata } from '../../types/api'
+import { OrganizationUser, User } from '../../types/api'
 
 export const ORGANIZATION_USER_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ORGANIZATION_USER']
 
 export type IUser = OrganizationUser &
-  UserRequest &
-  UserMetadata & {
+  User & {
     firstName?: string
     lastName?: string
-    profileImageKey?: string
     profileImage?: string
   }
 
@@ -25,7 +23,7 @@ const useOrganizationUserQuery = (
     () =>
       Promise.all([
         axiosGrowthDay.get<OrganizationUser[]>('/organizationUsers/me').then((res) => res[0]),
-        axiosGrowthDay.get<UserRequest & UserMetadata & { profileImageKey?: string }>('/me')
+        axiosGrowthDay.get<User>('/me')
       ]).then(async ([organizationUser, me]): Promise<IUser> => {
         let profileImage = ''
         if (me.profileImageKey) {

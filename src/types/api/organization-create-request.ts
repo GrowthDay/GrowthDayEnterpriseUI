@@ -50,10 +50,10 @@ export interface OrganizationCreateRequest {
   fullName?: string
   /**
    *
-   * @type {object}
+   * @type {string}
    * @memberof OrganizationCreateRequest
    */
-  ianaTimezone?: object
+  ianaTimezone?: string
   /**
    *
    * @type {string}

@@ -41,10 +41,10 @@ export interface MeRequest {
   fullName?: string
   /**
    *
-   * @type {object}
+   * @type {string}
    * @memberof MeRequest
    */
-  ianaTimezone?: object
+  ianaTimezone?: string
   /**
    *
    * @type {string}

@@ -12,48 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { User } from './user'
-
 /**
  *
  * @export
- * @interface LoginResponse
+ * @interface UserChatProfile
  */
-export interface LoginResponse {
+export interface UserChatProfile {
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof UserChatProfile
    */
-  authenticationToken?: string
+  email?: string
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof UserChatProfile
    */
-  errorMessage?: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof LoginResponse
-   */
-  isSuccess?: boolean
+  id?: string
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof UserChatProfile
    */
-  tribeRedirectUrl?: string
+  name?: string
   /**
    *
    * @type {string}
-   * @memberof LoginResponse
+   * @memberof UserChatProfile
    */
-  tribeToken?: string
-  /**
-   *
-   * @type {User}
-   * @memberof LoginResponse
-   */
-  user?: User
+  picture?: string
 }

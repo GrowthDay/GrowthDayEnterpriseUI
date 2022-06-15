@@ -67,6 +67,7 @@ export const ChatRecipientRolesEnum = {
   Attendee: 'attendee',
   CoHost: 'co-host',
   Speaker: 'speaker',
+  Preview: 'preview',
   WaitingRoom: 'waiting-room'
 } as const
 
@@ -76,6 +77,7 @@ export const ChatSenderRoleEnum = {
   Attendee: 'attendee',
   CoHost: 'co-host',
   Speaker: 'speaker',
+  Preview: 'preview',
   WaitingRoom: 'waiting-room'
 } as const
 

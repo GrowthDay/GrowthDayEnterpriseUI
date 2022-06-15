@@ -103,6 +103,7 @@ export const GrowthGroupInstanceChatRecipientRolesEnum = {
   Attendee: 'attendee',
   CoHost: 'co-host',
   Speaker: 'speaker',
+  Preview: 'preview',
   WaitingRoom: 'waiting-room'
 } as const
 
@@ -113,6 +114,7 @@ export const GrowthGroupInstanceChatSenderRoleEnum = {
   Attendee: 'attendee',
   CoHost: 'co-host',
   Speaker: 'speaker',
+  Preview: 'preview',
   WaitingRoom: 'waiting-room'
 } as const
 

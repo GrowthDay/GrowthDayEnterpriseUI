@@ -12,8 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { ZoneId1 } from './zone-id1'
-
 /**
  *
  * @export
@@ -103,13 +101,19 @@ export interface GrowthGroupUpcomingPackage {
    * @type {string}
    * @memberof GrowthGroupUpcomingPackage
    */
-  stripePriceId?: string
+  paymentSystem?: GrowthGroupUpcomingPackagePaymentSystemEnum
   /**
    *
    * @type {string}
    * @memberof GrowthGroupUpcomingPackage
    */
-  stripeSubscriptionId?: string
+  priceId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GrowthGroupUpcomingPackage
+   */
+  subscriptionId?: string
   /**
    *
    * @type {number}
@@ -118,10 +122,10 @@ export interface GrowthGroupUpcomingPackage {
   updateTimestamp?: number
   /**
    *
-   * @type {ZoneId1}
+   * @type {string}
    * @memberof GrowthGroupUpcomingPackage
    */
-  userTimezone?: ZoneId1
+  userTimezone?: string
   /**
    *
    * @type {string}
@@ -138,3 +142,11 @@ export const GrowthGroupUpcomingPackageLicenseTypeEnum = {
 
 export type GrowthGroupUpcomingPackageLicenseTypeEnum =
   typeof GrowthGroupUpcomingPackageLicenseTypeEnum[keyof typeof GrowthGroupUpcomingPackageLicenseTypeEnum]
+export const GrowthGroupUpcomingPackagePaymentSystemEnum = {
+  Card: 'CARD',
+  Paypal: 'PAYPAL',
+  Apple: 'APPLE'
+} as const
+
+export type GrowthGroupUpcomingPackagePaymentSystemEnum =
+  typeof GrowthGroupUpcomingPackagePaymentSystemEnum[keyof typeof GrowthGroupUpcomingPackagePaymentSystemEnum]

@@ -28,10 +28,10 @@ export interface CodeForTokenRequest {
   code?: string
   /**
    *
-   * @type {object}
+   * @type {string}
    * @memberof CodeForTokenRequest
    */
-  ianaTimezone?: object
+  ianaTimezone?: string
   /**
    *
    * @type {PlatformInformation}

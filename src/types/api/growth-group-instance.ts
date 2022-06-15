@@ -14,7 +14,6 @@
 
 import { Hms } from './hms'
 import { ParticipantData } from './participant-data'
-import { ZoneId1 } from './zone-id1'
 
 /**
  *
@@ -102,10 +101,10 @@ export interface GrowthGroupInstance {
   hms?: Hms
   /**
    *
-   * @type {ZoneId1}
+   * @type {string}
    * @memberof GrowthGroupInstance
    */
-  ianaTimezone?: ZoneId1
+  ianaTimezone?: string
   /**
    *
    * @type {string}
@@ -142,6 +141,12 @@ export interface GrowthGroupInstance {
    * @memberof GrowthGroupInstance
    */
   startTime?: number
+  /**
+   *
+   * @type {string}
+   * @memberof GrowthGroupInstance
+   */
+  state?: GrowthGroupInstanceStateEnum
   /**
    *
    * @type {string}
@@ -191,6 +196,17 @@ export const GrowthGroupInstanceReasonEnum = {
 
 export type GrowthGroupInstanceReasonEnum =
   typeof GrowthGroupInstanceReasonEnum[keyof typeof GrowthGroupInstanceReasonEnum]
+export const GrowthGroupInstanceStateEnum = {
+  StartsInFuture: 'STARTS_IN_FUTURE',
+  StartsSoon: 'STARTS_SOON',
+  WaitingForHost: 'WAITING_FOR_HOST',
+  Cancelled: 'CANCELLED',
+  LiveNow: 'LIVE_NOW',
+  Ended: 'ENDED'
+} as const
+
+export type GrowthGroupInstanceStateEnum =
+  typeof GrowthGroupInstanceStateEnum[keyof typeof GrowthGroupInstanceStateEnum]
 export const GrowthGroupInstanceTypeEnum = {
   Private: 'PRIVATE',
   Public: 'PUBLIC'

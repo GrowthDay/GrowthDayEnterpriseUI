@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { ParticipantJoinInfo } from './participant-join-info'
+
 /**
  *
  * @export
@@ -68,22 +70,16 @@ export interface Participant {
   id?: string
   /**
    *
-   * @type {number}
-   * @memberof Participant
-   */
-  joinedOn?: number
-  /**
-   *
    * @type {string}
    * @memberof Participant
    */
   lastName?: string
   /**
    *
-   * @type {string}
+   * @type {Array<ParticipantJoinInfo>}
    * @memberof Participant
    */
-  peerId?: string
+  participantJoinInfos?: Array<ParticipantJoinInfo>
   /**
    *
    * @type {string}
@@ -115,6 +111,7 @@ export const ParticipantRoleEnum = {
   Attendee: 'attendee',
   CoHost: 'co-host',
   Speaker: 'speaker',
+  Preview: 'preview',
   WaitingRoom: 'waiting-room'
 } as const
 

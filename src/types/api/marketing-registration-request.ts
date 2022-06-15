@@ -52,10 +52,10 @@ export interface MarketingRegistrationRequest {
   giftBuyer?: boolean
   /**
    *
-   * @type {object}
+   * @type {string}
    * @memberof MarketingRegistrationRequest
    */
-  ianaTimezone?: object
+  ianaTimezone?: string
   /**
    *
    * @type {boolean}

@@ -56,6 +56,24 @@ export interface OrganizationUserTokenExistsResponse {
   organizationPlanName?: string
   /**
    *
+   * @type {string}
+   * @memberof OrganizationUserTokenExistsResponse
+   */
+  paymentFlow?: OrganizationUserTokenExistsResponsePaymentFlowEnum
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationUserTokenExistsResponse
+   */
+  stripePriceId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof OrganizationUserTokenExistsResponse
+   */
+  subscriptionLinkVisibility?: OrganizationUserTokenExistsResponseSubscriptionLinkVisibilityEnum
+  /**
+   *
    * @type {boolean}
    * @memberof OrganizationUserTokenExistsResponse
    */
@@ -93,3 +111,17 @@ export const OrganizationUserTokenExistsResponseOrganizationLevelEnum = {
 
 export type OrganizationUserTokenExistsResponseOrganizationLevelEnum =
   typeof OrganizationUserTokenExistsResponseOrganizationLevelEnum[keyof typeof OrganizationUserTokenExistsResponseOrganizationLevelEnum]
+export const OrganizationUserTokenExistsResponsePaymentFlowEnum = {
+  Organization: 'ORGANIZATION',
+  Employee: 'EMPLOYEE'
+} as const
+
+export type OrganizationUserTokenExistsResponsePaymentFlowEnum =
+  typeof OrganizationUserTokenExistsResponsePaymentFlowEnum[keyof typeof OrganizationUserTokenExistsResponsePaymentFlowEnum]
+export const OrganizationUserTokenExistsResponseSubscriptionLinkVisibilityEnum = {
+  Public: 'PUBLIC',
+  Private: 'PRIVATE'
+} as const
+
+export type OrganizationUserTokenExistsResponseSubscriptionLinkVisibilityEnum =
+  typeof OrganizationUserTokenExistsResponseSubscriptionLinkVisibilityEnum[keyof typeof OrganizationUserTokenExistsResponseSubscriptionLinkVisibilityEnum]

@@ -86,6 +86,12 @@ export interface OrganizationResponse {
   region?: string
   /**
    *
+   * @type {string}
+   * @memberof OrganizationResponse
+   */
+  stripePriceId?: string
+  /**
+   *
    * @type {boolean}
    * @memberof OrganizationResponse
    */

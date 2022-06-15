@@ -12,42 +12,40 @@
  * Do not edit the class manually.
  */
 
-import { TemporalUnit } from './temporal-unit'
-
 /**
  *
  * @export
- * @interface Duration
+ * @interface LifeScoreData
  */
-export interface Duration {
+export interface LifeScoreData {
   /**
    *
    * @type {number}
-   * @memberof Duration
+   * @memberof LifeScoreData
    */
-  nano?: number
+  avgScore?: number
   /**
    *
-   * @type {boolean}
-   * @memberof Duration
+   * @type {string}
+   * @memberof LifeScoreData
    */
-  negative?: boolean
+  organizationId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof LifeScoreData
+   */
+  organizationName?: string
   /**
    *
    * @type {number}
-   * @memberof Duration
+   * @memberof LifeScoreData
    */
-  seconds?: number
+  submittedScoreCount?: number
   /**
    *
-   * @type {Array<TemporalUnit>}
-   * @memberof Duration
+   * @type {string}
+   * @memberof LifeScoreData
    */
-  units?: Array<TemporalUnit>
-  /**
-   *
-   * @type {boolean}
-   * @memberof Duration
-   */
-  zero?: boolean
+  time?: string
 }

@@ -12,30 +12,40 @@
  * Do not edit the class manually.
  */
 
-import { ZoneRules } from './zone-rules'
-
 /**
  *
  * @export
- * @interface ZoneOffset
+ * @interface TopEventsData
  */
-export interface ZoneOffset {
+export interface TopEventsData {
   /**
    *
    * @type {string}
-   * @memberof ZoneOffset
+   * @memberof TopEventsData
    */
-  id?: string
+  liveEventName?: string
   /**
    *
-   * @type {ZoneRules}
-   * @memberof ZoneOffset
+   * @type {string}
+   * @memberof TopEventsData
    */
-  rules?: ZoneRules
+  organizationId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof TopEventsData
+   */
+  organizationName?: string
+  /**
+   *
+   * @type {string}
+   * @memberof TopEventsData
+   */
+  time?: string
   /**
    *
    * @type {number}
-   * @memberof ZoneOffset
+   * @memberof TopEventsData
    */
-  totalSeconds?: number
+  watchedNo?: number
 }

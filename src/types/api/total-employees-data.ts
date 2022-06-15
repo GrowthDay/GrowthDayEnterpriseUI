@@ -12,36 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { Duration } from './duration'
-
 /**
  *
  * @export
- * @interface TemporalUnit
+ * @interface TotalEmployeesData
  */
-export interface TemporalUnit {
+export interface TotalEmployeesData {
   /**
    *
-   * @type {boolean}
-   * @memberof TemporalUnit
+   * @type {number}
+   * @memberof TotalEmployeesData
    */
-  dateBased?: boolean
+  count?: number
   /**
    *
-   * @type {Duration}
-   * @memberof TemporalUnit
+   * @type {string}
+   * @memberof TotalEmployeesData
    */
-  duration?: Duration
+  organizationId?: string
   /**
    *
-   * @type {boolean}
-   * @memberof TemporalUnit
+   * @type {string}
+   * @memberof TotalEmployeesData
    */
-  durationEstimated?: boolean
+  organizationName?: string
   /**
    *
-   * @type {boolean}
-   * @memberof TemporalUnit
+   * @type {string}
+   * @memberof TotalEmployeesData
    */
-  timeBased?: boolean
+  time?: string
 }
