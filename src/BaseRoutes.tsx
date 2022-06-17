@@ -10,7 +10,7 @@ const LoginCallback = lazy(() => import('./routes/Login/components/LoginCallback
 
 const Shell = lazy(() => import('./routes/Shell/Shell'))
 const People = lazy(() => import('./routes/People/People'))
-// const Reports = lazy(() => import('./routes/Reports/Reports'))
+const Reports = lazy(() => import('./routes/Reports/Reports'))
 const QuickSetup = lazy(() => import('./routes/QuickSetup/QuickSetup'))
 const Account = lazy(() => import('./routes/Account/Account'))
 const NotFound = lazy(() => import('./routes/NotFound/NotFound'))
@@ -28,7 +28,7 @@ const BaseRoutes: FC = () => (
         >
           <Route index element={<Navigate to="people" />} />
           <Route path="people" element={<People />} />
-          {/*<Route path="reports" element={<Reports />} />*/}
+          <Route path="reports" element={<Reports />} />
           <Route path="quick-setup" element={<QuickSetup />} />
           <Route path="account" element={<Account />} />
           <Route path="*" element={<NotFound />} />
