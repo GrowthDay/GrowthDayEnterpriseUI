@@ -4,11 +4,27 @@ import { StandardCSSProperties } from '@mui/system'
 import { FC } from 'react'
 import Center from './Center'
 
-const Loading: FC<CircularProgressProps & { position?: StandardCSSProperties['position'] }> = ({
-  position = 'absolute',
-  ...props
-}) => (
-  <Center sx={{ width: '100%', height: '100%', position, zIndex: 1, left: 0, top: 0, bottom: 0, right: 0 }}>
+const Loading: FC<
+  CircularProgressProps & {
+    position?: StandardCSSProperties['position']
+    alignItems?: StandardCSSProperties['alignItems']
+    justifyContent?: StandardCSSProperties['justifyContent']
+  }
+> = ({ position = 'absolute', alignItems = 'center', justifyContent = 'center', ...props }) => (
+  <Center
+    sx={{
+      justifyContent,
+      alignItems,
+      width: '100%',
+      height: '100%',
+      position,
+      zIndex: 1,
+      left: 0,
+      top: 0,
+      bottom: 0,
+      right: 0
+    }}
+  >
     <Box sx={{ position: 'relative', height: props.size || 40 }}>
       <CircularProgress
         variant="determinate"

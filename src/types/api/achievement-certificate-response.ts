@@ -15,79 +15,85 @@
 /**
  *
  * @export
- * @interface AchievementCertificate
+ * @interface AchievementCertificateResponse
  */
-export interface AchievementCertificate {
+export interface AchievementCertificateResponse {
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   achievementId?: string
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   authorName?: string
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   courseName?: string
   /**
    *
+   * @type {string}
+   * @memberof AchievementCertificateResponse
+   */
+  courseUrl?: string
+  /**
+   *
    * @type {number}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   createTimestamp?: number
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   date?: string
   /**
    *
    * @type {number}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   deleteTimestamp?: number
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   id?: string
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   sourceId?: string
   /**
    *
    * @type {number}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   updateTimestamp?: number
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   url?: string
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   userName?: string
   /**
    *
    * @type {string}
-   * @memberof AchievementCertificate
+   * @memberof AchievementCertificateResponse
    */
   uuid?: string
 }

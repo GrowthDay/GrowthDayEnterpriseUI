@@ -7,6 +7,7 @@ import ReactApexChart, { Props } from 'react-apexcharts'
 export type ChartProps = Props & {
   categories?: string[]
   color?: string
+  loading?: boolean
 }
 
 const colors = [

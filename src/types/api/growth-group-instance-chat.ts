@@ -89,6 +89,12 @@ export interface GrowthGroupInstanceChat {
    * @type {string}
    * @memberof GrowthGroupInstanceChat
    */
+  senderUserId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof GrowthGroupInstanceChat
+   */
   time?: string
   /**
    *

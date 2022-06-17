@@ -1,5 +1,5 @@
 export * from './achievement'
-export * from './achievement-certificate'
+export * from './achievement-certificate-response'
 export * from './achievement-in-progress'
 export * from './achievement-in-progress-response'
 export * from './achievement-response'

@@ -59,6 +59,12 @@ export interface Chat {
    * @type {string}
    * @memberof Chat
    */
+  senderUserId?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Chat
+   */
   time?: string
 }
 
