@@ -2,9 +2,11 @@ import { ArrowDropDownRounded, ArrowDropUpRounded } from '@mui/icons-material'
 import { Box, Grid, MenuItem, Paper, styled, TextField, Theme, Typography, useTheme } from '@mui/material'
 import { lighten } from '@mui/system'
 import { ApexOptions } from 'apexcharts'
+import { range } from 'lodash-es'
 import moment from 'moment'
 import { FC, useState } from 'react'
 import Moment from 'react-moment'
+import useAssessmentCategoriesQuery from '../../../api/queries/useAssessmentCategoriesQuery'
 import { useReportQueries } from '../../../api/queries/useOrganizationReportsQuery'
 import Flex from '../../../components/Flex'
 import Loading from '../../../components/Loading'
@@ -50,6 +52,7 @@ const LifeScoreReport: FC<{ month: string }> = ({ month }) => {
   const theme = useTheme<Theme>()
   const border = `1px solid ${theme.palette.divider}`
   const [assessmentType, setAssessmentType] = useState<AssessmentTypeEnum>(AssessmentTypeEnum.Daily)
+  const { data: assessmentCategories } = useAssessmentCategoriesQuery(assessmentType)
 
   const dateRanges = createDateRange(month)
   const [previousLifeScoreQuery, currentLifeScoreQuery, isLoading] = useReportQueries<LifeScoreData>(
@@ -70,27 +73,16 @@ const LifeScoreReport: FC<{ month: string }> = ({ month }) => {
   const columnChartSeries: ApexOptions['series'] = [
     {
       name: moment(dateRanges.previous.month).format('MMMM YYYY'),
-      data: [2, 3, 5, 4, 1, 4, 2, 3, 4],
-      color: columnChartColors[0]
+      data: range(9).fill(aggregateData(previousLifeScoreQuery, 'avgScore')),
+      color: columnChartColors[1]
     },
     {
       name: moment(dateRanges.current.month).format('MMMM YYYY'),
-      data: [4, 3, 2, 5, 2, 4, 2, 1, 2],
-      color: columnChartColors[1]
+      data: range(9).fill(aggregateData(currentLifeScoreQuery, 'avgScore')),
+      color: columnChartColors[0]
     }
   ]
-  const columnChartCategories = [
-    'Clarity',
-    'Energy',
-    'Necessity',
-    'Productivity',
-    'Influence',
-    'Courage',
-    'Movement',
-    'Mood',
-    'Sleep',
-    'Nutrition'
-  ]
+  const columnChartCategories = assessmentCategories?.map((category) => category.name!) ?? []
 
   const parsedPreviousScore = parseScore(previousAvg, theme)
   const parsedCurrentScore = parseScore(currentAvg, theme)
@@ -120,7 +112,7 @@ const LifeScoreReport: FC<{ month: string }> = ({ month }) => {
       </Flex>
       <Paper sx={{ mb: 6 }} elevation={1}>
         <Grid container>
-          <Grid sx={{ opacity: 0.3 }} p={4} item xs={12} md={8} lg={9}>
+          <Grid p={4} item xs={12} md={8} lg={9}>
             <Chart series={columnChartSeries} categories={columnChartCategories} type="bar" height={350} />
           </Grid>
           <Grid

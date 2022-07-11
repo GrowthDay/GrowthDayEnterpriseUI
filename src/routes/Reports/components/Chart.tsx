@@ -118,6 +118,9 @@ const Chart: FC<ChartProps> = ({ categories, color, ...props }) => {
                 }
               }
             : {}),
+          yaxis: {
+            decimalsInFloat: 0
+          },
           dataLabels: {
             enabled: false
           },
