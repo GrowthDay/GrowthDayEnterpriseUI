@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { CmsOffer } from './cms-offer'
+import { CmsOfferLicense } from './cms-offer-license'
 import { CmsOnboard } from './cms-onboard'
 import { CmsTooltip } from './cms-tooltip'
 
@@ -65,6 +67,12 @@ export interface CmsSubscriptionPlan1 {
   enterprise?: boolean
   /**
    *
+   * @type {Array<CmsOffer>}
+   * @memberof CmsSubscriptionPlan1
+   */
+  freeOffers?: Array<CmsOffer>
+  /**
+   *
    * @type {number}
    * @memberof CmsSubscriptionPlan1
    */
@@ -81,6 +89,12 @@ export interface CmsSubscriptionPlan1 {
    * @memberof CmsSubscriptionPlan1
    */
   levelWeight?: number
+  /**
+   *
+   * @type {CmsOfferLicense}
+   * @memberof CmsSubscriptionPlan1
+   */
+  licenses?: CmsOfferLicense
   /**
    *
    * @type {number}

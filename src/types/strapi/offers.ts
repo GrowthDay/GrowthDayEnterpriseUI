@@ -76,6 +76,6 @@ export enum EnumOffersInterval {
 
 export enum EnumOffersChangeToPlan {
   BASIC_YEAR = 'BASIC_YEAR',
-  MASTERY_MONTH = 'MASTERY_MONTH',
-  MASTERY_YEAR = 'MASTERY_YEAR'
+  MASTERY_YEAR = 'MASTERY_YEAR',
+  ALLACCESS_YEAR = 'ALLACCESS_YEAR'
 }

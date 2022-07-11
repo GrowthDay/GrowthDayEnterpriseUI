@@ -119,6 +119,12 @@ export interface UserChallenge {
   joinDate?: string
   /**
    *
+   * @type {boolean}
+   * @memberof UserChallenge
+   */
+  noteMigrated?: boolean
+  /**
+   *
    * @type {number}
    * @memberof UserChallenge
    */

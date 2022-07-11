@@ -23,6 +23,7 @@ export interface ISubscriptionPlans {
   paypalMonthlyPriceId?: string
   paypalYearlyPriceId?: string
   levelWeight?: number
+  trialInDays?: number
   description?: string
   appleMonthlyProductId?: string
   appleYearlyProductId?: string
@@ -53,5 +54,6 @@ export interface ISubscriptionPlans {
 export enum EnumSubscriptionPlansLevel {
   basic = 'basic',
   mastery = 'mastery',
+  allaccess = 'allaccess',
   enterprise = 'enterprise'
 }

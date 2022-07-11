@@ -42,10 +42,25 @@ export interface UserNoteRequest {
    * @memberof UserNoteRequest
    */
   subEntityId?: string
+  /**
+   *
+   * @type {number}
+   * @memberof UserNoteRequest
+   */
+  timeCode?: number
+  /**
+   *
+   * @type {string}
+   * @memberof UserNoteRequest
+   */
+  userNoteId?: string
 }
 
 export const UserNoteRequestEntityTypeEnum = {
-  GrowthGroup: 'GROWTH_GROUP'
+  GrowthGroup: 'GROWTH_GROUP',
+  LiveEvent: 'LIVE_EVENT',
+  Course: 'COURSE',
+  Challenge: 'CHALLENGE'
 } as const
 
 export type UserNoteRequestEntityTypeEnum =

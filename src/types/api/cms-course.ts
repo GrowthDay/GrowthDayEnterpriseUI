@@ -123,6 +123,48 @@ export interface CmsCourse {
   id?: number
   /**
    *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isFeatured?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isFree?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isPublished?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isRecommended?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isRecommendedPremium?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isRecommendedPro?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof CmsCourse
+   */
+  isRecommendedStarter?: boolean
+  /**
+   *
    * @type {number}
    * @memberof CmsCourse
    */

@@ -125,7 +125,8 @@ export const OrganizationResponsePlanEnum = {
   None: 'NONE',
   Offer: 'OFFER',
   Challenge: 'CHALLENGE',
-  Enterprise: 'ENTERPRISE'
+  Enterprise: 'ENTERPRISE',
+  Allaccess: 'ALLACCESS'
 } as const
 
 export type OrganizationResponsePlanEnum =

@@ -74,6 +74,18 @@ export interface UserNote {
   subEntityId?: string
   /**
    *
+   * @type {boolean}
+   * @memberof UserNote
+   */
+  textNote?: boolean
+  /**
+   *
+   * @type {number}
+   * @memberof UserNote
+   */
+  timeCode?: number
+  /**
+   *
    * @type {number}
    * @memberof UserNote
    */
@@ -87,7 +99,10 @@ export interface UserNote {
 }
 
 export const UserNoteEntityTypeEnum = {
-  GrowthGroup: 'GROWTH_GROUP'
+  GrowthGroup: 'GROWTH_GROUP',
+  LiveEvent: 'LIVE_EVENT',
+  Course: 'COURSE',
+  Challenge: 'CHALLENGE'
 } as const
 
 export type UserNoteEntityTypeEnum = typeof UserNoteEntityTypeEnum[keyof typeof UserNoteEntityTypeEnum]

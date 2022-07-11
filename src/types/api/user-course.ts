@@ -65,6 +65,12 @@ export interface UserCourse {
   lessonProgress?: Array<LessonProgress>
   /**
    *
+   * @type {boolean}
+   * @memberof UserCourse
+   */
+  noteMigrated?: boolean
+  /**
+   *
    * @type {Array<UserCourseNote>}
    * @memberof UserCourse
    */

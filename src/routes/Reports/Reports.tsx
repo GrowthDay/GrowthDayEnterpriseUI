@@ -6,6 +6,7 @@ import { FC, useState } from 'react'
 import useOrganizationUserQuery from '../../api/queries/useOrganizationUserQuery'
 import Flex from '../../components/Flex'
 import Layout from '../../components/Layout'
+import { currentEnvironment } from '../../config'
 import getPeriod from '../../utils/getPeriod'
 import Chart from './components/Chart'
 import MonthPicker from './components/MonthPicker'
@@ -87,74 +88,77 @@ const Reports: FC = () => {
       </Grid>
       <LifeScoreGridReport month={month} />
       <GeneralMetricsGridReport month={month} />
-      <Grid mb={6} container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Box mb={2}>
-            <Typography fontWeight={700} variant="h5">
-              Top Activities
-            </Typography>
-            <Typography color="text.disabled" variant="body2">
-              Average sessions per activity per month
-            </Typography>
-          </Box>
-          <Paper sx={{ p: 2, opacity: 0.3 }} elevation={1}>
-            <Chart
-              height={260}
-              type="donut"
-              series={donutChartSeries1}
-              options={{
-                labels: donutChartLabels1,
-                legend: { show: true },
-                plotOptions: {
-                  pie: {
-                    donut: {
-                      labels: {
-                        total: {
-                          label: 'Life Score',
-                          formatter: () => '20%'
+
+      {currentEnvironment === 'dev' && (
+        <Grid mb={6} container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Box mb={2}>
+              <Typography fontWeight={700} variant="h5">
+                Top Activities
+              </Typography>
+              <Typography color="text.disabled" variant="body2">
+                Average sessions per activity per month
+              </Typography>
+            </Box>
+            <Paper sx={{ p: 2, opacity: 0.3 }} elevation={1}>
+              <Chart
+                height={260}
+                type="donut"
+                series={donutChartSeries1}
+                options={{
+                  labels: donutChartLabels1,
+                  legend: { show: true },
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          total: {
+                            label: 'Life Score',
+                            formatter: () => '20%'
+                          }
                         }
                       }
                     }
                   }
-                }
-              }}
-            />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box mb={2}>
-            <Typography fontWeight={700} variant="h5">
-              Focus Areas
-            </Typography>
-            <Typography color="text.disabled" variant="body2">
-              Average sessions per activity per month
-            </Typography>
-          </Box>
-          <Paper sx={{ p: 2, opacity: 0.3 }} elevation={1}>
-            <Chart
-              height={260}
-              type="donut"
-              series={donutChartSeries2}
-              options={{
-                labels: donutChartLabels2,
-                legend: { show: true },
-                plotOptions: {
-                  pie: {
-                    donut: {
-                      labels: {
-                        total: {
-                          label: 'Energy',
-                          formatter: () => '20%'
+                }}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box mb={2}>
+              <Typography fontWeight={700} variant="h5">
+                Focus Areas
+              </Typography>
+              <Typography color="text.disabled" variant="body2">
+                Average sessions per activity per month
+              </Typography>
+            </Box>
+            <Paper sx={{ p: 2, opacity: 0.3 }} elevation={1}>
+              <Chart
+                height={260}
+                type="donut"
+                series={donutChartSeries2}
+                options={{
+                  labels: donutChartLabels2,
+                  legend: { show: true },
+                  plotOptions: {
+                    pie: {
+                      donut: {
+                        labels: {
+                          total: {
+                            label: 'Energy',
+                            formatter: () => '20%'
+                          }
                         }
                       }
                     }
                   }
-                }
-              }}
-            />
-          </Paper>
+                }}
+              />
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Layout>
   )
 }

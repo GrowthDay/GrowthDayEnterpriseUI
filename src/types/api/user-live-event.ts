@@ -86,6 +86,12 @@ export interface UserLiveEvent {
   id?: string
   /**
    *
+   * @type {boolean}
+   * @memberof UserLiveEvent
+   */
+  noteMigrated?: boolean
+  /**
+   *
    * @type {number}
    * @memberof UserLiveEvent
    */
