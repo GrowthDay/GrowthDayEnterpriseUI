@@ -14,7 +14,7 @@ import DeactivateAccountDialog from './DeactivateAccountDialog'
 import PeopleEmptyState from './PeopleEmptyState'
 import PeopleTable, { PeopleTableProps } from './PeopleTable'
 
-const MembersTab: FC<PeopleTableProps> = (props) => {
+const MembersTab: FC<PeopleTableProps & { hideDownloadButton?: boolean }> = ({ hideDownloadButton, ...props }) => {
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([])
   const { data: user } = useOrganizationUserQuery()
   const { mutateAsync: downloadMembersTable, isLoading } = useExportOrganizationUsersMutation()
@@ -36,17 +36,19 @@ const MembersTab: FC<PeopleTableProps> = (props) => {
 
   const action = (
     <>
-      <LoadingButton
-        {...bindTrigger(popupState)}
-        loading={isLoading}
-        startIcon={<FileDownloadOutlined />}
-        endIcon={<KeyboardArrowDownOutlined />}
-        variant="outlined"
-        sx={{ ml: 2, backgroundColor: (theme) => theme.palette.background.paper }}
-        data-cy="people-members-export-button"
-      >
-        Download
-      </LoadingButton>
+      {!hideDownloadButton && (
+        <LoadingButton
+          {...bindTrigger(popupState)}
+          loading={isLoading}
+          startIcon={<FileDownloadOutlined />}
+          endIcon={<KeyboardArrowDownOutlined />}
+          variant="outlined"
+          sx={{ ml: 2, backgroundColor: (theme) => theme.palette.background.paper }}
+          data-cy="people-members-export-button"
+        >
+          Download
+        </LoadingButton>
+      )}
       <Button
         disabled={!selectionModel.length}
         onClick={handleSetSelectionDeactivate}
@@ -80,14 +82,16 @@ const MembersTab: FC<PeopleTableProps> = (props) => {
         open={Boolean(deactivateMembers)}
         onClose={() => setDeactivateMembers(undefined)}
       />
-      <Menu {...bindPopover(popupState)} PaperProps={{ sx: { width: 140 } }}>
-        <MenuItem disabled={isLoading} onClick={() => handleMenuItemClick(ExportType.XLSX)}>
-          XLSX
-        </MenuItem>
-        <MenuItem disabled={isLoading} onClick={() => handleMenuItemClick(ExportType.CSV)}>
-          CSV
-        </MenuItem>
-      </Menu>
+      {!hideDownloadButton && (
+        <Menu {...bindPopover(popupState)} PaperProps={{ sx: { width: 140 } }}>
+          <MenuItem disabled={isLoading} onClick={() => handleMenuItemClick(ExportType.XLSX)}>
+            XLSX
+          </MenuItem>
+          <MenuItem disabled={isLoading} onClick={() => handleMenuItemClick(ExportType.CSV)}>
+            CSV
+          </MenuItem>
+        </Menu>
+      )}
       <PeopleTable
         {...props}
         isRowSelectable={(params) => params.row.id !== user?.id}

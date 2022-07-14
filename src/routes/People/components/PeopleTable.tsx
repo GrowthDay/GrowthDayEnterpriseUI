@@ -181,7 +181,8 @@ const PeopleTable: FC<PeopleTableProps> = ({
               backgroundColor: (theme) => theme.palette.background.paper,
               borderRadius: 4,
               px: 1,
-              py: 0.25
+              py: 0.25,
+              maxWidth: 200
             }}
             type="search"
             placeholder="Search"

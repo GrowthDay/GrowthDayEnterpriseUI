@@ -48,9 +48,10 @@ const theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          ...defaultTheme.typography.body2,
           fontWeight: 600,
           textTransform: 'none',
-          padding: defaultTheme.spacing(2.5)
+          padding: '18px 12px'
         }
       }
     },

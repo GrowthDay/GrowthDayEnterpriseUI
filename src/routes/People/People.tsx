@@ -37,7 +37,18 @@ const People: FC = () => {
     setFilters: setPeopleFilters,
     pageParams: peoplePageParams,
     setPageParams: setPeoplePageParams
-  } = usePeopleQuery(undefined, { invitationPending: false, deactivated: false })
+  } = usePeopleQuery(undefined, { invitationPending: false, paymentPending: false, deactivated: false })
+
+  const {
+    defaultData: defaultPaymentPending,
+    data: paymentPending,
+    isLoading: paymentPendingLoading,
+    isFetching: paymentPendingFetching,
+    filters: paymentPendingFilters,
+    setFilters: setPaymentPendingFilters,
+    pageParams: paymentPendingPageParams,
+    setPageParams: setPaymentPendingPageParams
+  } = usePeopleQuery(undefined, { invitationPending: false, paymentPending: true, deactivated: false })
 
   const {
     defaultData: defaultInvitationsPending,
@@ -62,12 +73,13 @@ const People: FC = () => {
     setPageParams: setDeactivatedPageParams
   } = usePeopleQuery(undefined, { deactivated: true })
 
-  const isLoading = peopleLoading || invitationsPendingLoading || deactivatedLoading
+  const isLoading = peopleLoading || invitationsPendingLoading || deactivatedLoading || paymentPendingLoading
 
   const seatsUsed =
     (defaultPeople?.totalRecords ?? 0) +
     (defaultInvitationsPending?.totalRecords ?? 0) +
-    (defaultDeactivated?.totalRecords ?? 0)
+    (defaultDeactivated?.totalRecords ?? 0) +
+    (defaultPaymentPending?.totalRecords ?? 0)
   const totalSeats = organization?.seats ?? 0
   const seatsLeft = totalSeats - seatsUsed
 
@@ -82,6 +94,10 @@ const People: FC = () => {
       }
     }
   }, [organization?.processingInvitation, refetchInvitationsPendingOrganization, refetchOrganization])
+
+  const hasPendingPayment = (defaultPaymentPending?.totalRecords ?? 0) > 0
+  const hasDeactivated = (defaultDeactivated?.totalRecords ?? 0) > 0
+  const hasPendingInvitation = (defaultInvitationsPending?.totalRecords ?? 0) > 0
 
   return (
     <>
@@ -184,16 +200,27 @@ const People: FC = () => {
                   label={<>Team members ({defaultPeople?.totalRecords ?? 0})</>}
                   data-cy="people-tabs-members-button"
                 />
-                <Tab
-                  value="2"
-                  label={<>Pending Invitations ({defaultInvitationsPending?.totalRecords ?? 0})</>}
-                  data-cy="people-tabs-pending-button"
-                />
-                <Tab
-                  value="3"
-                  label={<>Deactivated ({defaultDeactivated?.totalRecords ?? 0})</>}
-                  data-cy="people-tabs-deactivated-button"
-                />
+                {hasPendingPayment && (
+                  <Tab
+                    value="2"
+                    label={<>Pending Payment ({defaultPaymentPending?.totalRecords ?? 0})</>}
+                    data-cy="people-tabs-pending-payment-button"
+                  />
+                )}
+                {hasPendingInvitation && (
+                  <Tab
+                    value="3"
+                    label={<>Pending Invitations ({defaultInvitationsPending?.totalRecords ?? 0})</>}
+                    data-cy="people-tabs-pending-button"
+                  />
+                )}
+                {hasDeactivated && (
+                  <Tab
+                    value="4"
+                    label={<>Deactivated ({defaultDeactivated?.totalRecords ?? 0})</>}
+                    data-cy="people-tabs-deactivated-button"
+                  />
+                )}
               </TabList>
               <Divider sx={{ marginTop: '-1.5px' }} />
               <TabPanel sx={{ p: 0 }} value="1">
@@ -207,28 +234,46 @@ const People: FC = () => {
                   rowCount={people?.totalRecords}
                 />
               </TabPanel>
-              <TabPanel sx={{ p: 0 }} value="2">
-                <PendingInvitationsTab
-                  loading={invitationsPendingFetching}
-                  pageParams={invitationsPendingPageParams}
-                  setPageParams={setInvitationsPendingPageParams}
-                  filters={invitationsPendingFilters}
-                  setFilters={setInvitationsPendingFilters}
-                  data={invitationsPending?.results}
-                  rowCount={invitationsPending?.totalRecords}
-                />
-              </TabPanel>
-              <TabPanel sx={{ p: 0 }} value="3">
-                <DeactivatedTab
-                  loading={deactivatedFetching}
-                  pageParams={deactivatedPageParams}
-                  setPageParams={setDeactivatedPageParams}
-                  filters={deactivatedFilters}
-                  setFilters={setDeactivatedFilters}
-                  data={deactivated?.results}
-                  rowCount={deactivated?.totalRecords}
-                />
-              </TabPanel>
+              {hasPendingPayment && (
+                <TabPanel sx={{ p: 0 }} value="2">
+                  <MembersTab
+                    hideDownloadButton
+                    loading={paymentPendingFetching}
+                    pageParams={paymentPendingPageParams}
+                    setPageParams={setPaymentPendingPageParams}
+                    filters={paymentPendingFilters}
+                    setFilters={setPaymentPendingFilters}
+                    data={paymentPending?.results}
+                    rowCount={paymentPending?.totalRecords}
+                  />
+                </TabPanel>
+              )}
+              {hasPendingInvitation && (
+                <TabPanel sx={{ p: 0 }} value="3">
+                  <PendingInvitationsTab
+                    loading={invitationsPendingFetching}
+                    pageParams={invitationsPendingPageParams}
+                    setPageParams={setInvitationsPendingPageParams}
+                    filters={invitationsPendingFilters}
+                    setFilters={setInvitationsPendingFilters}
+                    data={invitationsPending?.results}
+                    rowCount={invitationsPending?.totalRecords}
+                  />
+                </TabPanel>
+              )}
+              {hasDeactivated && (
+                <TabPanel sx={{ p: 0 }} value="4">
+                  <DeactivatedTab
+                    loading={deactivatedFetching}
+                    pageParams={deactivatedPageParams}
+                    setPageParams={setDeactivatedPageParams}
+                    filters={deactivatedFilters}
+                    setFilters={setDeactivatedFilters}
+                    data={deactivated?.results}
+                    rowCount={deactivated?.totalRecords}
+                  />
+                </TabPanel>
+              )}
             </TabContext>
           </Box>
         ) : (

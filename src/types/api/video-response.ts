@@ -29,6 +29,18 @@ export interface VideoResponse {
   captions?: Array<VideoCaption>
   /**
    *
+   * @type {number}
+   * @memberof VideoResponse
+   */
+  duration?: number
+  /**
+   *
+   * @type {string}
+   * @memberof VideoResponse
+   */
+  previewThumbnails?: string
+  /**
+   *
    * @type {Array<VideoSource>}
    * @memberof VideoResponse
    */

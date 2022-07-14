@@ -110,6 +110,12 @@ export interface OrganizationUserResponse {
   roleName?: string
   /**
    *
+   * @type {boolean}
+   * @memberof OrganizationUserResponse
+   */
+  subscriptionPaid?: boolean
+  /**
+   *
    * @type {number}
    * @memberof OrganizationUserResponse
    */

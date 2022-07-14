@@ -116,6 +116,12 @@ export interface OrganizationUser {
   signupUuid?: string
   /**
    *
+   * @type {boolean}
+   * @memberof OrganizationUser
+   */
+  subscriptionPaid?: boolean
+  /**
+   *
    * @type {number}
    * @memberof OrganizationUser
    */
