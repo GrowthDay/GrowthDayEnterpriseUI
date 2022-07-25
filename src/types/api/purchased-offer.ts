@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { CmsOffer } from './cms-offer'
+import { CmsOffer1 } from './cms-offer1'
 
 /**
  *
@@ -64,10 +64,10 @@ export interface PurchasedOffer {
   id?: string
   /**
    *
-   * @type {CmsOffer}
+   * @type {CmsOffer1}
    * @memberof PurchasedOffer
    */
-  offer?: CmsOffer
+  offer?: CmsOffer1
   /**
    *
    * @type {number}

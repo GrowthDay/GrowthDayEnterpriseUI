@@ -23,7 +23,13 @@ export interface CmsMarketingWebhook {
    * @type {string}
    * @memberof CmsMarketingWebhook
    */
-  trigger?: string
+  trigger?: CmsMarketingWebhookTriggerEnum
+  /**
+   *
+   * @type {string}
+   * @memberof CmsMarketingWebhook
+   */
+  type?: CmsMarketingWebhookTypeEnum
   /**
    *
    * @type {string}
@@ -31,3 +37,17 @@ export interface CmsMarketingWebhook {
    */
   url?: string
 }
+
+export const CmsMarketingWebhookTriggerEnum = {
+  Signup: 'SIGNUP',
+  Payment: 'PAYMENT'
+} as const
+
+export type CmsMarketingWebhookTriggerEnum =
+  typeof CmsMarketingWebhookTriggerEnum[keyof typeof CmsMarketingWebhookTriggerEnum]
+export const CmsMarketingWebhookTypeEnum = {
+  Kajabi: 'KAJABI',
+  Proof: 'PROOF'
+} as const
+
+export type CmsMarketingWebhookTypeEnum = typeof CmsMarketingWebhookTypeEnum[keyof typeof CmsMarketingWebhookTypeEnum]

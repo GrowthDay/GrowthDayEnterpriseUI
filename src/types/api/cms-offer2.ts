@@ -16,7 +16,6 @@ import { CmsBulletItem } from './cms-bullet-item'
 import { CmsEvents } from './cms-events'
 import { CmsMarketingWebhook } from './cms-marketing-webhook'
 import { CmsMedia } from './cms-media'
-import { CmsOffer2 } from './cms-offer2'
 import { CmsOfferChallenge } from './cms-offer-challenge'
 import { CmsOfferCourse2 } from './cms-offer-course2'
 import { CmsOfferLicense } from './cms-offer-license'
@@ -29,265 +28,265 @@ import { CmsTooltip } from './cms-tooltip'
 /**
  *
  * @export
- * @interface CmsOffer
+ * @interface CmsOffer2
  */
-export interface CmsOffer {
+export interface CmsOffer2 {
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   applePlanId?: string
   /**
    *
    * @type {CmsMedia}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   badge?: CmsMedia
   /**
    *
    * @type {Array<CmsBulletItem>}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   bulletItems?: Array<CmsBulletItem>
   /**
    *
    * @type {CmsOffer2}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   canonical?: CmsOffer2
   /**
    *
    * @type {CmsOfferChallenge}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   challenge?: CmsOfferChallenge
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   changeToPlan?: string
   /**
    *
    * @type {Array<CmsOfferCourse2>}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   courses?: Array<CmsOfferCourse2>
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   created_at?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   currency?: string
   /**
    *
    * @type {CmsMedia}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   dashboardThumbnail?: CmsMedia
   /**
    *
    * @type {CmsMedia}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   dashboardThumbnailVertical?: CmsMedia
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   description?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   emailTemplateId?: string
   /**
    *
    * @type {Array<CmsEvents>}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   events?: Array<CmsEvents>
   /**
    *
    * @type {object}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   helpText?: object
   /**
    *
    * @type {number}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   id?: number
   /**
    *
    * @type {CmsThumbnail2}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   image?: CmsThumbnail2
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   interval?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   kajabiOfferId?: string
   /**
    *
    * @type {CmsOfferLicense}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   licenses?: CmsOfferLicense
   /**
    *
    * @type {CmsOnboard}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   onboarding?: CmsOnboard
   /**
    *
    * @type {number}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   order?: number
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   paypalPlanId?: string
   /**
    *
    * @type {CmsOfferPlan}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   plan?: CmsOfferPlan
   /**
    *
    * @type {number}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   price?: number
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   published_at?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   purchaseButtonText?: string
   /**
    *
    * @type {boolean}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   recommended?: boolean
   /**
    *
    * @type {boolean}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   showInMembershipArea?: boolean
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   signupDescription?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   slug?: string
   /**
    *
    * @type {boolean}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   specialOffer?: boolean
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   stripePlanId?: string
   /**
    *
    * @type {Array<CmsSubscriptionPlan>}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   subscriptionPlans?: Array<CmsSubscriptionPlan>
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   subtitle?: string
   /**
    *
    * @type {CmsThumbnail2}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   thumbnail?: CmsThumbnail2
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   title?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   titleNoCoins?: string
   /**
    *
    * @type {Array<CmsTooltip>}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   tooltips?: Array<CmsTooltip>
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   type?: string
   /**
    *
    * @type {string}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   updated_at?: string
   /**
    *
    * @type {object}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   videoUrl?: object
   /**
    *
    * @type {Array<CmsMarketingWebhook>}
-   * @memberof CmsOffer
+   * @memberof CmsOffer2
    */
   webhooks?: Array<CmsMarketingWebhook>
 }

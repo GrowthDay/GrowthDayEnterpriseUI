@@ -92,6 +92,30 @@ export interface GiftSubscription {
   deleteTimestamp?: number
   /**
    *
+   * @type {boolean}
+   * @memberof GiftSubscription
+   */
+  expiryBuyer30DaysReminded?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof GiftSubscription
+   */
+  expiryBuyer7DaysReminded?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof GiftSubscription
+   */
+  expiryConsumer30DaysReminded?: boolean
+  /**
+   *
+   * @type {boolean}
+   * @memberof GiftSubscription
+   */
+  expiryConsumer7DaysReminded?: boolean
+  /**
+   *
    * @type {string}
    * @memberof GiftSubscription
    */

@@ -2,7 +2,7 @@ import { ArrowDropDownRounded, ArrowDropUpRounded } from '@mui/icons-material'
 import { Box, Grid, MenuItem, Paper, styled, TextField, Theme, Typography, useTheme } from '@mui/material'
 import { lighten } from '@mui/system'
 import { ApexOptions } from 'apexcharts'
-import { range } from 'lodash-es'
+import { keyBy, keys, toLower } from 'lodash-es'
 import moment from 'moment'
 import { FC, useState } from 'react'
 import Moment from 'react-moment'
@@ -10,7 +10,7 @@ import useAssessmentCategoriesQuery from '../../../api/queries/useAssessmentCate
 import { useReportQueries } from '../../../api/queries/useOrganizationReportsQuery'
 import Flex from '../../../components/Flex'
 import Loading from '../../../components/Loading'
-import { AssessmentTypeEnum, LifeScoreData } from '../../../types/api'
+import { AssessmentTypeEnum, DailyLifeScoreData, WeeklyLifeScoreData, MonthlyLifeScoreData } from '../../../types/api'
 import Chart from '../components/Chart'
 import { aggregateData, createDateRange } from '../utils'
 
@@ -48,6 +48,20 @@ const parseScore = (score: number, theme: Theme) => {
   }
 }
 
+const aggregateLifeScoreData = (
+  data: Array<DailyLifeScoreData | WeeklyLifeScoreData | MonthlyLifeScoreData> = [],
+  categoriesArray: string[] = []
+) =>
+  (data ?? []).reduce<Record<string, number>>((all, curr) => {
+    Object.keys(curr).forEach((_key) => {
+      const key = toLower(_key)
+      if (categoriesArray.includes(key)) {
+        all[key] = (+(curr as any)[key] ?? 0) + (all[key] ?? 0)
+      }
+    })
+    return all
+  }, {}) ?? {}
+
 const LifeScoreReport: FC<{ month: string }> = ({ month }) => {
   const theme = useTheme<Theme>()
   const border = `1px solid ${theme.palette.divider}`
@@ -55,10 +69,9 @@ const LifeScoreReport: FC<{ month: string }> = ({ month }) => {
   const { data: assessmentCategories } = useAssessmentCategoriesQuery(assessmentType)
 
   const dateRanges = createDateRange(month)
-  const [previousLifeScoreQuery, currentLifeScoreQuery, isLoading] = useReportQueries<LifeScoreData>(
-    `${assessmentType.toLowerCase()}LifeScore`,
-    dateRanges
-  )
+  const [previousLifeScoreQuery, currentLifeScoreQuery, isLoading] = useReportQueries<
+    DailyLifeScoreData | WeeklyLifeScoreData | MonthlyLifeScoreData
+  >(`${assessmentType.toLowerCase()}LifeScore`, dateRanges)
 
   const previousAvg =
     Math.floor((aggregateData(previousLifeScoreQuery, 'avgScore') / (previousLifeScoreQuery.data?.length || 1)) * 10) /
@@ -70,15 +83,27 @@ const LifeScoreReport: FC<{ month: string }> = ({ month }) => {
   const delta = currentAvg - previousAvg
 
   const columnChartColors = [theme.palette.secondary.main, lighten(theme.palette.primary.main, 0.85)]
+
+  const categoriesArray = keys(keyBy(assessmentCategories, 'name_id')).map(toLower)
+
+  const prevSeriesData = aggregateLifeScoreData(previousLifeScoreQuery.data, categoriesArray)
+  const currSeriesData = aggregateLifeScoreData(currentLifeScoreQuery.data, categoriesArray)
+
   const columnChartSeries: ApexOptions['series'] = [
     {
       name: moment(dateRanges.previous.month).format('MMMM YYYY'),
-      data: range(9).fill(aggregateData(previousLifeScoreQuery, 'avgScore')),
+      data:
+        assessmentCategories?.map(
+          (category, index, array) => (prevSeriesData[toLower(category.name_id)] ?? 0) / array.length
+        ) ?? [],
       color: columnChartColors[1]
     },
     {
       name: moment(dateRanges.current.month).format('MMMM YYYY'),
-      data: range(9).fill(aggregateData(currentLifeScoreQuery, 'avgScore')),
+      data:
+        assessmentCategories?.map(
+          (category, index, array) => (currSeriesData[toLower(category.name_id)] ?? 0) / array.length
+        ) ?? [],
       color: columnChartColors[0]
     }
   ]
