@@ -99,6 +99,17 @@ const People: FC = () => {
   const hasDeactivated = (defaultDeactivated?.totalRecords ?? 0) > 0
   const hasPendingInvitation = (defaultInvitationsPending?.totalRecords ?? 0) > 0
 
+  useEffect(() => {
+    if (
+      !isLoading &&
+      ((!hasDeactivated && tab === '4') ||
+        (!hasPendingInvitation && tab === '3') ||
+        (!hasPendingPayment && tab === '2'))
+    ) {
+      setTab('1')
+    }
+  }, [tab, setTab, isLoading, hasPendingPayment, hasDeactivated, hasPendingInvitation])
+
   return (
     <>
       <InviteMembers open={inviteOpen} onClose={() => setInviteOpen(false)} />
