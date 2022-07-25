@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { CmsOffer } from './cms-offer'
+import { CmsOffer2 } from './cms-offer2'
 import { CmsOfferLicense } from './cms-offer-license'
 import { CmsOnboard } from './cms-onboard'
 import { CmsTooltip } from './cms-tooltip'
@@ -67,10 +67,10 @@ export interface CmsSubscriptionPlan1 {
   enterprise?: boolean
   /**
    *
-   * @type {Array<CmsOffer>}
+   * @type {Array<CmsOffer2>}
    * @memberof CmsSubscriptionPlan1
    */
-  freeOffers?: Array<CmsOffer>
+  freeOffers?: Array<CmsOffer2>
   /**
    *
    * @type {number}

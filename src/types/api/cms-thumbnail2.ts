@@ -17,115 +17,115 @@ import { CmsFormats2 } from './cms-formats2'
 /**
  *
  * @export
- * @interface CmsThumbnail
+ * @interface CmsThumbnail2
  */
-export interface CmsThumbnail {
+export interface CmsThumbnail2 {
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   alternativeText?: string
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   caption?: string
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   created_at?: string
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   ext?: string
   /**
    *
    * @type {CmsFormats2}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   formats?: CmsFormats2
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   hash?: string
   /**
    *
    * @type {number}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   height?: number
   /**
    *
    * @type {number}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   id?: number
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   mime?: string
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   name?: string
   /**
    *
    * @type {object}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   path?: object
   /**
    *
    * @type {object}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   previewUrl?: object
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   provider?: string
   /**
    *
    * @type {object}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   provider_metadata?: object
   /**
    *
    * @type {number}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   size?: number
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   updated_at?: string
   /**
    *
    * @type {string}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   url?: string
   /**
    *
    * @type {number}
-   * @memberof CmsThumbnail
+   * @memberof CmsThumbnail2
    */
   width?: number
 }

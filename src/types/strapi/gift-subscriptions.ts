@@ -15,6 +15,6 @@ export interface IGiftSubscriptions {
   signup?: ISignup
   redeem?: IRedeem
   offer?: IOffers
-  socialEvents: ISocialEvents[]
+  events: ISocialEvents[]
   created_at?: string | null
 }

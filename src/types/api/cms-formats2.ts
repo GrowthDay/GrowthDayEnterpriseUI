@@ -18,31 +18,31 @@ import { CmsThumbnail2 } from './cms-thumbnail2'
 /**
  *
  * @export
- * @interface CmsFormats
+ * @interface CmsFormats2
  */
-export interface CmsFormats {
+export interface CmsFormats2 {
   /**
    *
    * @type {CmsImage}
-   * @memberof CmsFormats
+   * @memberof CmsFormats2
    */
   large?: CmsImage
   /**
    *
    * @type {CmsImage}
-   * @memberof CmsFormats
+   * @memberof CmsFormats2
    */
   medium?: CmsImage
   /**
    *
    * @type {CmsImage}
-   * @memberof CmsFormats
+   * @memberof CmsFormats2
    */
   small?: CmsImage
   /**
    *
    * @type {CmsThumbnail2}
-   * @memberof CmsFormats
+   * @memberof CmsFormats2
    */
   thumbnail?: CmsThumbnail2
 }

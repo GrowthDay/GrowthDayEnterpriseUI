@@ -119,6 +119,12 @@ export interface GrowthGroupInstance {
   participants?: Array<ParticipantData>
   /**
    *
+   * @type {Array<string>}
+   * @memberof GrowthGroupInstance
+   */
+  pinnedUuids?: Array<string>
+  /**
+   *
    * @type {string}
    * @memberof GrowthGroupInstance
    */

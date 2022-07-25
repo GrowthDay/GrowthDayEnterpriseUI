@@ -40,7 +40,6 @@ export interface ISubscriptionPlans {
   signupImage?: IFile
   slug?: string
   events: ISocialEvents[]
-  socialEvents: ISocialEvents[]
   webhooks: IWebhooks[]
   tooltips: ITooltips[]
   onboarding?: IOnboarding

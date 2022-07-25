@@ -46,12 +46,12 @@ export interface IOffers {
   signupHeading?: string
   titleNoCoins?: string
   events: ISocialEvents[]
-  socialEvents: ISocialEvents[]
   webhooks: IWebhooks[]
   tooltips: ITooltips[]
   onboarding?: IOnboarding
   bulletItems: IBulletListItem[]
   showInMembershipArea?: boolean
+  canonical?: IOffers
   created_at?: string | null
 }
 

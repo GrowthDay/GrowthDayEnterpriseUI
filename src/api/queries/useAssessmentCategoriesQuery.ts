@@ -5,17 +5,27 @@ import axiosGrowthDay from '../../axios/axiosGrowthDay'
 import { AssessmentTypeEnum } from '../../types/api'
 import { IAssessmentCategories } from '../../types/strapi'
 
-export const ASSESSMENT_CATEGORIES_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ASSESSMENT_CATEGORIES']
+const ASSESSMENT_CATEGORIES_BASE_QUERY_KEY = ['GROWTHDAY', 'QUERY', 'ASSESSMENT_CATEGORIES']
+
+export const getAssessmentCategoriesQueryKey = (type: AssessmentTypeEnum) => [
+  ...ASSESSMENT_CATEGORIES_BASE_QUERY_KEY,
+  type
+]
 
 const useAssessmentCategoriesQuery = (
   type: AssessmentTypeEnum,
   options: Omit<
-    UseQueryOptions<IAssessmentCategories[], unknown, IAssessmentCategories[], typeof ASSESSMENT_CATEGORIES_QUERY_KEY>,
+    UseQueryOptions<
+      IAssessmentCategories[],
+      unknown,
+      IAssessmentCategories[],
+      ReturnType<typeof getAssessmentCategoriesQueryKey>
+    >,
     'queryKey' | 'queryFn'
   > = {}
 ) => {
   return useQuery(
-    ASSESSMENT_CATEGORIES_QUERY_KEY,
+    getAssessmentCategoriesQueryKey(type),
     () =>
       axiosGrowthDay.get<IAssessmentCategories[]>('/strapi/assessment-categories', {
         params: { type: startCase(toLower(type)) }

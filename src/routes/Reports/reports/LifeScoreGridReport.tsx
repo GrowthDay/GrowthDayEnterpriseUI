@@ -2,25 +2,21 @@ import { Box, Typography } from '@mui/material'
 import { FC } from 'react'
 import Moment from 'react-moment'
 import { useReportQueries } from '../../../api/queries/useOrganizationReportsQuery'
-import { LifeScoreData } from '../../../types/api'
+import { DailyLifeScoreData, WeeklyLifeScoreData, MonthlyLifeScoreData } from '../../../types/api'
 import StatsGrid, { StatsGridProps } from '../components/StatsGrid'
 import { aggregateData, createDateRange } from '../utils'
 
 const LifeScoreGridReport: FC<{ month: string }> = ({ month }) => {
   const dateRanges = createDateRange(month)
 
-  const [previousDailyLifeScoreQuery, currentDailyLifeScoreQuery, isDailyLoading] = useReportQueries<LifeScoreData>(
-    'dailyLifeScore',
-    dateRanges
-  )
+  const [previousDailyLifeScoreQuery, currentDailyLifeScoreQuery, isDailyLoading] =
+    useReportQueries<DailyLifeScoreData>('dailyLifeScore', dateRanges)
 
-  const [previousWeeklyLifeScoreQuery, currentWeeklyLifeScoreQuery, isWeeklyLoading] = useReportQueries<LifeScoreData>(
-    'weeklyLifeScore',
-    dateRanges
-  )
+  const [previousWeeklyLifeScoreQuery, currentWeeklyLifeScoreQuery, isWeeklyLoading] =
+    useReportQueries<WeeklyLifeScoreData>('weeklyLifeScore', dateRanges)
 
   const [previousMonthlyLifeScoreQuery, currentMonthlyLifeScoreQuery, isMonthlyLoading] =
-    useReportQueries<LifeScoreData>('monthlyLifeScore', dateRanges)
+    useReportQueries<MonthlyLifeScoreData>('monthlyLifeScore', dateRanges)
 
   const previousDailyCount = aggregateData(previousDailyLifeScoreQuery, 'submittedScoreCount')
   const currentDailyCount = aggregateData(currentDailyLifeScoreQuery, 'submittedScoreCount')

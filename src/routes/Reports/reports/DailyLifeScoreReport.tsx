@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { useReportQueries } from '../../../api/queries/useOrganizationReportsQuery'
-import { LifeScoreData } from '../../../types/api'
+import { DailyLifeScoreData } from '../../../types/api'
 import Stats, { StatsProps } from '../components/Stats'
 import { aggregateData, createDateRange } from '../utils'
 
 const DailyLifeScoreReport: FC<{ month: string }> = ({ month }) => {
   const dateRanges = createDateRange(month)
-  const [previousDailyLifeScoreQuery, currentDailyLifeScoreQuery, isLoading] = useReportQueries<LifeScoreData>(
+  const [previousDailyLifeScoreQuery, currentDailyLifeScoreQuery, isLoading] = useReportQueries<DailyLifeScoreData>(
     'dailyLifeScore',
     dateRanges
   )

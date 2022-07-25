@@ -21,11 +21,7 @@ export interface IMarketingCampaigns {
   membersContent?: ISignup
   nonMembersContent?: ISignup
   events: ISocialEvents[]
-  socialEvents: ISocialEvents[]
-  signupSocialEvents: ISocialEvents[]
   webhooks: IWebhooks[]
-  signupWebhooks: IWebhooks[]
-  proofWebhooks: IWebhooks[]
   onboarding?: IOnboarding
   component: (
     | ({ __component: 'marketing.marketing-plan' } & IMarketingPlan)
