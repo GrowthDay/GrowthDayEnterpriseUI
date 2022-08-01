@@ -6,6 +6,7 @@ import { ComponentType, FC, useCallback, useMemo } from 'react'
 import { Link as BaseLink } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import Flex from '../../../components/Flex'
+import { currentEnvironment, EnvironmentsEnum } from '../../../config'
 import useRouteMatch from '../../../hooks/useRouteMatch'
 import feedbackModalState from '../../../recoil/atoms/feedbackModalState'
 import FeedbackIcon from '../assets/FeedbackIcon'
@@ -40,13 +41,17 @@ const topNavMenuItems: MenuItem[] = [
     to: '/people',
     id: 'people'
   },
-  {
-    title: 'Reporting',
-    icon: ReportIcon,
-    activeIcon: ReportIconActive,
-    to: '/reports',
-    id: 'report'
-  }
+  ...(currentEnvironment === EnvironmentsEnum.PROD
+    ? []
+    : [
+        {
+          title: 'Reporting',
+          icon: ReportIcon,
+          activeIcon: ReportIconActive,
+          to: '/reports',
+          id: 'report'
+        }
+      ])
 ]
 
 const Button = styled(MuiButton)(({ theme }) => ({
