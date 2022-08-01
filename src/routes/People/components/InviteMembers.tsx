@@ -243,9 +243,8 @@ const InviteMembers: FC<InviteMembersProps> = ({ onClose }) => {
         .filter((invitation) => validEmails.includes(toLower(invitation.email).trim()))
         .map(({ email, roleId }) => ({
           Email: toLower(email).trim(),
-          'Full Name': '',
-          Role: roleId,
-          Department: ''
+          Name: '',
+          Role: roleId
         }))
       const file = jsonToXlsxFile(data)
       // TODO: Remove updating subscription while inviting when backend is ready
