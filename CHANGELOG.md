@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/GrowthDay/GrowthDayEnterpriseUI/compare/v0.1.7...v0.1.8) (2022-08-01)
+
+
+### Bug Fixes
+
+* [GDCV1-10088] fix life score report ([7b0a497](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/7b0a49771f88b28928ca99a676f632752b9bdfe9))
+* [GDCV1-10247] tab switch on revoke invite ([2402b2d](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/2402b2d7003b1ba247cda66281600f0db7ded9e3))
+* added admin portal to feedback ([622bc2f](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/622bc2f7a9465a858c9a14b2618ad044be549bbf))
+* added payment pending tab ([52a1ea2](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/52a1ea2410eb7b983809717e88984e5f89b493df))
+* added reports ([b81c3e6](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/b81c3e6fe5d1ff159c3c5ff75131036ff8161fb3))
+* added reports ([2eb6526](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/2eb65263f79840d33ef1996b1bf9123a4423ffc3))
+* added reports ([2485f1e](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/2485f1eb87973375da4d76189a013789d9d53430))
+* autocomplete off ([1523013](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/15230133fceb83cc35a66ab14375a6dbf9dd0e70))
+* charts data ([acfbc2e](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/acfbc2eebc173cd555dbdec1c8b0826bd98bca65))
+* charts data ([86097e3](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/86097e3ae5875d7920bf888c68d801170885a976))
+* check for address validation ([4378aa7](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/4378aa7ef5378db1dc26053ae2546b49f5ae3160))
+* filter out duplicate emails in any casing ([269217f](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/269217f1f8823baf76d58f92ae3de1b1c0b08051))
+* fixed typings ([d5351a7](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/d5351a72e6f0f34fb647eab997e4a3999dffac30))
+* invitations processing ([7c4c3e0](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/7c4c3e0faa04f3a4cf9cc5ee432fe3d0b9901358))
+* reporting only on dev and uat ([3fe3e10](https://github.com/GrowthDay/GrowthDayEnterpriseUI/commit/3fe3e10c90bf222c6e756c271d95bff47aca1a91))
+
 ### [0.1.7](https://github.com/GrowthDay/GrowthDayEnterpriseUI/compare/v0.1.6...v0.1.7) (2022-06-03)
 
 
